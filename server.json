@@ -1,0 +1,102 @@
+{
+  "stock": [
+    {
+      "id": 1,
+      "amount": 3
+    },
+    {
+      "id": 2,
+      "amount": 5
+    },
+    {
+      "id": 3,
+      "amount": 2
+    },
+    {
+      "id": 4,
+      "amount": 1
+    },
+    {
+      "id": 5,
+      "amount": 5
+    },
+    {
+      "id": 6,
+      "amount": 10
+    },
+    {
+      "id": 7,
+      "amount": 10
+    },
+    {
+      "id": 8,
+      "amount": 10
+    },
+    {
+      "id": 9,
+      "amount": 10
+    },
+    {
+      "id": 10,
+      "amount": 10
+    }
+  ],
+  "cue": [
+    {
+      "id": 1,
+      "title": "Tacos simples",
+      "price": 179.9,
+      "image": "https://http2.mlstatic.com/taco-sinuca-bilhar-34-estilo-ingls-entrada-prolongador-D_NQ_NP_977638-MLB27831042687_072018-F.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Tacos simples 02",
+      "price": 139.9,
+      "image": "https://http2.mlstatic.com/snooker-sinuca-tacos-D_NP_477405-MLB25016188343_082016-Q.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Tacos simples 03",
+      "price": 219.9,
+      "image": "https://www.extra-imagens.com.br/EsporteLazer/jogosdesalao/Sinuca/8382385/857191023/taco-garfado-snooker-sinuca-bilhar-8382385.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Tacos simples 05",
+      "price": 139.9,
+      "image": "data:image/jpeg;base64,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"
+    },
+    {
+      "id": 6,
+      "title": "Tacos simples 06",
+      "price": 219.9,
+      "image": "http://www.epbilhares.com.br/imagens/quanto-custa-tacos-de-bilhar.jpg"
+    }
+  ],
+  "table": [
+    {
+      "id": 7,
+      "title": "Mesas simples",
+      "price": 179.9,
+      "image": "https://http2.mlstatic.com/mesa-de-sinuca-gaveta-cacapa-alum-s-ficheiro-170x110m-D_NQ_NP_842711-MLB31308362351_072019-Q.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Mesa premium",
+      "price": 179.9,
+      "image": "https://www.tacolandia.com.br/imagens/produtos/PROC/Detalhes/mesa-de-sinuca-bilhar-snooker-residencial-procopio.jpg"
+    },
+    {
+      "id": 9,
+      "title": "Mesa premium",
+      "price": 179.9,
+      "image": "https://www.tacolandia.com.br/imagens/produtos/PROC/Detalhes/mesa-de-sinuca-bilhar-snooker-residencial-procopio.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Mesa premium",
+      "price": 179.9,
+      "image": "https://www.tacolandia.com.br/imagens/produtos/PROC/Detalhes/mesa-de-sinuca-bilhar-snooker-residencial-procopio.jpg"
+    }
+  ]
+}
