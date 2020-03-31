@@ -16,7 +16,6 @@ class Home extends Component {
     const search = this.props.res;
     let response;
     let data;
-    console.tron.log(search);
     response = await apiBack.get(`productlist/${search}`);
     data = response.data.map(product => ({
       ...product,

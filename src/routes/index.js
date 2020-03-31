@@ -14,7 +14,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={() => <Home res="" />} />
       {/* deixar apenas /, podemos la dentro chamar, produts/ e os outros product/:pros */}
-      <Route path="/cue" component={() => <Home res="8" />} />
+      <Route path="/cue" component={() => <Home res="1" />} />
       <Route path="/shirt" component={() => <Home res="9" />} />
       <Route path="/table" component={() => <Home res="10" />} />
       <Route path="/chalk" component={() => <Home res="11" />} />

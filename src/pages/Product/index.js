@@ -58,10 +58,6 @@ export default function Product() {
           <Id name="id" />
           <InputDefault name="name" placeholder="Nome produto" />
           <InputArea name="description" placeholder="Descricao produto" />
-          <InputArea name="description" placeholder="Descricao produto" />
-          <InputArea name="description" placeholder="Descricao produto" />
-          <InputArea name="description" placeholder="Descricao produto" />
-          <InputArea name="description" placeholder="Descricao produto" />
           <Avatar name="avatar_id" none>
             <label>
               <img src={prod.file.url} alt="falhou" />
