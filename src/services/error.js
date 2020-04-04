@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 
 export default function error(err) {
-  console.log(err);
   try {
     if (Object.prototype.hasOwnProperty.call(err, 'response')) {
       if (

@@ -15,14 +15,10 @@ export default function Orderview() {
   const [checkout, setCheckout] = useState([]);
   useEffect(() => {
     async function findCheckout() {
-      console.tron.log(user);
       if (!user.administrator) {
-        console.tron.log('amd', user.administrator);
-        console.tron.log('ue');
         var { data } = await apiBack.get(`checkoutslist/${user.id}`);
       } else {
         var { data } = await apiBack.get(`checkoutslist`);
-        console.tron.log('sou adm', data);
       }
       setCheckout(data);
       const pickData = data[0];
@@ -32,7 +28,6 @@ export default function Orderview() {
   }, []);
 
   function renderItems(check) {
-    console.tron.log('check', check);
     return check.map(prod => (
       <tr key={prod.product.id}>
         <td>
@@ -50,14 +45,12 @@ export default function Orderview() {
     try {
       await api.delete(`transactions/${checkout.transaction.id}`);
     } catch (err) {
-      console.log(err);
     }
   }
 
   return (
     !loading && (
       <Container>
-        {console.tron.log('checkout', checkout)}
         {checkout.map(ck => {
           return (
             <>

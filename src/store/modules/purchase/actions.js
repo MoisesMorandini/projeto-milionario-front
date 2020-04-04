@@ -6,7 +6,6 @@ export function addInstallments(installments) {
 }
 
 export function addTotal(total) {
-  console.tron.log(total);
   return {
     type: '@purchase/ADD_TOTAL',
     payload: { total },
