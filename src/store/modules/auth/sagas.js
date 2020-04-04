@@ -26,7 +26,6 @@ export function* signIn({ payload }) {
 export function* signUp({ payload }) {
   try {
     const { name, email, password } = payload;
-    console.tron.log(payload);
     yield call(api.post, 'users', {
       name,
       email,

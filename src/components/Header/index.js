@@ -10,7 +10,6 @@ function Header({ cartSize }) {
   const profile = useSelector(state => state.user.profile);
 
   function handleSignOut() {
-    console.tron.log('disparei');
     dispatch(signOut());
   }
   return (
