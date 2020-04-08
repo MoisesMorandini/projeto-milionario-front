@@ -23,6 +23,7 @@ class Home extends Component {
     }));
     this.setState({ products: data });
   }
+
   handleAddProduct = id => {
     const { addToCartRequest, res } = this.props;
 
@@ -66,7 +67,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

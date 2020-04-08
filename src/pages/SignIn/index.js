@@ -9,7 +9,7 @@ import bolaOito from '~/assets/images/eight-ball.svg';
 
 const schema = Yup.object().shape({
   email: Yup.string()
-    .email('Insira um e-mail válido')
+    .email('Insira um e-mail válido.')
     .required('O campo e-mail é obrigatório'),
 
   password: Yup.string().required('O campo senha é obrigatório'),
@@ -30,7 +30,6 @@ export default function SignIn() {
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />
         <button type="submit">{loading ? 'Carregando ...' : 'Acessar'}</button>
-
         <Link to="/register">Criar Conta gratuita</Link>
       </Form>
     </>

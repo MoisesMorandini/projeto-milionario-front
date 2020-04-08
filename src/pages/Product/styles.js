@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Input } from '@rocketseat/unform';
 import { darken } from 'polished';
+
 export const InputDefault = styled(Input)`
   & + input {
     margin-bottom: 20px;

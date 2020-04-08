@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useField } from '@rocketseat/unform';
 import { Avatar } from './styles';
 import apiBack from '../../../services/apiBack';
+
 function AvatarInput({ teste }) {
   const { defaultValue, registerField } = useField('');
 
