@@ -1,6 +1,6 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import apiBack from '../../../services/apiBack';
 import { toast } from 'react-toastify';
+import apiBack from '../../../services/apiBack';
 import {
   updateProductSucess,
   updateProductFailure,
@@ -8,6 +8,7 @@ import {
   deleteProductFailure,
 } from './actions';
 import history from '../../../services/history';
+
 export function* updateProduct({ payload }) {
   try {
     const product = payload.data;

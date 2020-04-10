@@ -122,7 +122,4 @@ const mapStateToPros = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
-export default connect(
-  mapStateToPros,
-  mapDispatchToProps
-)(Cart);
+export default connect(mapStateToPros, mapDispatchToProps)(Cart);

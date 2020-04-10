@@ -15,7 +15,7 @@ export default createGlobalStyle`
   }
 
   body{
-    background: linear-gradient(-150deg, #006400, #8FBC8F) no-repeat;
+    background: linear-gradient(-150deg, green, green) no-repeat;
     background-attachment: fixed;
 
     -webkit-font-smoothing: antialiased;
@@ -26,9 +26,8 @@ export default createGlobalStyle`
   }
 
   #root{
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 20px 50px;
   }
 
   html, body, #root{

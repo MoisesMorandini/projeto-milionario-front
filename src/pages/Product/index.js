@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Form, Select } from '@rocketseat/unform';
 import {
   updateProductRequest,
   deleteProductRequest,
@@ -7,9 +8,9 @@ import {
 } from '../../store/modules/product/actions';
 import { Container, Id, InputDefault, InputArea, Img } from './styles';
 import { Avatar } from './AvatarInput/styles';
-import { Form, Select } from '@rocketseat/unform';
 import apiBack from '../../services/apiBack';
 import AvatarInput from './AvatarInput';
+
 export default function Product() {
   const dispatch = useDispatch();
 

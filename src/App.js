@@ -20,6 +20,7 @@ function App() {
         <Router history={history}>
           <Header />
           <Routes />
+
           <GlobalStyle />
           <ToastContainer autoClose={3000} closeOnClick />
         </Router>
