@@ -12,8 +12,8 @@ export const Head = styled.div`
   height: 150px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin-right: 5%;
+  justify-content: center;
+  margin-left: 17%;
   @media (max-width: 1400px) {
     margin-left: 10%;
   }
@@ -51,7 +51,7 @@ export const Input = styled.div`
   border-width: 1px 0px 1px 1px;
   border-style: solid;
   border-color: #707070;
-  border-radius: 10px;
+  border-radius: 5px;
   input {
     padding: 5px;
     width: 560px;
@@ -65,7 +65,7 @@ export const Input = styled.div`
       width: 260px;
     }
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #989898;
   }
 
@@ -73,9 +73,9 @@ export const Input = styled.div`
     width: 140px;
     height: 38px;
     padding: 5px;
-    background-color: #ff0000;
+    background-color: #F04E28;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #ffffff;
   }
 `;
@@ -144,11 +144,12 @@ export const Bottom = styled.div`
 `;
 
 export const Department = styled.div`
+  z-index: 1;
   height: 50px;
   width: 400px;
-  background-color: #ff0000;
+  background-color: #F04E28;
   margin: 0px;
-  margin-left: 10%;
+  margin-left: 5%;
   @media (max-width: 950px) {
     width: 350px;
     margin-left: 3%;
@@ -197,7 +198,7 @@ export const DepartmentContainer = styled.div`
 `;
 export const DepartmentList = styled.ul`
   position: absolute;
-  display: ${props => (props.departmentVisible ? 'flex' : 'none')};
+  display: ${(props) => (props.departmentVisible ? 'flex' : 'none')};
 
   flex-direction: column;
   top: calc(100%);
@@ -222,11 +223,11 @@ export const EachDepartment = styled.li`
 `;
 
 export const DepartmentName = styled.div`
-  width: 400px;
   height: 30px;
   display: flex;
   align-items: center;
-
+  margin-left: 3%;
+  margin-right: 3%;
   @media (max-width: 950px) {
     width: 350px;
   }
@@ -243,7 +244,8 @@ export const DepartmentName = styled.div`
 
   .icon {
     position: absolute;
-    left: 91%;
+    top: 1%;
+    left: 90%;
   }
 
   p {
@@ -252,20 +254,19 @@ export const DepartmentName = styled.div`
   }
 `;
 export const CategoryList = styled.ul`
-  @media (max-width: 950px) {
-    width: 350px;
-  }
   position: absolute;
   flex-direction: column;
   left: 100%;
+  @media (max-width: 950px) {
+    width: 350px;
+  }
   @media (max-width: 725px) {
     left: 50%;
   }
-  top: ${props => props.position};
+  top: ${(props) => props.position};
   width: 400px;
   border-left: 1px solid #f1f1f1;
-  box-shadow: ${props =>
-    props.categoryVisible ? `-5px 0px 10px 1px #666` : 'none'};
+  box-shadow: ${(props) => (props.categoryVisible ? '-5px 0px 10px 1px #666' : 'none')};
   box-shadow: 0;
   background-color: #fff;
   div:last-child {
@@ -281,14 +282,32 @@ export const CategoryList = styled.ul`
   }
 `;
 
-export const EachCategory = styled.li`
+export const DepartmentTittle = styled.li`
   height: 30px;
-  margin: 3% 3% 0 3%;
+  margin: 3%;
   padding: 2%;
   .title {
     padding: 0;
   }
-  display: ${props => (props.categoryVisible ? 'flex' : 'none')};
+  display: ${(props) => (props.categoryVisible ? 'flex' : 'none')};
+  @media (max-width: 725px) {
+    display: 'none';
+  }
+  p {
+    color: #666;
+  }
+  :hover {
+    background-color: #e1e1e1;
+  }
+`;
+export const EachCategory = styled.li`
+  height: 30px;
+  margin: 3%;
+  padding: 2%;
+  .title {
+    padding: 0;
+  }
+  display: ${(props) => (props.categoryVisible ? 'flex' : 'none')};
   @media (max-width: 725px) {
     display: 'none';
   }

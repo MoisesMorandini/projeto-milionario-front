@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
@@ -15,7 +16,7 @@ export default createGlobalStyle`
   }
 
   body{
-    background: linear-gradient(-150deg, green, green) no-repeat;
+    background: linear-gradient(-150deg, #EAEAEA, #EAEAEA) no-repeat;
     background-attachment: fixed;
 
     -webkit-font-smoothing: antialiased;

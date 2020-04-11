@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { FaUserAlt, FaAngleDown, FaAngleRight } from 'react-icons/fa';
 import { GiShoppingCart } from 'react-icons/gi';
@@ -19,14 +19,15 @@ import {
   EachCategory,
   DepartmentContainer,
   DepartmentName,
+  DepartmentTittle,
 } from './styles';
 import { signOut } from '../../store/modules/auth/actions';
 import apiBack from '../../services/apiBack';
 
 function Header({ cartSize }) {
   const dispatch = useDispatch();
-  // const profile = useSelector(state => state.user.profile);
-  const profile = null;
+
+  const profile = null; // useSelector(state => state.user.profile);
   const [departmentVisible, setDepartmentVisible] = useState(false);
   const [departmentIndex, setDepartmentIndex] = useState(0);
   const [departmentSelected, setDepartmentSelected] = useState();
@@ -34,24 +35,37 @@ function Header({ cartSize }) {
   const [oldIndex, setOldIndex] = useState(-1);
   const [category, setCategory] = useState([]);
   const [department, setDepartment] = useState([]);
+  const ref = useRef();
 
   useEffect(() => {
     async function findDepartmentWithCategory() {
-      const response = await apiBack.get(`departments/categories`);
+      const response = await apiBack.get('departments/categories');
       setDepartment(response.data);
     }
     findDepartmentWithCategory();
   }, []);
 
+  const handleClick = (event) => {
+    if (ref.current.contains(event.target)) {
+      setDepartmentVisible(!departmentVisible);
+      if (categoryVisible) {
+        setCategoryVisible(!categoryVisible);
+      }
+      return;
+    }
+    setDepartmentVisible(false);
+  };
+
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick);
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, []);
+
   function handleSignOut() {
     dispatch(signOut());
-  }
-
-  function handleToggleDepartmentVisible() {
-    setDepartmentVisible(!departmentVisible);
-    if (categoryVisible) {
-      setCategoryVisible(!categoryVisible);
-    }
   }
 
   function changeViewCategory(index) {
@@ -65,9 +79,7 @@ function Header({ cartSize }) {
     if (index === oldIndex || !categoryVisible || oldIndex === -1) {
       setCategoryVisible(!categoryVisible);
       changeViewCategory(index);
-    } else {
-      changeViewCategory(index);
-    }
+    } else { changeViewCategory(index); }
   }
 
   return (
@@ -77,6 +89,7 @@ function Header({ cartSize }) {
           <input placeholder="Procure o item que deseja! :)" />
           <button type="button">Pesquisar</button>
         </Input>
+
         <User to="login">
           <FaUserAlt size={40} color="#000000" onClick={handleSignOut} />
           <div>
@@ -86,12 +99,11 @@ function Header({ cartSize }) {
           <Cart to="/">
             <GiShoppingCart size={40} />
           </Cart>
-        </User>{' '}
+        </User>
       </Head>
-
       <Bottom>
-        <Department>
-          <DepartmentContainer onClick={handleToggleDepartmentVisible}>
+        <Department ref={ref}>
+          <DepartmentContainer>
             <div className="department-icon">
               <TiThMenu size={30} color="#ffffff" />
             </div>
@@ -121,7 +133,7 @@ function Header({ cartSize }) {
               position={departmentIndex}
               categoryVisible={categoryVisible}
             >
-              <EachCategory
+              <DepartmentTittle
                 categoryVisible={categoryVisible}
                 className="title"
                 key={departmentSelected}
@@ -129,8 +141,8 @@ function Header({ cartSize }) {
                 <div>
                   <p>{departmentSelected}</p>
                 </div>
-              </EachCategory>
-              {category.map(cat => (
+              </DepartmentTittle>
+              {category.map((cat) => (
                 <EachCategory key={cat.id} categoryVisible={categoryVisible}>
                   <div>
                     <p>{cat.name}</p>
@@ -179,6 +191,6 @@ function Header({ cartSize }) {
     </Container>
   );
 }
-export default connect(state => ({
+export default connect((state) => ({
   cartSize: state.cart.length,
 }))(Header);
