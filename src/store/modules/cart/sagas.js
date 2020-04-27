@@ -1,12 +1,14 @@
-import { call, select, put, all, takeLatest } from 'redux-saga/effects';
+import {
+ call, select, put, all, takeLatest
+} from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import { addToCartSucess, updateAmountSucess } from './actions';
 import { formatPrice } from '../../../util/format';
 import apiBack from '../../../services/apiBack';
 
 function* addToCart({ id, search }) {
-  const productExists = yield select(state =>
-    state.cart.find(p => p.id === id)
+  const productExists = yield select((state) =>
+    state.cart.find(p => p.id === id),
   );
   // pega do api a quantidadade do stock
   const stock = yield call(apiBack.get, `/product/stock/${id}`);
@@ -42,10 +44,8 @@ function* addToCart({ id, search }) {
 
 function* updateAmount({ id, amount }) {
   if (amount <= 0) return;
-
   const stock = yield call(apiBack.get, `/product/stock/${id}`);
   const stockAmount = stock.data;
-
   if (amount > stockAmount) {
     toast.error('Quantidade solicitada fora do estoque');
     return;

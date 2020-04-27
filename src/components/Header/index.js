@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { FaUserAlt, FaAngleDown, FaAngleRight } from 'react-icons/fa';
+import { connect, useDispatch } from 'react-redux';
+import {
+  FaUserAlt,
+  FaAngleDown,
+  FaAngleRight,
+  FaAngleLeft,
+} from 'react-icons/fa';
 import { GiShoppingCart } from 'react-icons/gi';
 import { TiThMenu } from 'react-icons/ti';
 import {
-  Back,
   Container,
   Cart,
   User,
@@ -35,7 +39,11 @@ function Header({ cartSize }) {
   const [oldIndex, setOldIndex] = useState(-1);
   const [category, setCategory] = useState([]);
   const [department, setDepartment] = useState([]);
-  const ref = useRef();
+  const departmentRef = useRef();
+
+  function handleSignOut() {
+    dispatch(signOut());
+  }
 
   useEffect(() => {
     async function findDepartmentWithCategory() {
@@ -44,29 +52,28 @@ function Header({ cartSize }) {
     }
     findDepartmentWithCategory();
   }, []);
+  function setCategoryFalse() {
+    setCategoryVisible(false);
+  }
 
-  const handleClick = (event) => {
-    if (ref.current.contains(event.target)) {
-      setDepartmentVisible(!departmentVisible);
-      if (categoryVisible) {
-        setCategoryVisible(!categoryVisible);
-      }
-      return;
+  const handleDepartmentClick = event => {
+    if (!departmentRef.current.contains(event.target)) {
+      setDepartmentVisible(false);
+      setCategoryFalse();
     }
-    setDepartmentVisible(false);
   };
 
+  const handleShowDeparment = () => {
+    setDepartmentVisible(!departmentVisible);
+    setCategoryFalse();
+  };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('mousedown', handleDepartmentClick);
     return () => {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('mousedown', handleDepartmentClick);
     };
   }, []);
-
-  function handleSignOut() {
-    dispatch(signOut());
-  }
 
   function changeViewCategory(index) {
     setDepartmentIndex(`${10 + index * 42}px`);
@@ -79,7 +86,9 @@ function Header({ cartSize }) {
     if (index === oldIndex || !categoryVisible || oldIndex === -1) {
       setCategoryVisible(!categoryVisible);
       changeViewCategory(index);
-    } else { changeViewCategory(index); }
+    } else {
+      changeViewCategory(index);
+    }
   }
 
   return (
@@ -97,13 +106,13 @@ function Header({ cartSize }) {
             <Profile>{profile ? profile.name : 'Entre ou Cadastre-se'}</Profile>
           </div>
           <Cart to="/">
-            <GiShoppingCart size={40} />
+            <GiShoppingCart size={40} color="#000000" />
           </Cart>
         </User>
       </Head>
       <Bottom>
-        <Department ref={ref}>
-          <DepartmentContainer>
+        <Department ref={departmentRef}>
+          <DepartmentContainer onClick={handleShowDeparment}>
             <div className="department-icon">
               <TiThMenu size={30} color="#ffffff" />
             </div>
@@ -112,14 +121,16 @@ function Header({ cartSize }) {
               <FaAngleDown size={30} color="#ffffff" />
             </div>
           </DepartmentContainer>
+
           <DepartmentList departmentVisible={departmentVisible}>
             {department.map((dp, index) => (
-              <EachDepartment key={dp.id}>
-                <DepartmentName
-                  onClick={() => {
-                    handleCategoryVisible(index);
-                  }}
-                >
+              <EachDepartment
+                key={dp.id}
+                onClick={() => {
+                  handleCategoryVisible(index);
+                }}
+              >
+                <DepartmentName>
                   <div className="department-iten">
                     <p>{dp.name}</p>
                   </div>
@@ -134,15 +145,16 @@ function Header({ cartSize }) {
               categoryVisible={categoryVisible}
             >
               <DepartmentTittle
+                className="department-tittle-icon"
                 categoryVisible={categoryVisible}
-                className="title"
                 key={departmentSelected}
               >
+                <FaAngleLeft size={30} color="666" onClick={setCategoryFalse} />
                 <div>
                   <p>{departmentSelected}</p>
                 </div>
               </DepartmentTittle>
-              {category.map((cat) => (
+              {category.map(cat => (
                 <EachCategory key={cat.id} categoryVisible={categoryVisible}>
                   <div>
                     <p>{cat.name}</p>
@@ -153,44 +165,9 @@ function Header({ cartSize }) {
           </DepartmentList>
         </Department>
       </Bottom>
-
-      {/* <Back to="/">
-        <h1>VAGNÃO STORE</h1>
-      </Back>
-      <Back to="/table">
-        <h2>MESAS</h2>
-      </Back>
-      <Back to="/cue">
-        <h2>TACOS</h2>
-      </Back>
-      <Back to="/ball">
-        <h2>BOLAS</h2>
-      </Back>
-      <Back to="/chalk">
-        <h2>GIZ</h2>
-      </Back>
-      <Back to="/shirt">
-        <h2>CAMISAS</h2>
-      </Back>
-      <Back to="/other">
-        <h2>OUTROS</h2>
-      </Back>
-      <Cart to="/cart">
-        <div>
-          <strong>Meu carrinho</strong>
-          <span> {cartSize} itens</span>
-        </div>
-        <MdShoppingBasket size={50} color="#FFF" />
-      </Cart>
-      <User to="login">
-        <div>
-          <strong>{profile ? profile.name : 'Entrar'}</strong>
-        </div>
-        <FaUserAlt size={50} color="#FFF" onClick={handleSignOut} />
-      </User> */}
     </Container>
   );
 }
-export default connect((state) => ({
+export default connect(state => ({
   cartSize: state.cart.length,
 }))(Header);

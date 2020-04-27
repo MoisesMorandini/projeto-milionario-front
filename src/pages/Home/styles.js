@@ -2,14 +2,13 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  width: 100%;
   z-index: 0;
   margin-top: 2%;
   margin-bottom: 100px;
-
-  .container-carousel{
+  .container-carousel {
+    position: relative;
     margin: 0 5%;
-    height: 400px;  /* change this to whatever you want */
+    height: 400px;
     width: 90%;
     padding: 0;
   }
@@ -18,67 +17,99 @@ export const Container = styled.div`
     padding: 0;
   }
 
-  .carousel .slide  img {
-      background-color: none;
-      height: 400px;  /* change this to whatever you want */
-      width: 100%;
-      margin: 0 ;
+  .carousel .slide img {
+    background-color: none;
+    height: 400px;
+    width: 100%;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .container-carousel {
+      height: 300px;
+    }
+    .carousel .slide img {
+      height: 300px;
+    }
+  }
+  @media (max-width: 500px) {
+    .container-carousel {
+      height: 200px;
+    }
+    .carousel .slide img {
+      height: 200px;
+    }
   }
   .indicator {
-    background-color: #EAEAEA;
+    background-color: #eaeaea;
     padding: 0px;
     margin: 0px;
   }
 
-  .color  {
-    background-color: #EAEAEA;
+  .color {
+    background-color: #eaeaea;
   }
 `;
 
-export const ProductList = styled.ul`
+export const ProductList = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 5%;
+  grid-template-columns: repeat(5, 245px);
+  grid-gap: 1em;
   padding-bottom: 5%;
-
-  @media(max-width: 1700px){
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media(max-width: 1500px){
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   margin: 2% 0 0 5%;
-  width: 375px;
-  height: 250px;
   list-style: none;
+
+  @media (min-width: 2100px) {
+    grid-template-columns: repeat(6, 245px);
+  }
+  @media (max-width: 1880px) {
+    grid-template-columns: repeat(4, 245px);
+  }
+  @media (max-width: 1505px) {
+    grid-template-columns: repeat(3, 245px);
+  }
+  @media (max-width: 1220px) {
+    grid-template-columns: repeat(4, 245px);
+  }
+  @media (max-width: 1120px) {
+    justify-content: space-evenly;
+    margin-left: 0;
+    grid-template-columns: repeat(3, auto);
+  }
+  @media (max-width: 910px) {
+    grid-template-columns: repeat(2, auto);
+  }
+  @media (max-width: 565px) {
+    grid-template-columns: repeat(1, 245px);
+  }
 
   li {
     display: flex;
     flex-direction: column;
-
+    width: 235px;
+    height: 380px;
     background: #ffffff;
     border-radius: 4px;
-    padding: 15px;
-
+    padding: 5%;
     img {
       border-radius: 4px;
       border: 1px solid #f1f1f1;
       align-self: center;
-      width: 250px;
-      height: 200px;
+      width: 156px;
+      height: 156px;
     }
 
     > strong {
-      padding-top: 5px;
+      padding-top: 20px;
       font-family: Helvetica, Arial, sans-serif;
       font-size: 16px;
       line-height: 20px;
-      color: #333;
+      color: rgb(102, 102, 102);
       margin-top: 5px;
     }
 
     > span {
+      color: rgb(51, 51, 51);
       font-size: 24px;
       font-family: Helvetica, Arial, sans-serif;
       font-weight: bold;
@@ -105,10 +136,6 @@ export const ProductList = styled.ul`
         align-items: center;
         padding: 12px;
         background: rgba(0, 0, 0, 0.1);
-
-        svg {
-          margin-right: 5px;
-        }
       }
       span {
         font-weight: bold;
