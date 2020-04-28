@@ -6,7 +6,9 @@ import {
   deleteProductRequest,
   insertProductRequest,
 } from '../../store/modules/product/actions';
-import { Container, Id, InputDefault, InputArea, Img } from './styles';
+import {
+ Container, Id, InputDefault, InputArea, Img
+} from './styles';
 import { Avatar } from './AvatarInput/styles';
 import apiBack from '../../services/apiBack';
 import AvatarInput from './AvatarInput';
@@ -17,7 +19,7 @@ export default function Product() {
   const [prods, setProds] = useState([]);
   useEffect(() => {
     async function findProduct() {
-      const response = await apiBack.get(`productlist`);
+      const response = await apiBack.get('productlist');
       setProds(response.data);
     }
 
@@ -54,7 +56,7 @@ export default function Product() {
         <InputDefault name="price" placeholder="Preco produto" />
         <button type="submit">Inserir produto</button>
       </Form>
-      {prods.map(prod => (
+      {prods.map((prod) => (
         <Form initialData={prod} key={prod.id} onSubmit={handleSubmit}>
           <Id name="id" />
           <InputDefault name="name" placeholder="Nome produto" />

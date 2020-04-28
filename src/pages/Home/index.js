@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MdShoppingCart } from 'react-icons/md';
-import { ProductList,Container } from './styles';
+import { ProductList, Container, Paginator } from './styles';
 import apiBack from '../../services/apiBack';
 import * as CartActions from '../../store/modules/cart/actions';
 import { formatPrice } from '../../util/format';
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel } from 'react-responsive-carousel'
+import SideCart from '../../components/SideCart'
 
 class Home extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Home extends Component {
     const search = this.props.res;
     let response;
     let data;
-    response = await apiBack.get(`products/search`);
+    response = await apiBack.get(`products/search?page=1`);
     data = response.data.map(product => ({
       ...product,
       priceFormatted: formatPrice(product.price),
@@ -39,7 +40,7 @@ class Home extends Component {
     return (
       <Container>
         <div className="container-carousel">
-          <Carousel showThumbs={false} showStatus={false} showArrows={true} useKeyboardArrows={true}
+          <Carousel showThumbs={false} showStatus={false} showArrows={false} useKeyboardArrows={true}
               interval={3000} autoPlay={true} stopOnHover ={true} infiniteLoop={true} width="100%"
               showIndicators={true}>
                 <div className="color" >
@@ -57,27 +58,28 @@ class Home extends Component {
             </Carousel>
 
         </div>
-        <ProductList>
-          {products.map(product => (
-            <li key={product.id}>
-              <img src={product.file.url} alt={product.name} />
-              <strong>{product.name}</strong>
-              <span>{product.priceFormatted}</span>
-              <button
-                type="button"
-                onClick={() => this.handleAddProduct(product.id)}
-              >
-                <span>ADICIONAR</span>
-                <div>
-                  <MdShoppingCart size={16} color="#FFF" />
-                  {amount[product.id] || 0}
-                </div>
-              </button>
-            </li>
-          ))}
-        </ProductList>
-          <h1>sdfasdfasdvgifuasdzs</h1>
+        <SideCart ></SideCart>
+          <ProductList>
+            {products.map(product => (
+              <li key={product.id}>
+                <img src={product.file.url} alt={product.name} />
+                <strong>{product.name}</strong>
+                <span>{product.priceFormatted}</span>
+                <button
+                  type="button"
+                  onClick={() => this.handleAddProduct(product.id)}
+                >
+                  <span>ADICIONAR</span>
+                  <div>
+                    <MdShoppingCart size={16} color="#FFF" />
+                    {amount[product.id] || 0}
+                  </div>
+                </button>
+              </li>
+            ))}
+          </ProductList>
       </Container>
+
     );
   }
 }

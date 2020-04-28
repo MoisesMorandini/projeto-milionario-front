@@ -73,7 +73,7 @@ export const Input = styled.div`
     width: 140px;
     height: 38px;
     padding: 5px;
-    background-color: #F04E28;
+    background-color: #f04e28;
     border: none;
     border-radius: 5px;
     color: #ffffff;
@@ -91,7 +91,6 @@ export const User = styled(Link)`
   margin-left: 5%;
   @media (max-width: 1300px) {
     margin-left: 2%;
-    width: 100%;
   }
   &:hover {
     opacity: 0.8;
@@ -141,22 +140,24 @@ export const Bottom = styled.div`
   height: 50px;
   width: 100%;
   background-color: ${darken(0, '#ffffff')};
+  @media (max-width: 400px) {
+    height: 40px;
+  }
 `;
 
 export const Department = styled.div`
   z-index: 1;
   height: 50px;
   width: 400px;
-  background-color: #F04E28;
+  background-color: #f04e28;
   margin: 0px;
   margin-left: 5%;
   @media (max-width: 950px) {
     width: 350px;
-    margin-left: 3%;
   }
   @media (max-width: 400px) {
-    width: 300px;
-    margin-left: 3%;
+    width: 275px;
+    height: 40px;
   }
   position: relative;
   :hover {
@@ -173,8 +174,9 @@ export const DepartmentContainer = styled.div`
     width: 350px;
   }
   @media (max-width: 400px) {
-    width: 300px;
+    width: 275px;
     margin-left: 3%;
+    height: 40px;
   }
   .department-icon {
     display: flex;
@@ -193,12 +195,15 @@ export const DepartmentContainer = styled.div`
     @media (max-width: 950px) {
       font-size: 16px;
     }
+    @media (max-width: 400px) {
+      font-size: 12px;
+    }
     text-transform: uppercase;
   }
 `;
 export const DepartmentList = styled.ul`
   position: absolute;
-  display: ${(props) => (props.departmentVisible ? 'flex' : 'none')};
+  display: ${props => (props.departmentVisible ? 'flex' : 'none')};
 
   flex-direction: column;
   top: calc(100%);
@@ -218,7 +223,7 @@ export const EachDepartment = styled.li`
     width: 350px;
   }
   @media (max-width: 400px) {
-    width: 300px;
+    width: 275px;
   }
 `;
 
@@ -227,15 +232,15 @@ export const DepartmentName = styled.div`
   display: flex;
   align-items: center;
   margin-left: 3%;
-  margin-right: 3%;
+  margin-right: 5%;
   @media (max-width: 950px) {
-    width: 350px;
+    width: 330px;
   }
   @media (max-width: 400px) {
-    width: 300px;
+    width: 263px;
   }
   &:hover {
-    background-color: #e1e1e1;
+    background-color: #f5f5f5;
   }
 
   .department-iten {
@@ -252,6 +257,16 @@ export const DepartmentName = styled.div`
     font-size: 20px;
     color: #666;
   }
+  @media (max-width: 950px) {
+    p {
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 400px) {
+    p {
+      font-size: 12px;
+    }
+  }
 `;
 export const CategoryList = styled.ul`
   position: absolute;
@@ -263,10 +278,17 @@ export const CategoryList = styled.ul`
   @media (max-width: 725px) {
     left: 50%;
   }
-  top: ${(props) => props.position};
+  @media (max-width: 540px) {
+    left: 0%;
+  }
+  @media (max-width: 400px) {
+    width: 275px;
+  }
+  top: ${props => props.position};
   width: 400px;
   border-left: 1px solid #f1f1f1;
-  box-shadow: ${(props) => (props.categoryVisible ? '-5px 0px 10px 1px #666' : 'none')};
+  box-shadow: ${props =>
+    (props.categoryVisible ? '-5px 0px 10px 1px #666' : 'none')};
   box-shadow: 0;
   background-color: #fff;
   div:last-child {
@@ -282,22 +304,24 @@ export const CategoryList = styled.ul`
   }
 `;
 
-export const DepartmentTittle = styled.li`
+export const DepartmentTittle = styled.div`
   height: 30px;
-  margin: 3%;
-  padding: 2%;
+  margin: 3% 3% 3% 0;
+  padding-left: 2%;
   .title {
     padding: 0;
   }
-  display: ${(props) => (props.categoryVisible ? 'flex' : 'none')};
+  display: ${props => (props.categoryVisible ? 'flex' : 'none')};
   @media (max-width: 725px) {
     display: 'none';
   }
+  div {
+    flex-direction: column;
+  }
   p {
     color: #666;
-  }
-  :hover {
-    background-color: #e1e1e1;
+    font-size: 24px;
+    text-decoration: underline;
   }
 `;
 export const EachCategory = styled.li`
@@ -307,7 +331,7 @@ export const EachCategory = styled.li`
   .title {
     padding: 0;
   }
-  display: ${(props) => (props.categoryVisible ? 'flex' : 'none')};
+  display: ${props => (props.categoryVisible ? 'flex' : 'none')};
   @media (max-width: 725px) {
     display: 'none';
   }
@@ -315,25 +339,6 @@ export const EachCategory = styled.li`
     color: #666;
   }
   :hover {
-    background-color: #e1e1e1;
+    background-color: #f5f5f5;
   }
 `;
-
-// export const Back = styled(Link)`
-//   flex-grow: 0;
-//   text-shadow: 1px 1px;
-//   text-decoration-line: none;
-//   margin-top: 10px;
-//   margin-bottom: 10px;
-//   color: #f1f1f1;
-//   h1 {
-//     font-size: 30px;
-//   }
-//   h2 {
-//     font-size: 25px;
-//   }
-//   &:hover {
-//     border-radius: 10px;
-//     opacity: 0.5;
-//   }
-// `;

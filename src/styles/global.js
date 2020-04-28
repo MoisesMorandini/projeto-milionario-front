@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
@@ -35,6 +36,10 @@ export default createGlobalStyle`
     height: 100%;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   a {
     text-decoration: none;
   }
@@ -42,8 +47,10 @@ export default createGlobalStyle`
   ul{
     list-style: none;
   }
-
   button{
+    padding: 0;
+    border: 0;
+    margin: 0;
     cursor: pointer;
   }
 `;
