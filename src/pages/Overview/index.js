@@ -24,6 +24,7 @@ export default function Orderview() {
       const pickData = data[0];
       setTotal(pickData[0].checkout);
     }
+
     findCheckout();
   }, []);
 
@@ -44,8 +45,7 @@ export default function Orderview() {
   async function handleRefund() {
     try {
       await api.delete(`transactions/${checkout.transaction.id}`);
-    } catch (err) {
-    }
+    } catch (err) {}
   }
 
   return (

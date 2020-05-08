@@ -9,9 +9,13 @@ import {
 import * as CartActions from '../../store/modules/cart/actions';
 import { addInstallments, addTotal } from '~/store/modules/purchase/actions';
 import { formatPrice } from '../../util/format';
-import { Container, ProductTable, Total, Finish } from './styles';
+import {
+ Container, ProductTable, Total, Finish
+} from './styles';
 
-function Cart({ cart, total, totalRaw, removeFromCart, updateAmountRequest }) {
+function Cart({
+ cart, total, totalRaw, removeFromCart, updateAmountRequest
+}) {
   const dispatch = useDispatch();
   const [installments, setInstallments] = useState(1);
   function increment(product) {
@@ -122,7 +126,4 @@ const mapStateToPros = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
-export default connect(
-  mapStateToPros,
-  mapDispatchToProps
-)(Cart);
+export default connect(mapStateToPros, mapDispatchToProps)(Cart);

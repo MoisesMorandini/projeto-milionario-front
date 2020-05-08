@@ -12,7 +12,7 @@ export function* signIn({ payload }) {
 
     const { token, user } = response.data;
 
-    api.defaults.headers['Authorization'] = `Beares ${token}`;
+    api.defaults.headers.Authorization = `Beares ${token}`;
 
     yield put(signInSucess(token, user));
 
@@ -44,7 +44,7 @@ export function setToken({ payload }) {
 
   const { token } = payload.auth;
 
-  if (token) api.defaults.headers['Authorization'] = `Beares ${token}`;
+  if (token) api.defaults.headers.Authorization = `Beares ${token}`;
 }
 
 export function signOut() {

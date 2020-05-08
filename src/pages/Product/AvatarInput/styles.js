@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 export const Avatar = styled.div`
   margin-bottom: 30px;
   float: right;
