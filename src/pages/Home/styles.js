@@ -83,6 +83,12 @@ export const ProductList = styled.div`
     grid-template-columns: repeat(1, 245px);
   }
 
+  a {
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
   li {
     display: flex;
     flex-direction: column;
@@ -99,13 +105,14 @@ export const ProductList = styled.div`
       height: 156px;
     }
 
-    > strong {
+    a > strong {
       padding-top: 20px;
       font-family: Helvetica, Arial, sans-serif;
       font-size: 16px;
       line-height: 20px;
-      color: rgb(102, 102, 102);
+      color: rgb(90, 90, 90);
       margin-top: 5px;
+      align-self: center;
     }
 
     > span {
@@ -114,6 +121,7 @@ export const ProductList = styled.div`
       font-family: Helvetica, Arial, sans-serif;
       font-weight: bold;
       margin: 5px 0 15px 0;
+      align-self: center;
     }
 
     button {
