@@ -8,11 +8,12 @@ import * as CartActions from '../../store/modules/cart/actions';
 import { formatPrice } from '../../util/format';
 import { Carousel } from 'react-responsive-carousel'
 import SideCart from '../../components/SideCart'
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {products: []};
+    this.state = { products: [] };
   }
 
   async componentDidMount() {
@@ -23,7 +24,6 @@ class Home extends Component {
     data = response.data.map(product => ({
       ...product,
       priceFormatted: formatPrice(product.price),
-
     }));
     this.setState({ products: data });
   }
@@ -41,45 +41,42 @@ class Home extends Component {
       <Container>
         <div className="container-carousel">
           <Carousel showThumbs={false} showStatus={false} showArrows={false} useKeyboardArrows={true}
-              interval={3000} autoPlay={true} stopOnHover ={true} infiniteLoop={true} width="100%"
-              showIndicators={true}>
-                <div className="color" >
-                    <img src="https://www.eberspaecher.es/fileadmin/data/corporatesite/images/header_1700x400/fuel_operated_heaters/eberspaecher-header-easystart-web-1700x400.jpg"/>
-                </div>
-                <div className="color">
-                    <img src="https://upload-projeto-milionario.s3.amazonaws.com/d181214557624f02bf90393303239af8.png"/>
-                </div>
-                <div className="color">
-                    <img src="https://upload-projeto-milionario.s3.amazonaws.com/3c16d15dae810acf8c8b9c15117fde7a.jpg"/>
-                </div>
-                <div className="color">
-                    <img src="https://www.unigestion.com/wp-content/uploads/2019/02/1700x400-bandeau_waterfall.jpg"/>
-                </div>
-            </Carousel>
-
+            interval={3000} autoPlay={true} stopOnHover={true} infiniteLoop={true} width="100%"
+            showIndicators={true}>
+            <div className="color">
+              <img src="https://www.eberspaecher.es/fileadmin/data/corporatesite/images/header_1700x400/fuel_operated_heaters/eberspaecher-header-easystart-web-1700x400.jpg" />
+            </div>
+            <div className="color">
+              <img src="https://upload-projeto-milionario.s3.amazonaws.com/d181214557624f02bf90393303239af8.png" />
+            </div>
+            <div className="color">
+              <img src="https://www.unigestion.com/wp-content/uploads/2019/02/1700x400-bandeau_waterfall.jpg" />
+            </div>
+          </Carousel>
         </div>
         <SideCart ></SideCart>
-          <ProductList>
-            {products.map(product => (
-              <li key={product.id}>
-                <img src={product.file.url} alt={product.name} />
+        <ProductList>
+          {products.map(product => (
+            <li key={product.id}>
+              <Link to={`/product/${product.id}`}>
+                <img src="https://img.bgxcdn.com/thumb/large/oaupload/ser1/banggood/images/99/6C/44f193a0-eced-41e4-ba78-226d7b3b25f8.jpg" alt={product.name} />
                 <strong>{product.name}</strong>
-                <span>{product.priceFormatted}</span>
-                <button
-                  type="button"
-                  onClick={() => this.handleAddProduct(product.id)}
-                >
-                  <span>ADICIONAR</span>
-                  <div>
-                    <MdShoppingCart size={16} color="#FFF" />
-                    {amount[product.id] || 0}
-                  </div>
-                </button>
-              </li>
-            ))}
-          </ProductList>
+              </Link>
+              <span>{product.priceFormatted}</span>
+              <button
+                type="button"
+                onClick={() => this.handleAddProduct(product.id)}
+              >
+                <span>ADICIONAR</span>
+                <div>
+                  <MdShoppingCart size={16} color="#FFF" />
+                  {amount[product.id] || 0}
+                </div>
+              </button>
+            </li>
+          ))}
+        </ProductList>
       </Container>
-
     );
   }
 }

@@ -1,0 +1,83 @@
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.leftDiv {
+  text-align: center;
+  margin: 0 auto;
+  float: left;
+  width: 40%;
+  min-width: 300px;
+}
+
+.rightDiv {
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+  float: left;
+  padding-top: 50px;
+}
+
+.productImage {
+  max-width: 100%;
+}
+
+@media (max-width: 1150px) {
+  .container {
+    margin: 5px auto !important;
+  }
+  .leftDiv,
+  .rightDiv {
+    float: inherit;
+  }
+  .rightDiv {
+    width: 100% !important;
+    padding-top: 10px !important;
+  }
+  .price {
+    padding-top: 10px !important;
+  }
+}
+
+.addToCart {
+  margin: 0 auto;
+  width: 40%;
+  min-width: 130px;
+  height: 42px;
+  border-radius: 5px;
+  border: 2px solid #28a745;
+  margin-top: 10px;
+  color: #ffffff;
+  background-color: #28a745;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.addToCart:hover {
+  opacity: 0.9;
+}
+
+.descriptionTitle, .techSpecificationsTitle{
+  margin-top: 30px;
+  color: #2e2e2e;
+}
+
+.price {
+  padding-top: 25px;
+  font-size: 20px;
+  color: #2e2e2e;
+}
+
+p {
+  margin-top: 10px;
+}
