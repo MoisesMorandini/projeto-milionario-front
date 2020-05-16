@@ -24,8 +24,6 @@ export default function SignIn() {
 
   return (
     <>
-      <img className="icon" src={bolaOito} alt="VagnaoStore" />
-
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="email" type="email" placeholder="Seu e-mail" />
         <Input name="password" type="password" placeholder="Sua senha" />

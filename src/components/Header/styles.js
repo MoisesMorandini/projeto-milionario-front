@@ -287,8 +287,7 @@ export const CategoryList = styled.ul`
   top: ${props => props.position};
   width: 400px;
   border-left: 1px solid #f1f1f1;
-  box-shadow: ${props =>
-    (props.categoryVisible ? '-5px 0px 10px 1px #666' : 'none')};
+  box-shadow: ${props => (props.categoryVisible ? '-5px 0px 10px 1px #666' : 'none')};
   box-shadow: 0;
   background-color: #fff;
   div:last-child {
@@ -335,10 +334,14 @@ export const EachCategory = styled.li`
   @media (max-width: 725px) {
     display: 'none';
   }
-  p {
-    color: #666;
-  }
+
   :hover {
     background-color: #f5f5f5;
+  }
+`;
+
+export const GoCategory = styled(Link)`
+  p {
+    color: #666;
   }
 `;

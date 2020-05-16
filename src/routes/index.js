@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import Route from './Route';
 import Home from '../pages/Home';
+import List from '../pages/List';
 import Cart from '../pages/Cart';
 import Payment from '../pages/Payment';
 import SignIn from '../pages/SignIn';
@@ -14,7 +15,8 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={() => <Home res="" />} />
-      {/* deixar apenas /, podemos la dentro chamar, products/ e os outros product/:pros */}
+      <Route path="/list/:id" exact component={() => <List />} />
+      {/* deixar apenas /, podemos la dentro chamar, produts/ e os outros product/:pros */}
       <Route path="/cue" component={() => <Home res="1" />} />
       <Route path="/shirt" component={() => <Home res="9" />} />
       <Route path="/table" component={() => <Home res="10" />} />
