@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Carousel } from 'react-responsive-carousel';
@@ -28,7 +29,6 @@ function Home() {
           <div className="color">
             <img src="https://upload-projeto-milionario.s3.amazonaws.com/d181214557624f02bf90393303239af8.png" />
           </div>
-
           <div className="color">
             <img src="https://www.unigestion.com/wp-content/uploads/2019/02/1700x400-bandeau_waterfall.jpg" />
           </div>
