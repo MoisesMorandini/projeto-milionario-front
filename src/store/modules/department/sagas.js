@@ -24,6 +24,20 @@ export function* insertDepartment({ payload }) {
   }
 }
 
+export function* deleteDepartment({ payload }) {
+  try {
+    const { id } = payload;
+    yield call(apiBack.delete, `department/${id}`);
+    toast.success('Departamento excluído com sucesso!');
+
+    refresh();
+  } catch (error) {
+    toast.error('Erro ao excluir departamento!');
+    yield put(deleteDepartmentFailure());
+  }
+}
+
 export default all([
+  takeLatest('@department/DELETE_DEPARTMENT_REQUEST', deleteDepartment),
   takeLatest('@department/INSERT_DEPARTMENT_REQUEST', insertDepartment),
 ]);

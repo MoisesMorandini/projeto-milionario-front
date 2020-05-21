@@ -12,17 +12,21 @@ import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete } from 'react-icons/md';
 import apiBack from '../../../services/apiBack';
 import { TitleTable, ContainerTable, CustomPagination } from './style';
+import { deleteDepartmentRequest } from '~/store/modules/department/actions';
 
 export default function Department() {
+  const dispatch = useDispatch();
   const [departments, setDepartment] = useState([]);
   const [limitView, setLimiteView] = useState(50);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [departmentsCount, setDepartmentsCount] = useState(0);
+
   const handlePaginationChange = (event, value) => {
     setPage(value);
   };
@@ -33,16 +37,24 @@ export default function Department() {
     }
   }, [departmentsCount, limitView]);
 
+  async function getDepartment() {
+    const response = await apiBack.get(
+      `department?page=${page}&limit=${limitView}`,
+    );
+    setDepartment(response.data);
+    setDepartmentsCount(response.headers.x_total_count);
+  }
+
   useEffect(() => {
-    async function getDepartment() {
-      const response = await apiBack.get(
-        `department?page=${page}&limit=${limitView}`,
-      );
-      setDepartment(response.data);
-      setDepartmentsCount(response.headers.x_total_count);
-    }
     getDepartment();
   }, [limitView, page]);
+
+  async function handleDeleteDepartment(id) {
+    dispatch(deleteDepartmentRequest(id));
+    setTimeout(() => {
+      getDepartment();
+    }, 600);
+  }
 
   const useStyles = makeStyles(() => ({
     marginLeft: {
@@ -92,7 +104,11 @@ export default function Department() {
                     {depart.name}
                   </TableCell>
                   <TableCell>
-                    <Button variant="contained" color="secondary">
+                    <Button
+                      onClick={() => handleDeleteDepartment(depart.id)}
+                      variant="contained"
+                      color="secondary"
+                    >
                       <MdDelete />
                     </Button>
                     <Button
