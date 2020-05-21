@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Pagination } from '@material-ui/lab';
 
 export const styles = {
   button: {
@@ -17,4 +18,13 @@ export const TitleTable = styled.div`
 
 export const ContainerTable = styled.div`
   margin-top: 100px;
+`;
+
+export const CustomPagination = styled(Pagination)`
+  margin-top: 2%
+  margin-left: 35%;
+  margin-bottom: 1%;
+  @media (max-width: 400px) {
+    margin-left: 25%;
+  }
 `;

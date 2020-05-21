@@ -12,20 +12,37 @@ import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { MdEdit, MdDelete } from 'react-icons/md';
 import apiBack from '../../../services/apiBack';
-import { styles, TitleTable, ContainerTable } from './style';
+import { TitleTable, ContainerTable, CustomPagination } from './style';
 
 export default function Department() {
   const [departments, setDepartment] = useState([]);
+  const [limitView, setLimiteView] = useState(50);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [departmentsCount, setDepartmentsCount] = useState(0);
+  const handlePaginationChange = (event, value) => {
+    setPage(value);
+  };
+
+  useEffect(() => {
+    if (departmentsCount) {
+      setTotalPages(Math.trunc(departmentsCount / limitView) + 1);
+    }
+  }, [departmentsCount, limitView]);
 
   useEffect(() => {
     async function getDepartment() {
-      const response = await apiBack.get('department');
+      const response = await apiBack.get(
+        `department?page=${page}&limit=${limitView}`,
+      );
       setDepartment(response.data);
+      setDepartmentsCount(response.headers.x_total_count);
     }
-
     getDepartment();
-  }, []);
+  }, [limitView, page]);
 
   const useStyles = makeStyles(() => ({
     marginLeft: {
@@ -41,7 +58,7 @@ export default function Department() {
 
   return (
     <ContainerTable>
-      <Container fluid>
+      <Container>
         <TableContainer className="tableContainer" component={Paper}>
           <Grid
             container
@@ -50,14 +67,15 @@ export default function Department() {
             alignItems="flex-start"
           >
             <TitleTable>Departamentos</TitleTable>
-
-            <Button
-              className={classes.marginTopRight}
-              variant="contained"
-              color="primary"
-            >
-              Adicionar
-            </Button>
+            <Link to="/admin/department/store">
+              <Button
+                className={classes.marginTopRight}
+                variant="contained"
+                color="primary"
+              >
+                Adicionar
+              </Button>
+            </Link>
           </Grid>
 
           <Table aria-label="simple table">
@@ -74,22 +92,29 @@ export default function Department() {
                     {depart.name}
                   </TableCell>
                   <TableCell>
-                    <Button size="small" variant="contained" color="secondary">
-                      Deletar
+                    <Button variant="contained" color="secondary">
+                      <MdDelete />
                     </Button>
                     <Button
                       className={classes.marginLeft}
-                      size="small"
                       variant="contained"
                       color="primary"
                     >
-                      Editar
+                      <MdEdit />
                     </Button>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          <CustomPagination
+            count={totalPages}
+            color="primary"
+            page={page}
+            size="large"
+            onChange={handlePaginationChange}
+            className="pagination"
+          />
         </TableContainer>
       </Container>
     </ContainerTable>

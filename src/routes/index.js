@@ -12,6 +12,7 @@ import Orderview from '~/pages/Overview';
 import ProductDetails from '../pages/ProductDetails';
 import ResetPassword from '../pages/ResetPassword';
 import Department from '~/pages/Admin/Department';
+import StoreDepartment from '~/pages/Admin/Department/Store';
 
 export default function Routes() {
   return (
@@ -26,7 +27,8 @@ export default function Routes() {
       <Route path="/ball" component={() => <Home res="14" />} />
       <Route path="/other" component={() => <Home res="12" />} />
       <Route path="/cart" component={Cart} />
-      <Route path="/admin/department/" component={Department} />
+      <Route path="/admin/department/store" component={StoreDepartment} />
+      <Route path="/admin/department" component={Department} />
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
