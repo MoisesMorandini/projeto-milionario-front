@@ -5,7 +5,7 @@ import { darken } from 'polished';
 export const ContainerMobile = styled.div`
   display: none;
   @media (max-width: 1220px) {
-    display: ${props => (props.fullCart ? 'flex' : 'none')};
+    display: ${(props) => (props.fullCart ? 'flex' : 'none')};
   }
   align-items: center;
   justify-content: center;
@@ -16,29 +16,29 @@ export const ContainerMobile = styled.div`
   color: #eaeaea;
   position: fixed;
   right: 5%;
-  top: ${props => props.sizeTop};
-  margin-top: ${props => props.marginTop}%;
+  top: ${(props) => props.sizeTop};
 `;
+
+export const GlobalContainer = styled.div``;
 export const Container = styled.div`
   @media (max-width: 1220px) {
-    display: ${props => (props.fullCart ? 'none' : 'flex')};
+    display: ${(props) => (props.fullCart ? 'none' : 'flex')};
   }
   position: fixed;
+  top: ${(props) => props.sizeTop};
   right: 5%;
-  top: ${props => props.sizeTop};
-  height: 455px;
+  max-height: 455px;
   width: 23%;
   min-width: 350px;
   max-width: 430px;
   background-color: #ffffff;
-  font-family: Helvetica, Arial, sans-serif;
 
   .container-cart {
     display: flex;
     flex-direction: column;
   }
   @media (max-height: 950px) {
-    margin-top: ${props => props.marginTop}%;
+    margin-top: ${(props) => props.marginTop}%;
   }
   @media (max-width: 1030px) {
     min-width: 320px;
@@ -55,7 +55,7 @@ export const HeaderCart = styled.div`
   background-color: ${darken(0.04, '#00b400')};
   color: #eaeaea;
   height: 82px;
-
+  width: 100%;
   border-radius: 4px;
   .icon-cart {
     margin-left: 12%;
@@ -78,7 +78,9 @@ export const HeaderCart = styled.div`
       margin-left: 2%;
       margin-right: 6%;
     }
+   width: 320px;
   }
+
   @media (max-width: 700px) {
     height: 68px;
     p {
@@ -98,12 +100,7 @@ export const Scroll = styled(PerfectScrollBar)`
 export const ProductTableCart = styled.table`
   margin-top: 10px;
   margin-left: 16px;
-  .cart-no-content {
-    font-size: 28px;
-    font-weight: bold;
-    font-family: Helvetica, Arial, sans-serif;
-    margin: 25% 0% 0% 20%;
-  }
+
   thead th {
     color: #999;
     text-align: left;
@@ -244,4 +241,25 @@ export const Bottom = styled.div`
       width: 200px;
     }
   }
+`;
+export const NotFoundContainer = styled.div`
+  height: 184px;
+  display:flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content: center;
+`;
+
+export const NotFoundText = styled.div`
+  p {
+
+    color: #666666;
+    font-size: 2.5em;
+  }
+  @media (max-width: 800px) {
+    p{
+      font-size: 2em;
+    }
+  }
+
 `;

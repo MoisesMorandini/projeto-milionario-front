@@ -6,8 +6,9 @@ import {
   FaAngleRight,
   FaAngleLeft,
 } from 'react-icons/fa';
-import { GiShoppingCart } from 'react-icons/gi';
+import { MdShoppingCart } from 'react-icons/md';
 import { TiThMenu } from 'react-icons/ti';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   Container,
   Cart,
@@ -24,11 +25,12 @@ import {
   DepartmentContainer,
   DepartmentName,
   DepartmentTittle,
+  GoCategory,
 } from './styles';
 import { signOut } from '../../store/modules/auth/actions';
 import apiBack from '../../services/apiBack';
 
-function Header({ cartSize }) {
+function Header() {
   const dispatch = useDispatch();
 
   const profile = null; // useSelector(state => state.user.profile);
@@ -39,16 +41,18 @@ function Header({ cartSize }) {
   const [oldIndex, setOldIndex] = useState(-1);
   const [category, setCategory] = useState([]);
   const [department, setDepartment] = useState([]);
+  const [loading, setLoading] = useState(false);
   const departmentRef = useRef();
 
   function handleSignOut() {
     dispatch(signOut());
   }
-
   useEffect(() => {
     async function findDepartmentWithCategory() {
+      setLoading(true);
       const response = await apiBack.get('departments/categories');
       setDepartment(response.data);
+      setLoading(false);
     }
     findDepartmentWithCategory();
   }, []);
@@ -56,7 +60,7 @@ function Header({ cartSize }) {
     setCategoryVisible(false);
   }
 
-  const handleDepartmentClick = event => {
+  const handleDepartmentClick = (event) => {
     if (!departmentRef.current.contains(event.target)) {
       setDepartmentVisible(false);
       setCategoryFalse();
@@ -99,14 +103,14 @@ function Header({ cartSize }) {
           <button type="button">Pesquisar</button>
         </Input>
 
-        <User to="login">
+        <User to="/">
           <FaUserAlt size={40} color="#000000" onClick={handleSignOut} />
           <div>
             <strong>Bem Vindo(a)!</strong>
             <Profile>{profile ? profile.name : 'Entre ou Cadastre-se'}</Profile>
           </div>
           <Cart to="/">
-            <GiShoppingCart size={40} color="#000000" />
+            <MdShoppingCart size={40} color="#000000" />
           </Cart>
         </User>
       </Head>
@@ -123,51 +127,71 @@ function Header({ cartSize }) {
           </DepartmentContainer>
 
           <DepartmentList departmentVisible={departmentVisible}>
-            {department.map((dp, index) => (
-              <EachDepartment
-                key={dp.id}
-                onClick={() => {
-                  handleCategoryVisible(index);
-                }}
-              >
-                <DepartmentName>
-                  <div className="department-iten">
-                    <p>{dp.name}</p>
-                  </div>
-                  <div className="icon">
-                    <FaAngleRight size={30} color="666" />
-                  </div>
-                </DepartmentName>
-              </EachDepartment>
-            ))}
-            <CategoryList
-              position={departmentIndex}
-              categoryVisible={categoryVisible}
-            >
-              <DepartmentTittle
-                className="department-tittle-icon"
-                categoryVisible={categoryVisible}
-                key={departmentSelected}
-              >
-                <FaAngleLeft size={30} color="666" onClick={setCategoryFalse} />
-                <div>
-                  <p>{departmentSelected}</p>
-                </div>
-              </DepartmentTittle>
-              {category.map(cat => (
-                <EachCategory key={cat.id} categoryVisible={categoryVisible}>
-                  <div>
-                    <p>{cat.name}</p>
-                  </div>
-                </EachCategory>
-              ))}
-            </CategoryList>
+            {!loading ? (
+              <>
+                {' '}
+                {department.map((dp, index) => (
+                  <EachDepartment
+                    key={dp.id}
+                    onClick={() => {
+                      handleCategoryVisible(index);
+                    }}
+                  >
+                    <DepartmentName>
+                      <div className="department-iten">
+                        <p>{dp.name}</p>
+                      </div>
+                      <div className="icon">
+                        <FaAngleRight size={30} color="666" />
+                      </div>
+                    </DepartmentName>
+                  </EachDepartment>
+                ))}
+                <CategoryList
+                  position={departmentIndex}
+                  categoryVisible={categoryVisible}
+                >
+                  <DepartmentTittle
+                    className="department-tittle-icon"
+                    categoryVisible={categoryVisible}
+                    key={departmentSelected}
+                  >
+                    <FaAngleLeft
+                      size={30}
+                      color="666"
+                      onClick={setCategoryFalse}
+                    />
+                    <div>
+                      <p>{departmentSelected}</p>
+                    </div>
+                  </DepartmentTittle>
+                  {category.map((cat) => (
+                    <EachCategory
+                      key={cat.id}
+                      categoryVisible={categoryVisible}
+                    >
+                      <GoCategory
+                        to={`/list/${cat.id}`}
+                        onClick={handleShowDeparment}
+                      >
+                        <p>{cat.name}</p>
+                      </GoCategory>
+                    </EachCategory>
+                  ))}
+                </CategoryList>
+              </>
+            ) : (
+              <CircularProgress />
+            )}
           </DepartmentList>
         </Department>
       </Bottom>
     </Container>
   );
 }
-export default connect(state => ({
+
+const mapStateToPros = (state) => ({
   cartSize: state.cart.length,
-}))(Header);
+});
+
+export default connect(mapStateToPros)(Header);

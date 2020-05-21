@@ -26,8 +26,6 @@ export default function SignUn() {
 
   return (
     <>
-      <img src={bolaOito} alt="VagnaoStore" />
-
       <Form schema={schema} onSubmit={handleSubmit}>
         <Input name="name" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Seu e-mail" />

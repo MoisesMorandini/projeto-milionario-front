@@ -10,11 +10,11 @@ import * as CartActions from '../../store/modules/cart/actions';
 import { addInstallments, addTotal } from '~/store/modules/purchase/actions';
 import { formatPrice } from '../../util/format';
 import {
- Container, ProductTable, Total, Finish
+  Container, ProductTable, Total, Finish,
 } from './styles';
 
 function Cart({
- cart, total, totalRaw, removeFromCart, updateAmountRequest
+  cart, total, totalRaw, removeFromCart, updateAmountRequest,
 }) {
   const dispatch = useDispatch();
   const [installments, setInstallments] = useState(1);
@@ -54,7 +54,7 @@ function Cart({
           </tr>
         </thead>
         <tbody>
-          {cart.map(product => (
+          {cart.map((product) => (
             <tr>
               <td>
                 <img src={product.file.url} alt={product.name} />
@@ -90,7 +90,7 @@ function Cart({
         </tbody>
       </ProductTable>
       <footer>
-        <select onChange={e => setInstallments(e.target.value)}>
+        <select onChange={(e) => setInstallments(e.target.value)}>
           {renderInstallments()}
         </select>
 
@@ -106,24 +106,23 @@ function Cart({
   );
 }
 
-const mapStateToPros = state => ({
-  cart: state.cart.map(product => ({
+const mapStateToPros = (state) => ({
+  cart: state.cart.map((product) => ({
     ...product,
     subtotal: formatPrice(product.price * product.amount),
   })),
   total: formatPrice(
     state.cart.reduce(
       (total, product) => total + product.price * product.amount,
-      0
-    )
+      0,
+    ),
   ),
   totalRaw: state.cart.reduce(
     (total, product) => total + product.price * product.amount,
-    0
+    0,
   ),
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(CartActions, dispatch);
 
 export default connect(mapStateToPros, mapDispatchToProps)(Cart);
