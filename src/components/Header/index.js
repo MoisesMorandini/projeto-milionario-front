@@ -50,7 +50,7 @@ function Header() {
   useEffect(() => {
     async function findDepartmentWithCategory() {
       setLoading(true);
-      const response = await apiBack.get('departments/categories');
+      const response = await apiBack.get('department/category');
       setDepartment(response.data);
       setLoading(false);
     }
