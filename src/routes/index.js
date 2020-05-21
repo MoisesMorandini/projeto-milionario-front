@@ -10,6 +10,7 @@ import SignUp from '../pages/SignUp';
 import Product from '~/pages/Product';
 import Orderview from '~/pages/Overview';
 import ProductDetails from '../pages/ProductDetails';
+import ResetPassword from '../pages/ResetPassword';
 
 export default function Routes() {
   return (
@@ -27,6 +28,7 @@ export default function Routes() {
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
+      <Route path="/reset-password" component={ResetPassword} auth />
       <Route path="/product" component={Product} adm />
       <Route path="/payment" component={Payment} isPrivate />
       <Route path="/orderview" component={Orderview} isPrivate />
