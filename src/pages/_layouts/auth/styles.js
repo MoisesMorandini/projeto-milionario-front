@@ -1,83 +1,179 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const Wrapper = styled.div`
-  height: 700px;
-  width: 550px;
-  background: white;
+  height: 100%;
+  width: 100%;
   display: block;
-  margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0px 0px 50px 0px;
+  // margin: 0 auto;
+  // margin-top: 1%;
+  // margin-left: 20px;s
+  // margin-right: 20px;
+  // border-radius: 10px;
+  border: nome;
+  // box-shadow: 0px 0px 10px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
+  // background-color: red;
 `;
 
 export const Content = styled.div`
+  display: flex;
   width: 100%;
-  max-width: 450px;
-
+  heigth: 100%;
+  // margin-top: 100px;
+  // max-width: max-content;
   justify-content: center;
   text-align: center;
+  // background-color: #32a3d8;
 
   img {
-    width: 65%;
+    width: 45%;
+    margin-bottom: 60px;
+    max-width: 189px;
+    max-height: 189px;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    align-items: flex-start;
   }
 
-  input {
+  .resetPasswordContainer {
+    width: 100%;
+    heigth: 100%;
+    max-width: 450px;
+    padding: 20px;
+  }
+
+  div .inputDiv {
+    display: flex;
+    // justify-content: flex-start;
+    align-items: center;
+    // flex-flow: row wrap;
+    width: 100%;
+    // height: 55px;
+    height: 45px;
+    margin: 0 0 25px;
+    padding-left: 40px;
     background: #f1f1f1;
     border: 0;
+    box-shadow: 1px 1px 5px 0px #959595;
+    border-color: #707070;
     border-radius: 4px;
-    height: 55px;
-    padding: 15px;
-    color: black;
-    margin: 0 0 20px;
+    font-size: 25px;
+    position: relative;
 
-    font-size: 20px;
-    &::placeholder {
-      color: #808080;
+    input {
+      width: 100%;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #333333;
+      // margin-top: 10px;
+      padding-right: 5px;
+      &::placeholder {
+        color: #808080;
+      }
     }
   }
 
-  span {
-    color: #fb6f91;
-    align-self: center;
+  .countainerCadastro {
+    width: 100%;
+    max-width: 550px;
 
-    margin: 0 0 10px;
+    img {
+      margin-top: 100px;
+      margin-bottom: 40px;
+    }
+
+    .inputDiv {
+      height: 45px;
+    }
+  }
+
+  .conjunto {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    div.inputDiv {
+      width: 49%;
+    }
+  }
+
+  //  Cor do texto do autocomplete
+  input:-webkit-autofill {
+    -webkit-text-fill-color: #333333 !important;
+  }
+
+  //  Cor do fundo do autocomplete
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #f1f1f1 inset;
+  }
+
+  svg {
+    position: absolute;
+    left: 10px;
+    // top: 25%;
+    margin-right: 10px;
+    color: #575757;
+  }
+
+  span {
+    position: absolute;
+    left: 0px;
+    top: 48px;
+    color: #d12c38;
+    align-self: center;
+    font-size: 14px;
     font-weight: bold;
   }
 
   button {
-    margin: 5px 0 0;
+    // margin: 5px 0 0;
+    // background: #3b83ff;
+    // font-weight: bold;
+    // color: #fff;
+    // border: 0;
+    // border-radius: 4px;
+    // font-size: 16px;
+
+    width: 100%;
     height: 55px;
-    background: #3b83ff;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
+    padding: 10px;
     border-radius: 4px;
-    font-size: 16px;
+    border: 0px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    background: #f04e28;
     transition: background 0.2s;
+
     &:hover {
-      background: ${darken(0.1, '#3b9eff')};
+      background: ${lighten(0.03, '#F04E28')};
     }
   }
 
-  a {
-    color: #3b83ff;
-    margin-top: 15px;
-    font-size: 16px;
-    opacity: 0.8;
+  button:disabled {
+    background-color: #ea9f8e;
+    color: #fff;
+    cursor: default;
+  }
 
+  a {
+    color: #f04e28;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 1;
     &:hover {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 `;

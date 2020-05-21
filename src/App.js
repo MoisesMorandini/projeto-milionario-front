@@ -18,9 +18,7 @@ function App() {
       <PersistGate persistor={persistor}>
         {/* deixar disponivel o nosso store da aplicacao, disponivel para todos os componentes */}
         <Router history={history}>
-          <Header />
           <Routes />
-
           <GlobalStyle />
           <ToastContainer autoClose={3000} closeOnClick />
         </Router>
