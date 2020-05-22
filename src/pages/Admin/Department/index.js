@@ -111,13 +111,15 @@ export default function Department() {
                     >
                       <MdDelete />
                     </Button>
-                    <Button
-                      className={classes.marginLeft}
-                      variant="contained"
-                      color="primary"
-                    >
-                      <MdEdit />
-                    </Button>
+                    <Link to={`/admin/department/update/${depart.id}`}>
+                      <Button
+                        className={classes.marginLeft}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <MdEdit />
+                      </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}

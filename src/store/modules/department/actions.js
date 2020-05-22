@@ -45,7 +45,7 @@ export function insertDepartmentSuccess(department) {
     payload: { department },
   };
 }
-export function insertDepartmentaFailure() {
+export function insertDepartmentFailure() {
   return {
     type: '@department/INSERT_DEPARTMENT_REQUEST',
   };
