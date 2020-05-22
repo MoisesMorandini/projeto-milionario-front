@@ -28,7 +28,7 @@ export default function StoreDepartment() {
           <TitleTable>
             <Link to="/admin/department/">
               <Button color="default">
-                <MdNavigateBefore />
+                <MdNavigateBefore size={28} />
               </Button>
             </Link>
             Adicionar departamento

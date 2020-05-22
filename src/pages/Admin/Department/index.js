@@ -11,10 +11,15 @@ import {
   Button,
   makeStyles,
   Grid,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdEdit, MdDelete } from 'react-icons/md';
+import { MdEdit, MdDelete, MdAdd } from 'react-icons/md';
 import apiBack from '../../../services/apiBack';
 import { TitleTable, ContainerTable, CustomPagination } from './style';
 import { deleteDepartmentRequest } from '~/store/modules/department/actions';
@@ -26,6 +31,8 @@ export default function Department() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [departmentsCount, setDepartmentsCount] = useState(0);
+  const [open, setOpen] = React.useState(false);
+  const [idDeleteDepartment, setIdDeleteDepartment] = useState(0);
 
   const handlePaginationChange = (event, value) => {
     setPage(value);
@@ -49,8 +56,9 @@ export default function Department() {
     getDepartment();
   }, [limitView, page]);
 
-  async function handleDeleteDepartment(id) {
-    dispatch(deleteDepartmentRequest(id));
+  async function handleDeleteDepartment() {
+    setOpen(false);
+    dispatch(deleteDepartmentRequest(idDeleteDepartment));
     setTimeout(() => {
       getDepartment();
     }, 600);
@@ -67,6 +75,15 @@ export default function Department() {
   }));
 
   const classes = useStyles();
+
+  const handleClickOpen = (idDepartmentClicked) => {
+    setOpen(true);
+    setIdDeleteDepartment(idDepartmentClicked);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <ContainerTable>
@@ -85,7 +102,7 @@ export default function Department() {
                 variant="contained"
                 color="primary"
               >
-                Adicionar
+                <MdAdd size={22} /> Adicionar
               </Button>
             </Link>
           </Grid>
@@ -104,22 +121,25 @@ export default function Department() {
                     {depart.name}
                   </TableCell>
                   <TableCell>
-                    <Button
-                      onClick={() => handleDeleteDepartment(depart.id)}
-                      variant="contained"
-                      color="secondary"
-                    >
-                      <MdDelete />
-                    </Button>
                     <Link to={`/admin/department/update/${depart.id}`}>
                       <Button
-                        className={classes.marginLeft}
+                        size="small"
                         variant="contained"
                         color="primary"
                       >
-                        <MdEdit />
+                        <MdEdit size={16} />
                       </Button>
                     </Link>
+                    <Button
+                      // onClick={() => handleDeleteDepartment(depart.id)}
+                      onClick={() => handleClickOpen(depart.id)}
+                      className={classes.marginLeft}
+                      size="small"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      <MdDelete size={16} />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -135,6 +155,24 @@ export default function Department() {
           />
         </TableContainer>
       </Container>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <b>Deseja realmente deletar o departamento?</b>
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} color="default">
+            Cancelar
+          </Button>
+          <Button onClick={() => handleDeleteDepartment()} color="secondary" autoFocus>
+            Deletar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </ContainerTable>
   );
 }
