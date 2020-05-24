@@ -9,9 +9,8 @@ import {
 import * as CartActions from '../../store/modules/cart/actions';
 import { addInstallments, addTotal } from '~/store/modules/purchase/actions';
 import { formatPrice } from '../../util/format';
-import {
-  Container, ProductTable, Total, Finish,
-} from './styles';
+import './style.css';
+import { Link } from 'react-router-dom';
 
 function Cart({
   cart, total, totalRaw, removeFromCart, updateAmountRequest,
@@ -42,67 +41,71 @@ function Cart({
   }
 
   return (
-    <Container>
-      <ProductTable>
-        <thead>
-          <tr>
-            <th />
-            <th>Produto</th>
-            <th>Quantidade</th>
-            <th>Subtotal</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map((product) => (
-            <tr>
-              <td>
+    <div className="cart">
+      {cart.map((product) => (
+        <div className="product-cart">
+          <article>
+            <div className="divImage">
+              <Link to={`/product/${product.id}`}>
                 <img src={product.file.url} alt={product.name} />
-              </td>
-              <td>
-                <strong>{product.name}</strong>
-                <span>{product.priceFormatted}</span>
-              </td>
-              <td>
-                <div>
-                  <button type="button" onClick={() => decrement(product)}>
-                    <MdRemoveCircleOutline size={20} color="#3b83ff" />
-                  </button>
-                  <input type="number" readOnly value={product.amount} />
-                  <button type="button" onClick={() => increment(product)}>
-                    <MdAddCircleOutline size={20} color="#3b83ff" />
-                  </button>
-                </div>
-              </td>
-              <td>
-                <strong>{product.subtotal}</strong>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  onClick={() => removeFromCart(product.id)}
-                >
-                  <MdDelete size={20} color="#3b83ff" />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </ProductTable>
-      <footer>
-        <select onChange={(e) => setInstallments(e.target.value)}>
-          {renderInstallments()}
-        </select>
+              </Link>
+            </div>
+            <br />
+            <div className="product-info">
+              <Link to={`/product/${product.id}`}>
+                <strong id="nameProd">{product.name}</strong>
+              </Link>
+              <br />
+              <div>
+                <span>
+                  <strong>Valor unidade: </strong>
+                  {product.priceFormatted}
+                </span>
+              </div>
+            </div>
 
-        <Finish to="/payment">
+            <div className="divInput">
+              <button type="button" onClick={() => decrement(product)}>
+                <MdRemoveCircleOutline size={20} color="#3b83ff" />
+              </button>
+              <input type="number" readOnly value={product.amount} />
+              <button type="button" onClick={() => increment(product)}>
+                <MdAddCircleOutline size={20} color="#3b83ff" />
+              </button>
+              <br />
+              <span>{product.stock} disponíveis</span>
+            </div>
+            <div className="total">
+              <span>
+                <strong>Valor total</strong> <br /> {product.subtotal}
+              </span>
+              <br />
+            </div>
+            <button type="button" onClick={() => removeFromCart(product.id)}>
+              <MdDelete size={25} color="#3b83ff" />
+            </button>
+          </article>
+        </div>
+      ))}
+
+      <div className="finish">
+        <div className="select">
+          <select
+            onChange={(e) => setInstallments(e.target.value)}
+            className="select"
+          >
+            {renderInstallments()}
+          </select>
+        </div>
+        <div className="button">
           <button onClick={() => handlePurchase()}>Finalizar pedido</button>
-        </Finish>
-        <Total>
-          <span>Total</span>
-          <strong>{total}</strong>
-        </Total>
-      </footer>
-    </Container>
+        </div>
+        <div className="total">
+          <strong>Total: </strong>
+          <span>{total}</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
