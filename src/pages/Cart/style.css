@@ -1,0 +1,147 @@
+.product-cart{
+  max-width: 1200px;
+  margin: 20px auto 0;
+  padding: 0 20px;
+
+}
+
+.product-cart article{
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  min-height: 160px;
+  max-height: 500px;
+}
+.divImage{
+  text-align: center;
+  margin: 0 auto;
+  float: left;
+  display: flex;
+}
+.divImage img {
+  width: 100px;
+}
+.product-info{
+
+    width: 50%;
+    margin: 0 auto;
+    float: left;
+}
+
+.divInput{
+    width: 21%;
+    margin: 0 auto;
+    float: left;
+    text-align: center;
+}
+.divInput span{
+  font-size: 15px;
+  color: #999;
+}
+
+.total{
+  float: right;
+  text-align: center;
+}
+.total > span{
+  font-size: 20px;
+}
+
+button {
+  background: none;
+  border: 0px;
+  padding: 6px;
+}
+
+@media (max-width: 1150px) {
+  .product-cart {
+    margin: 5px auto !important;
+  }
+  .divImage,
+  .product-info,
+  .divInput {
+    float: inherit;
+  }
+  .product-info {
+    width: 100% !important;
+    padding-top: 10px !important;
+  }
+  .divInput{
+    width: 98%;
+  }
+  .finish{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .select{
+    width: 100%;
+  }
+  .button{
+    margin-top: 10px;
+    width: 100%;
+  }
+  .total{
+    margin-top: 10px;
+    font-size: 22px;
+  }
+
+}
+
+.product-info strong {
+  font-size: 20px;
+
+}
+.product-info span {
+
+  font-size: 18px;
+}
+
+input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #666;
+  padding: 6px;
+  width: 50px;
+}
+
+.finish {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  padding: 0 20px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+
+}
+.finish button{
+    background: #3b83ff;
+    color: #fff;
+    border: 0;
+    width: 180px;
+    height: 60px;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.2s;
+}
+select {
+    width: 200px;
+    height: 50px;
+    border: 1px solid;
+    text-align: center;
+    font-size: 15px;
+}
+
+.total{
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+#nameProd{
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(59, 131, 255);
+}

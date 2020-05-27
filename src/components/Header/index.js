@@ -109,7 +109,7 @@ function Header() {
             <strong>Bem Vindo(a)!</strong>
             <Profile>{profile ? profile.name : 'Entre ou Cadastre-se'}</Profile>
           </div>
-          <Cart to="/">
+          <Cart to="/cart">
             <MdShoppingCart size={40} color="#000000" />
           </Cart>
         </User>
