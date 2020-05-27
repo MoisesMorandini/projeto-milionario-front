@@ -24,11 +24,8 @@ export const Content = styled.div`
   display: flex;
   width: 100%;
   heigth: 100%;
-  // margin-top: 100px;
-  // max-width: max-content;
   justify-content: center;
   text-align: center;
-  // background-color: #32a3d8;
 
   img {
     width: 45%;
@@ -43,7 +40,7 @@ export const Content = styled.div`
     align-items: flex-start;
   }
 
-  .resetPasswordContainer {
+  .resetPasswordContainer, .loginContainer {
     width: 100%;
     heigth: 100%;
     max-width: 450px;
@@ -82,7 +79,7 @@ export const Content = styled.div`
     }
   }
 
-  .countainerCadastro {
+  .createAccountContainer {
     width: 100%;
     max-width: 550px;
 
@@ -129,10 +126,11 @@ export const Content = styled.div`
     position: absolute;
     left: 0px;
     top: 48px;
-    color: #d12c38;
+    color: #DC3545;
     align-self: center;
     font-size: 14px;
     font-weight: bold;
+    margin-top: 1px;
   }
 
   button {

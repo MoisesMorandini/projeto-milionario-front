@@ -1,9 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import bolaOito from '~/assets/images/eight-ball.svg';
+import { MdPersonOutline } from 'react-icons/md';
+import {
+  AiOutlinePhone, AiOutlineMail, AiOutlineLock, AiOutlineIdcard,
+} from 'react-icons/ai';
+import enterpriseImage from '~/assets/images/github.png';
 import { signUpRequest } from '~/store/modules/auth/actions';
 
 const schema = Yup.object().shape({
@@ -12,28 +16,90 @@ const schema = Yup.object().shape({
     .email('Insira um e-mail válido')
     .required('O campo e-mail é obrigatório'),
 
+  cpf: Yup.string()
+    .min(11, 'Digite no mínimo 11 caracteres')
+    .max(11, 'Digite no máximo 11 caracteres')
+    .required('O campo CPF é obrigatório'),
+
+  rg: Yup.string()
+    .required('O campo RG é obrigatório'),
+
   password: Yup.string()
-    .min(6, 'A senha precisa de no mínimo 6 caracteres')
+    .min(6, 'Digite no mínimo 6 caracteres')
     .required('O campo senha é obrigatório'),
+
+  passwordConfirmation: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'As senhas não correspondem')
+    .required('O campo de confirmação é obrigatório'),
+
+  first_phone: Yup.string()
+    .min(8, 'Digite no mínimo 8 caracteres')
+    .required('O campo telefone é obrigatório'),
+
+  second_phone: Yup.string(),
 });
 
 export default function SignUn() {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
 
-  function handleSubmit({ name, email, password }) {
-    dispatch(signUpRequest(name, email, password));
+  function handleSubmit({
+    name, email, password, cpf, rg, first_phone, second_phone,
+  }) {
+    dispatch(signUpRequest(name, email, password, cpf, rg, first_phone, second_phone));
   }
 
   return (
     <>
-      <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="name" placeholder="Nome completo" />
-        <Input name="email" type="email" placeholder="Seu e-mail" />
-        <Input name="password" type="password" placeholder="Sua senha" />
-        <button type="submit">Criar conta</button>
+      <div className="createAccountContainer">
+        <img src={enterpriseImage} alt="VagnaoStore" />
+        <Form schema={schema} onSubmit={handleSubmit}>
+          <div className="inputDiv">
+            <MdPersonOutline />
+            <Input name="name" placeholder="Nome completo" />
+          </div>
+          <div className="inputDiv">
+            <AiOutlineMail />
+            <Input name="email" type="email" placeholder="E-mail" />
+          </div>
+          <div className="conjunto">
+            <div className="inputDiv">
+              <AiOutlineIdcard />
+              <Input name="cpf" type="text" placeholder="CPF" />
+            </div>
+            <div className="inputDiv">
+              <AiOutlineIdcard />
+              <Input name="rg" type="text" placeholder="RG" />
+            </div>
+          </div>
 
-        <Link to="/login">Já sou usuário</Link>
-      </Form>
+          <div className="conjunto">
+            <div className="inputDiv">
+              <AiOutlinePhone />
+              <Input name="first_phone" type="phone" placeholder="Telefone/Celular" />
+            </div>
+            <div className="inputDiv">
+              <AiOutlinePhone />
+              <Input name="second_phone" type="phone" placeholder="Telefone/Celular (opcional)" />
+            </div>
+          </div>
+
+          <div className="conjunto">
+            <div className="inputDiv">
+              <AiOutlineLock />
+              <Input name="password" type="password" placeholder="Senha" />
+            </div>
+
+            <div className="inputDiv">
+              <AiOutlineLock />
+              <Input name="passwordConfirmation" type="password" placeholder="Confirme sua senha" />
+            </div>
+          </div>
+          <button type="submit">{loading ? 'Carregando...' : 'Criar conta'}</button>
+          {/* <button type="submit">Criar conta</button> */}
+          <Link to="/login">Já sou usuário!</Link>
+        </Form>
+      </div>
     </>
   );
 }

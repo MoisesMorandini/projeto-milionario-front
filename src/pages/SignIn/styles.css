@@ -1,0 +1,15 @@
+.linkSignIn {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.linkSignIn a {
+  margin-left: 4px;
+  
+}
+
+.linkSignIn label {
+  color : #878787;
+  font-size: 18px;
+  font-weight:  bold;
+}
