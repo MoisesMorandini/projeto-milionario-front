@@ -27,8 +27,7 @@ export default function SignIn() {
   }
 
   function validatePassword() {
-    const re = /[0-9]/;
-    return password.length >= 6 && re.test(password);
+    return password.length >= 6;
   }
 
   async function resetPassword() {

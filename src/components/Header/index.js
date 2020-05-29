@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import {
   FaUserAlt,
   FaAngleDown,
@@ -29,9 +29,11 @@ import {
 } from './styles';
 import { signOut } from '../../store/modules/auth/actions';
 import apiBack from '../../services/apiBack';
+import history from '~/services/history';
 
 function Header() {
   const dispatch = useDispatch();
+  const signed = useSelector((state) => state.auth.signed);
 
   const profile = null; // useSelector(state => state.user.profile);
   const [departmentVisible, setDepartmentVisible] = useState(false);
@@ -45,8 +47,10 @@ function Header() {
   const departmentRef = useRef();
 
   function handleSignOut() {
-    dispatch(signOut());
+    // eslint-disable-next-line no-unused-expressions
+    signed ? dispatch(signOut()) : history.push('/login');
   }
+
   useEffect(() => {
     async function findDepartmentWithCategory() {
       setLoading(true);
@@ -103,7 +107,7 @@ function Header() {
           <button type="button">Pesquisar</button>
         </Input>
 
-        <User to="/">
+        <User>
           <FaUserAlt size={40} color="#000000" onClick={handleSignOut} />
           <div>
             <strong>Bem Vindo(a)!</strong>
@@ -181,8 +185,8 @@ function Header() {
                 </CategoryList>
               </>
             ) : (
-              <CircularProgress />
-            )}
+                <CircularProgress />
+              )}
           </DepartmentList>
         </Department>
       </Bottom>
