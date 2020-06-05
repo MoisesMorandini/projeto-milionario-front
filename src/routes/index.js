@@ -17,6 +17,9 @@ import UpdateDepartment from '~/pages/Admin/Department/Update';
 import UserAddress from '~/pages/User/Address';
 import StoreUserAddress from '~/pages/User/Address/Store';
 import UpdateUserAddress from '~/pages/User/Address/Update';
+import Banner from '~/pages/Admin/Banner';
+import StoreBanner from '~/pages/Admin/Banner/Store';
+import UpdateBanner from '~/pages/Admin/Banner/Update';
 
 
 export default function Routes() {
@@ -38,6 +41,9 @@ export default function Routes() {
       <Route path="/user/address/store" component={StoreUserAddress} />
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
+      <Route path="/admin/banner/update/:id" component={UpdateBanner} />
+      <Route path="/admin/banner/store" component={StoreBanner} />
+      <Route path="/admin/banner" component={Banner} />
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
