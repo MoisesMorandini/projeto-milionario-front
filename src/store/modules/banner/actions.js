@@ -34,7 +34,6 @@ export function deleteBannerFailure() {
   };
 }
 export function insertBannerRequest(data) {
-  console.log('BATE NOS ACTIONS');
   return {
     type: '@banner/INSERT_BANNER_REQUEST',
     payload: { data },

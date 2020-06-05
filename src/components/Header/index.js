@@ -9,6 +9,7 @@ import {
 import { MdShoppingCart } from 'react-icons/md';
 import { TiThMenu } from 'react-icons/ti';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Cart,
@@ -26,10 +27,12 @@ import {
   DepartmentName,
   DepartmentTittle,
   GoCategory,
+  Logotipo,
 } from './styles';
 import { signOut } from '../../store/modules/auth/actions';
 import apiBack from '../../services/apiBack';
 import history from '~/services/history';
+
 
 function Header() {
   const dispatch = useDispatch();
@@ -45,6 +48,15 @@ function Header() {
   const [department, setDepartment] = useState([]);
   const [loading, setLoading] = useState(false);
   const departmentRef = useRef();
+  const [logo, setLogo] = useState({});
+
+  useEffect(() => {
+    async function getLogo() {
+      const response = await apiBack.get('/logo/main');
+      setLogo(response.data.file);
+    }
+    getLogo();
+  }, []);
 
   function handleSignOut() {
     // eslint-disable-next-line no-unused-expressions
@@ -60,6 +72,7 @@ function Header() {
     }
     findDepartmentWithCategory();
   }, []);
+
   function setCategoryFalse() {
     setCategoryVisible(false);
   }
@@ -102,6 +115,10 @@ function Header() {
   return (
     <Container>
       <Head>
+        <Link to="/">
+          <Logotipo src={logo.url} alt="Projeto Milionário" />
+        </Link>
+
         <Input>
           <input placeholder="Procure o item que deseja! :)" />
           <button type="button">Pesquisar</button>
