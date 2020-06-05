@@ -44,7 +44,7 @@ export default function UserAddress() {
     const response = await apiBack.get(
       `users/address?page=${page}&limit=${limitView}`,
     );
-    console.log('response.data', response.data);
+
     setUserAddress(response.data);
     setUserAddresssCount(response.headers.x_total_count);
   }
