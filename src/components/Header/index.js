@@ -134,59 +134,63 @@ function Header() {
             {!loading ? (
               <>
                 {' '}
-                {department.map((dp, index) => (
-                  <EachDepartment
-                    key={dp.id}
-                    onClick={() => {
-                      handleCategoryVisible(index);
-                    }}
-                  >
-                    <DepartmentName>
-                      <div className="department-iten">
-                        <p>{dp.name}</p>
-                      </div>
-                      <div className="icon">
-                        <FaAngleRight size={30} color="666" />
-                      </div>
-                    </DepartmentName>
-                  </EachDepartment>
-                ))}
-                <CategoryList
-                  position={departmentIndex}
-                  categoryVisible={categoryVisible}
-                >
-                  <DepartmentTittle
-                    className="department-tittle-icon"
-                    categoryVisible={categoryVisible}
-                    key={departmentSelected}
-                  >
-                    <FaAngleLeft
-                      size={30}
-                      color="666"
-                      onClick={setCategoryFalse}
-                    />
-                    <div>
-                      <p>{departmentSelected}</p>
-                    </div>
-                  </DepartmentTittle>
-                  {category.map((cat) => (
-                    <EachCategory
-                      key={cat.id}
+                {department.length ? (
+                  <>
+                    {department.map((dp, index) => (
+                      <EachDepartment
+                        key={dp.id}
+                        onClick={() => {
+                          handleCategoryVisible(index);
+                        }}
+                      >
+                        <DepartmentName>
+                          <div className="department-iten">
+                            <p>{dp.name}</p>
+                          </div>
+                          <div className="icon">
+                            <FaAngleRight size={30} color="666" />
+                          </div>
+                        </DepartmentName>
+                      </EachDepartment>
+                    ))}
+                    <CategoryList
+                      position={departmentIndex}
                       categoryVisible={categoryVisible}
                     >
-                      <GoCategory
-                        to={`/list/${cat.id}`}
-                        onClick={handleShowDeparment}
+                      <DepartmentTittle
+                        className="department-tittle-icon"
+                        categoryVisible={categoryVisible}
+                        key={departmentSelected}
                       >
-                        <p>{cat.name}</p>
-                      </GoCategory>
-                    </EachCategory>
-                  ))}
-                </CategoryList>
+                        <FaAngleLeft
+                          size={30}
+                          color="666"
+                          onClick={setCategoryFalse}
+                        />
+                        <div>
+                          <p>{departmentSelected}</p>
+                        </div>
+                      </DepartmentTittle>
+                      {category.map((cat) => (
+                        <EachCategory
+                          key={cat.id}
+                          categoryVisible={categoryVisible}
+                        >
+                          <GoCategory
+                            to={`/list/${cat.id}`}
+                            onClick={handleShowDeparment}
+                          >
+                            <p>{cat.name}</p>
+                          </GoCategory>
+                        </EachCategory>
+                      ))}
+                    </CategoryList>
+                  </>
+                ) : (<div />)}
               </>
             ) : (
-                <CircularProgress />
-              )}
+              <CircularProgress />
+            )}
           </DepartmentList>
         </Department>
       </Bottom>

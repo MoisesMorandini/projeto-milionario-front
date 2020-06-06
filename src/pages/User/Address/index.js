@@ -126,56 +126,64 @@ export default function UserAddress() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {userAddress.map((address) => (
-                <TableRow key={address.id}>
-                  <TableCell component="th" scope="row">
-                    {address.street}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {address.street_number}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {address.complement}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {address.neighborhood}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {address.zipcode}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {address.city}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {address.state}
-                  </TableCell>
-                  <TableCell>
-                    <Link to={{
-                      pathname: '/user/address/update',
-                      state: { userAddress: address },
+              {
+                userAddress.length ? (
+                  <>
+                    {userAddress.map((address) => (
+                      <TableRow key={address.id}>
+                        <TableCell component="th" scope="row">
+                          {address.street}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.street_number}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.complement}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.neighborhood}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.zipcode}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.city}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.state}
+                        </TableCell>
+                        <TableCell>
+                          <Link to={{
+                            pathname: '/user/address/update',
+                            state: { userAddress: address },
 
-                    }}
-                    >
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                      >
-                        <MdEdit size={16} />
-                      </Button>
-                    </Link>
-                    <Button
-                      onClick={() => handleClickOpen(address.id)}
-                      className={classes.marginLeft}
-                      size="small"
-                      variant="contained"
-                      color="secondary"
-                    >
-                      <MdDelete size={16} />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+                          }}
+                          >
+                            <Button
+                              size="small"
+                              variant="contained"
+                              color="primary"
+                            >
+                              <MdEdit size={16} />
+                            </Button>
+                          </Link>
+                          <Button
+                            onClick={() => handleClickOpen(address.id)}
+                            className={classes.marginLeft}
+                            size="small"
+                            variant="contained"
+                            color="secondary"
+                          >
+                            <MdDelete size={16} />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </>
+                ) : (<div />)
+
+              }
+
             </TableBody>
           </Table>
           <CustomPagination

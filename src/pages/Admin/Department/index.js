@@ -115,34 +115,40 @@ export default function Department() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {departments.map((depart) => (
-                <TableRow key={depart.name}>
-                  <TableCell component="th" scope="row">
-                    {depart.name}
-                  </TableCell>
-                  <TableCell>
-                    <Link to={`/admin/department/update/${depart.id}`}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                      >
-                        <MdEdit size={16} />
-                      </Button>
-                    </Link>
-                    <Button
+              {
+                departments.length ? (
+                  <>
+                    {departments.map((depart) => (
+                      <TableRow key={depart.name}>
+                        <TableCell component="th" scope="row">
+                          {depart.name}
+                        </TableCell>
+                        <TableCell>
+                          <Link to={`/admin/department/update/${depart.id}`}>
+                            <Button
+                              size="small"
+                              variant="contained"
+                              color="primary"
+                            >
+                              <MdEdit size={16} />
+                            </Button>
+                          </Link>
+                          <Button
                       // onClick={() => handleDeleteDepartment(depart.id)}
-                      onClick={() => handleClickOpen(depart.id)}
-                      className={classes.marginLeft}
-                      size="small"
-                      variant="contained"
-                      color="secondary"
-                    >
-                      <MdDelete size={16} />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+                            onClick={() => handleClickOpen(depart.id)}
+                            className={classes.marginLeft}
+                            size="small"
+                            variant="contained"
+                            color="secondary"
+                          >
+                            <MdDelete size={16} />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </>
+                ) : (<div />)
+              }
             </TableBody>
           </Table>
           <CustomPagination
