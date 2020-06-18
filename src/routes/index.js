@@ -14,6 +14,9 @@ import ResetPassword from '../pages/ResetPassword';
 import Department from '~/pages/Admin/Department';
 import StoreDepartment from '~/pages/Admin/Department/Store';
 import UpdateDepartment from '~/pages/Admin/Department/Update';
+import UserAddress from '~/pages/User/Address';
+import StoreUserAddress from '~/pages/User/Address/Store';
+import UpdateUserAddress from '~/pages/User/Address/Update';
 
 
 export default function Routes() {
@@ -32,6 +35,9 @@ export default function Routes() {
       <Route path="/admin/department/update/:id" component={UpdateDepartment} />
       <Route path="/admin/department/store" component={StoreDepartment} />
       <Route path="/admin/department" component={Department} />
+      <Route path="/user/address/store" component={StoreUserAddress} />
+      <Route path="/user/address/update" component={UpdateUserAddress} />
+      <Route path="/user/address" component={UserAddress} />
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />

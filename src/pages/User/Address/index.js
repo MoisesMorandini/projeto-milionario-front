@@ -13,54 +13,59 @@ import {
   Grid,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
 } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdAdd } from 'react-icons/md';
+import { toast } from 'react-toastify';
 import apiBack from '../../../services/apiBack';
 import { TitleTable, ContainerTable, CustomPagination } from './style';
-import { deleteDepartmentRequest } from '~/store/modules/department/actions';
 
-export default function Department() {
-  const dispatch = useDispatch();
-  const [departments, setDepartment] = useState([]);
+export default function UserAddress() {
+  const [userAddress, setUserAddress] = useState([]);
   const [limitView, setLimiteView] = useState(50);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [departmentsCount, setDepartmentsCount] = useState(0);
-  const [open, setOpen] = React.useState(false);
-  const [idDeleteDepartment, setIdDeleteDepartment] = useState(0);
+  const [userAddressCount, setUserAddresssCount] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
+  const [idDeleteUserAddress, setIdDeleteUserAddress] = useState(0);
 
   const handlePaginationChange = (event, value) => {
     setPage(value);
   };
 
   useEffect(() => {
-    if (departmentsCount) {
-      setTotalPages(Math.trunc(departmentsCount / limitView) + 1);
+    if (userAddressCount) {
+      setTotalPages(Math.trunc(userAddressCount / limitView) + 1);
     }
-  }, [departmentsCount, limitView]);
+  }, [userAddressCount, limitView]);
 
-  async function getDepartment() {
+  async function getUserAddress() {
     const response = await apiBack.get(
-      `department?page=${page}&limit=${limitView}`,
+      `users/address?page=${page}&limit=${limitView}`,
     );
-    setDepartment(response.data);
-    setDepartmentsCount(response.headers.x_total_count);
+
+    setUserAddress(response.data);
+    setUserAddresssCount(response.headers.x_total_count);
   }
 
   useEffect(() => {
-    getDepartment();
+    getUserAddress();
   }, [limitView, page]);
 
-  async function handleDeleteDepartment() {
-    setOpen(false);
-    dispatch(deleteDepartmentRequest(idDeleteDepartment));
+  async function handleDeleteUserAddress() {
+    setOpenModal(false);
+    try {
+      await apiBack.delete(
+        `users/address/${idDeleteUserAddress}`,
+      );
+      toast.success('Endereço excluído com sucesso!');
+    } catch (error) {
+      toast.error('Erro ao excluir endereço!');
+    }
+
     setTimeout(() => {
-      getDepartment();
+      getUserAddress();
     }, 600);
   }
 
@@ -76,13 +81,13 @@ export default function Department() {
 
   const classes = useStyles();
 
-  const handleClickOpen = (idDepartmentClicked) => {
-    setOpen(true);
-    setIdDeleteDepartment(idDepartmentClicked);
+  const handleClickOpen = (idUserAddressClicked) => {
+    setOpenModal(true);
+    setIdDeleteUserAddress(idUserAddressClicked);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -95,8 +100,8 @@ export default function Department() {
             justify="space-between"
             alignItems="flex-start"
           >
-            <TitleTable>Departamentos</TitleTable>
-            <Link to="/admin/department/store">
+            <TitleTable>Endereços</TitleTable>
+            <Link to="/user/address/store">
               <Button
                 className={classes.marginTopRight}
                 variant="contained"
@@ -110,21 +115,50 @@ export default function Department() {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Nome</TableCell>
+                <TableCell>Rua</TableCell>
+                <TableCell>Número</TableCell>
+                <TableCell>Complemento</TableCell>
+                <TableCell>Bairro</TableCell>
+                <TableCell>CEP</TableCell>
+                <TableCell>Cidade</TableCell>
+                <TableCell>Estado</TableCell>
                 <TableCell>Ação</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {
-                departments.length ? (
+                userAddress.length ? (
                   <>
-                    {departments.map((depart) => (
-                      <TableRow key={depart.name}>
+                    {userAddress.map((address) => (
+                      <TableRow key={address.id}>
                         <TableCell component="th" scope="row">
-                          {depart.name}
+                          {address.street}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.street_number}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.complement}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.neighborhood}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.zipcode}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.city}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {address.state}
                         </TableCell>
                         <TableCell>
-                          <Link to={`/admin/department/update/${depart.id}`}>
+                          <Link to={{
+                            pathname: '/user/address/update',
+                            state: { userAddress: address },
+
+                          }}
+                          >
                             <Button
                               size="small"
                               variant="contained"
@@ -134,8 +168,7 @@ export default function Department() {
                             </Button>
                           </Link>
                           <Button
-                      // onClick={() => handleDeleteDepartment(depart.id)}
-                            onClick={() => handleClickOpen(depart.id)}
+                            onClick={() => handleClickOpen(address.id)}
                             className={classes.marginLeft}
                             size="small"
                             variant="contained"
@@ -148,7 +181,9 @@ export default function Department() {
                     ))}
                   </>
                 ) : (<div />)
+
               }
+
             </TableBody>
           </Table>
           <CustomPagination
@@ -162,19 +197,19 @@ export default function Department() {
         </TableContainer>
       </Container>
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={openModal}
+        onClose={handleCloseModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <b>Deseja realmente deletar o departamento?</b>
+          <b>Deseja realmente deletar o endereço?</b>
         </DialogTitle>
         <DialogActions>
-          <Button onClick={handleClose} color="default">
+          <Button onClick={handleCloseModal} color="default">
             Cancelar
           </Button>
-          <Button onClick={() => handleDeleteDepartment()} color="secondary" autoFocus>
+          <Button onClick={() => handleDeleteUserAddress()} color="secondary" autoFocus>
             Deletar
           </Button>
         </DialogActions>
