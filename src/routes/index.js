@@ -17,7 +17,12 @@ import UpdateDepartment from '~/pages/Admin/Department/Update';
 import UserAddress from '~/pages/User/Address';
 import StoreUserAddress from '~/pages/User/Address/Store';
 import UpdateUserAddress from '~/pages/User/Address/Update';
-
+import Banner from '~/pages/Admin/Banner';
+import StoreBanner from '~/pages/Admin/Banner/Store';
+import UpdateBanner from '~/pages/Admin/Banner/Update';
+import Logo from '~/pages/Admin/Logo';
+import StoreLogo from '~/pages/Admin/Logo/Store';
+import UpdateLogo from '~/pages/Admin/Logo/Update';
 
 export default function Routes() {
   return (
@@ -32,12 +37,25 @@ export default function Routes() {
       <Route path="/ball" component={() => <Home res="14" />} />
       <Route path="/other" component={() => <Home res="12" />} />
       <Route path="/cart" component={Cart} />
+
       <Route path="/admin/department/update/:id" component={UpdateDepartment} />
       <Route path="/admin/department/store" component={StoreDepartment} />
       <Route path="/admin/department" component={Department} />
+<<<<<<< HEAD
       <Route path="/user/address/store" component={StoreUserAddress} />
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
+=======
+
+>>>>>>> crud logo
+      <Route path="/admin/banner/update/:id" component={UpdateBanner} />
+      <Route path="/admin/banner/store" component={StoreBanner} />
+      <Route path="/admin/banner" component={Banner} />
+
+      <Route path="/admin/logo/update/:id" component={UpdateLogo} />
+      <Route path="/admin/logo/store" component={StoreLogo} />
+      <Route path="/admin/logo" component={Logo} />
+
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
