@@ -24,6 +24,7 @@ import Logo from '~/pages/Admin/Logo';
 import StoreLogo from '~/pages/Admin/Logo/Store';
 import UpdateLogo from '~/pages/Admin/Logo/Update';
 import HomeAdmin from '~/pages/Admin';
+import Address from '~/pages/Address';
 
 
 export default function Routes() {
@@ -48,13 +49,13 @@ export default function Routes() {
       <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
       <Route path="/admin/department" component={Department} adm isPrivate />
 
-      <Route path="/admin/banner/update/:id" component={UpdateBanner} adm isPrivate />
-      <Route path="/admin/banner/store" component={StoreBanner} adm isPrivate />
-      <Route path="/admin/banner" component={Banner} adm isPrivate />
+      <Route path="/admin/banner/update/:id" component={UpdateBanner} adm />
+      <Route path="/admin/banner/store" component={StoreBanner} adm />
+      <Route path="/admin/banner" component={Banner} adm />
 
-      <Route path="/admin/logo/update/:id" component={UpdateLogo} adm isPrivate />
-      <Route path="/admin/logo/store" component={StoreLogo} adm isPrivate />
-      <Route path="/admin/logo" component={Logo} adm isPrivate />
+      <Route path="/admin/logo/update/:id" component={UpdateLogo} adm />
+      <Route path="/admin/logo/store" component={StoreLogo} adm />
+      <Route path="/admin/logo" component={Logo} adm />
 
       <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
       <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
@@ -68,6 +69,7 @@ export default function Routes() {
       <Route path="/reset-password" component={ResetPassword} auth />
       <Route path="/product" component={Product} adm />
       <Route path="/payment" component={Payment} isPrivate />
+      <Route path="/address" component={Address} />
       <Route path="/orderview" component={Orderview} isPrivate />
       <Route path="/" component={() => <Home res="all" />} />
     </Switch>

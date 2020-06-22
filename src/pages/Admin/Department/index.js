@@ -126,7 +126,6 @@ export default function Department() {
                             </Button>
                           </Link>
                           <Button
-                      // onClick={() => handleDeleteDepartment(depart.id)}
                             onClick={() => handleClickOpen(depart.id)}
                             className={classes.marginLeft}
                             size="small"
@@ -139,7 +138,7 @@ export default function Department() {
                       </TableRow>
                     ))}
                   </>
-                ) : (<div />)
+                ) : ('')
               }
         </TableBody>
       </Table>
