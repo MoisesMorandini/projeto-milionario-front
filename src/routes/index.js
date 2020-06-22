@@ -23,6 +23,8 @@ import UpdateBanner from '~/pages/Admin/Banner/Update';
 import Logo from '~/pages/Admin/Logo';
 import StoreLogo from '~/pages/Admin/Logo/Store';
 import UpdateLogo from '~/pages/Admin/Logo/Update';
+import HomeAdmin from '~/pages/Admin';
+
 
 export default function Routes() {
   return (
@@ -38,23 +40,27 @@ export default function Routes() {
       <Route path="/other" component={() => <Home res="12" />} />
       <Route path="/cart" component={Cart} />
 
-      <Route path="/admin/department/update/:id" component={UpdateDepartment} />
-      <Route path="/admin/department/store" component={StoreDepartment} />
-      <Route path="/admin/department" component={Department} />
-<<<<<<< HEAD
       <Route path="/user/address/store" component={StoreUserAddress} />
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
-=======
 
->>>>>>> crud logo
-      <Route path="/admin/banner/update/:id" component={UpdateBanner} />
-      <Route path="/admin/banner/store" component={StoreBanner} />
-      <Route path="/admin/banner" component={Banner} />
+      <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
+      <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
+      <Route path="/admin/department" component={Department} adm isPrivate />
 
-      <Route path="/admin/logo/update/:id" component={UpdateLogo} />
-      <Route path="/admin/logo/store" component={StoreLogo} />
-      <Route path="/admin/logo" component={Logo} />
+      <Route path="/admin/banner/update/:id" component={UpdateBanner} adm isPrivate />
+      <Route path="/admin/banner/store" component={StoreBanner} adm isPrivate />
+      <Route path="/admin/banner" component={Banner} adm isPrivate />
+
+      <Route path="/admin/logo/update/:id" component={UpdateLogo} adm isPrivate />
+      <Route path="/admin/logo/store" component={StoreLogo} adm isPrivate />
+      <Route path="/admin/logo" component={Logo} adm isPrivate />
+
+      <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
+      <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
+      <Route path="/admin/department" component={Department} adm isPrivate />
+
+      <Route path="/admin" component={HomeAdmin} adm isPrivate />
 
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />

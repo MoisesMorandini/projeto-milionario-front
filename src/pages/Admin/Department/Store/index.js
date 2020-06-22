@@ -22,32 +22,28 @@ export default function StoreDepartment() {
   }
 
   return (
-    <ContainerTable>
-      <Container>
-        <TableContain className="tableContainer" component={Paper}>
-          <TitleTable>
-            <Link to="/admin/department/">
-              <Button color="default">
-                <MdNavigateBefore size={28} />
-              </Button>
-            </Link>
-            Adicionar departamento
-          </TitleTable>
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Form onSubmit={handleInsertDepartment}>
-              <InputDefault name="name" placeholder="Nome do departamento" />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                startIcon={<MdSave />}
-              >
-                Salvar
-              </Button>
-            </Form>
-          </Grid>
-        </TableContain>
-      </Container>
-    </ContainerTable>
+    <div>
+      <TitleTable>
+        <Link to="/admin/department/">
+          <Button color="default">
+            <MdNavigateBefore size={28} />
+          </Button>
+        </Link>
+        Adicionar departamento
+      </TitleTable>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Form onSubmit={handleInsertDepartment}>
+          <InputDefault name="name" placeholder="Nome do departamento" />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            startIcon={<MdSave />}
+          >
+            Salvar
+          </Button>
+        </Form>
+      </Grid>
+    </div>
   );
 }

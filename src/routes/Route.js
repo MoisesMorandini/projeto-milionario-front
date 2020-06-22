@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import DefaultLayout from '~/pages/_layouts/default';
 import AuthLayout from '~/pages/_layouts/auth';
+import Dashboard from '~/pages/_layouts/admin';
 import { store } from '~/store';
 
 export default function RouteWrapper({
@@ -14,16 +15,36 @@ export default function RouteWrapper({
 }) {
   const { signed } = store.getState().auth;
   const { user } = store.getState();
-  if (!signed && isPrivate) return <Redirect to="/login" />;
-  if (signed && auth) return <Redirect to="/" />;
-  if (user.profile) {
-    if (!user.profile.administrator && adm) return <Redirect to="/" />;
+
+  console.log('user:', user);
+  console.log('signed:', signed);
+  console.log('adm:', adm);
+  console.log('auth:', auth);
+  console.log('isPrivate', isPrivate);
+
+  let Layout = null;
+  if (user.profile && adm) {
+    if (user.profile.administrator) {
+      Layout = Dashboard;
+    } else {
+      return <Redirect to="/" />;
+    }
   }
-  const Layout = !auth ? DefaultLayout : AuthLayout;
+
+  if (signed && auth) {
+    return <Redirect to="/" />;
+  }
+
+  if (!signed && isPrivate) return <Redirect to="/login" />;
+
+
+  if (Layout == null) {
+    Layout = !auth ? DefaultLayout : AuthLayout;
+  }
   return (
     <Route
       {...rest}
-      render={props => (
+      render={(props) => (
         <Layout>
           <Component {...props} />
         </Layout>

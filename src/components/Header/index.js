@@ -32,6 +32,7 @@ import {
 import { signOut } from '../../store/modules/auth/actions';
 import apiBack from '../../services/apiBack';
 import history from '~/services/history';
+import { store } from '~/store';
 
 
 function Header() {
@@ -49,6 +50,7 @@ function Header() {
   const [loading, setLoading] = useState(false);
   const departmentRef = useRef();
   const [logo, setLogo] = useState({});
+  const { user } = store.getState();
 
   useEffect(() => {
     async function getLogo() {
@@ -125,10 +127,26 @@ function Header() {
         </Input>
 
         <User>
-          <FaUserAlt size={40} color="#000000" onClick={handleSignOut} />
+          {/* {user} */}
+          <FaUserAlt size={40} color="#000000" />
           <div>
             <strong>Bem Vindo(a)!</strong>
-            <Profile>{profile ? profile.name : 'Entre ou Cadastre-se'}</Profile>
+            <Profile>
+              {user.profile ? user.profile.name : 'Entre ou Cadastre-se'}
+            </Profile>
+            <>
+              {user.profile ? (
+                <Profile>
+                  {user.profile.administrator ? (
+                    <Link to="/admin">Acessar painel administrativo</Link>
+                  ) : (
+                    ''
+                  )}
+                </Profile>
+              ) : (
+                ''
+              )}
+            </>
           </div>
           <Cart to="/cart">
             <MdShoppingCart size={40} color="#000000" />
