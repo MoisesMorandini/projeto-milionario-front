@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Router } from 'react-router-dom';
@@ -15,8 +15,9 @@ import { store, persistor } from './store';
 function App() {
   return (
     <Provider store={store}>
+
+
       <PersistGate persistor={persistor}>
-        {/* deixar disponivel o nosso store da aplicacao, disponivel para todos os componentes */}
         <Router history={history}>
           <Routes />
           <GlobalStyle />

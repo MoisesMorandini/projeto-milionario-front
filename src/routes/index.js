@@ -4,11 +4,9 @@ import Route from './Route';
 import Home from '../pages/Home';
 import List from '../pages/List';
 import Cart from '../pages/Cart';
-import Payment from '../pages/Payment';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Product from '~/pages/Product';
-import Orderview from '~/pages/Overview';
 import ProductDetails from '../pages/ProductDetails';
 import ResetPassword from '../pages/ResetPassword';
 import Department from '~/pages/Admin/Department';
@@ -17,7 +15,9 @@ import UpdateDepartment from '~/pages/Admin/Department/Update';
 import UserAddress from '~/pages/User/Address';
 import StoreUserAddress from '~/pages/User/Address/Store';
 import UpdateUserAddress from '~/pages/User/Address/Update';
-
+import Checkout from '~/pages/Checkout';
+import CheckoutCancel from '~/pages/Checkout/Cancel';
+import CheckoutSuccess from '~/pages/Checkout/Success';
 
 export default function Routes() {
   return (
@@ -43,8 +43,12 @@ export default function Routes() {
       <Route path="/register" component={SignUp} auth />
       <Route path="/reset-password" component={ResetPassword} auth />
       <Route path="/product" component={Product} adm />
-      <Route path="/payment" component={Payment} isPrivate />
-      <Route path="/orderview" component={Orderview} isPrivate />
+
+      <Route path="/users/checkout/success" component={CheckoutSuccess} isPrivate />
+      <Route path="/users/checkout/cancel" component={CheckoutCancel} isPrivate />
+      <Route path="/users/checkout" component={Checkout} isPrivate />
+
+
       <Route path="/" component={() => <Home res="all" />} />
     </Switch>
   );
