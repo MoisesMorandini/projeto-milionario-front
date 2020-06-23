@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
 import * as CartActions from '../../store/modules/cart/actions';
-import { addInstallments, addTotal } from '~/store/modules/purchase/actions';
+
 import { formatPrice } from '../../util/format';
 import './style.css';
 import { Link } from 'react-router-dom';
+import apiBack from '~/services/apiBack';
 
 function Cart({
   cart, total, totalRaw, removeFromCart, updateAmountRequest,
 }) {
-  const dispatch = useDispatch();
-  const [installments, setInstallments] = useState(1);
+  const cartState = useSelector((state) => state.cart);
   function increment(product) {
     updateAmountRequest(product.id, product.amount + 1);
   }
@@ -24,20 +24,21 @@ function Cart({
   function decrement(product) {
     updateAmountRequest(product.id, product.amount - 1);
   }
-  function renderInstallments() {
-    return [...new Array(4)].map((item, idx) => {
-      const installment = idx + 1;
-      return (
-        <option value={installment}>
-          {`${installment} x ${formatPrice(totalRaw / installment)}`}
-        </option>
-      );
-    });
-  }
+  async function handleBuy() {
+    try {
+      const cartIdAmount = [];
+      cartState.forEach((c) => {
+        cartIdAmount.push({ id: c.id, amount: c.amount });
+      });
 
-  function handlePurchase() {
-    dispatch(addInstallments(installments));
-    dispatch(addTotal(totalRaw));
+      const response = await apiBack.post('users/buy', {
+        userAddress: 1,
+        cart: cartIdAmount,
+      });
+      window.location = response.data;
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 
   return (
@@ -89,16 +90,9 @@ function Cart({
       ))}
 
       <div className="finish">
-        <div className="select">
-          <select
-            onChange={(e) => setInstallments(e.target.value)}
-            className="select"
-          >
-            {renderInstallments()}
-          </select>
-        </div>
+
         <div className="button">
-          <button onClick={() => handlePurchase()}>Finalizar pedido</button>
+          <button onClick={() => handleBuy()}>Finalizar pedido</button>
         </div>
         <div className="total">
           <strong>Total: </strong>
