@@ -39,7 +39,7 @@ export default function SignIn() {
             <Input name="password" type="password" placeholder="Senha" />
           </div>
 
-          <Link to="">Esqueceu sua senha?</Link><br />
+          <Link to="/forgot-password">Esqueceu sua senha?</Link><br />
           <button type="submit">{loading ? 'Carregando...' : 'Acessar'}</button>
 
           <div className="linkSignIn">

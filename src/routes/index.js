@@ -15,9 +15,10 @@ import Department from '~/pages/Admin/Department';
 import StoreDepartment from '~/pages/Admin/Department/Store';
 import UpdateDepartment from '~/pages/Admin/Department/Update';
 import UserAddress from '~/pages/User/Address';
+import UserAccount from '~/pages/User/Account';
 import StoreUserAddress from '~/pages/User/Address/Store';
 import UpdateUserAddress from '~/pages/User/Address/Update';
-
+import ForgotPassword from '~/pages/ForgotPassword';
 
 export default function Routes() {
   return (
@@ -38,6 +39,11 @@ export default function Routes() {
       <Route path="/user/address/store" component={StoreUserAddress} />
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
+
+      <Route path="/user/account" component={UserAccount} />
+
+      <Route path="/forgot-password" component={ForgotPassword} auth />
+
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
