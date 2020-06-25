@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const TextHomePrimary = styled.h1`
   color: #272727;
   text-align: center;

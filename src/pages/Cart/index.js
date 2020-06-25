@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect, useSelector } from 'react-redux';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
   MdDelete,
+  MdAdd,
 } from 'react-icons/md';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import * as CartActions from '../../store/modules/cart/actions';
-
 import { formatPrice } from '../../util/format';
 import './style.css';
-import { Link } from 'react-router-dom';
-import apiBack from '~/services/apiBack';
 
 function Cart({
-  cart, total, totalRaw, removeFromCart, updateAmountRequest,
+  cart, total, removeFromCart, updateAmountRequest,
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const cartState = useSelector((state) => state.cart);
   function increment(product) {
     updateAmountRequest(product.id, product.amount + 1);
@@ -24,23 +31,14 @@ function Cart({
   function decrement(product) {
     updateAmountRequest(product.id, product.amount - 1);
   }
-  async function handleBuy() {
-    try {
-      const cartIdAmount = [];
-      cartState.forEach((c) => {
-        cartIdAmount.push({ id: c.id, amount: c.amount });
-      });
 
-      const response = await apiBack.post('users/buy', {
-        userAddress: 1,
-        cart: cartIdAmount,
-      });
-      window.location = response.data;
-    } catch (error) {
-      console.log('error', error);
-    }
-  }
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
   return (
     <div className="cart">
       {cart.map((product) => (
@@ -92,13 +90,33 @@ function Cart({
       <div className="finish">
 
         <div className="button">
-          <button onClick={() => handleBuy()}>Finalizar pedido</button>
+          <button type="button" onClick={() => handleClickOpen()}>Finalizar pedido</button>
         </div>
         <div className="total">
           <strong>Total: </strong>
           <span>{total}</span>
         </div>
       </div>
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <b>Deseja finalizar sua compra?</b>
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseModal} color="secondary">
+            Não
+          </Button>
+          <Link to="/users/payment/address">
+            <Button color="primary">
+              Sim
+            </Button>
+          </Link>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

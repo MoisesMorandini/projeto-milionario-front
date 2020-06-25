@@ -1,26 +1,34 @@
-import React, { useEffect } from 'react';
-import apiBack from '~/services/apiBack';
+import React from 'react';
+import { GiCancel } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import {
+  Container, TextHomePrimary, TextHomeSecondary, TextAlign,
+} from './styles';
 
 function CheckoutCancel() {
-  async function handleInsertUserAddress(data) {
-    try {
-      const a = { productId: 1 };
-      const response = await apiBack.post('users/buy', a);
-      console.log('response', response.data);
-      window.location = response.data;
-      // toast.success('Endereço adicionado com sucesso!');
-    } catch (error) {
-      // toast.error('Falha ao cadastrar endereço!');
-    }
-  }
-
-
   return (
-    <>
-      <div>
-        <h1>Cancel</h1>
-      </div>
-    </>
+    <Container>
+      <TextAlign>
+        <GiCancel size={100} color="#d9534f" />
+      </TextAlign>
+      <TextHomePrimary>
+        Sua compra falhou!
+      </TextHomePrimary>
+      <TextHomeSecondary>
+        Revise seus dados ou entre em contato com nossa equipe pelos nossos meios de comunicação.
+      </TextHomeSecondary>
+      <Link to="">
+        <TextAlign>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            Voltar para home
+          </Button>
+        </TextAlign>
+      </Link>
+    </Container>
   );
 }
 

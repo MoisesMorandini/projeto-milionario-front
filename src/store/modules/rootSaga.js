@@ -9,5 +9,5 @@ import logo from './logo/sagas';
 
 
 export default function* rootSaga() {
-  return yield all([cart, auth, user, purchase, product, department, banner, logo]);
+  return yield all([cart, auth, user, product, department, banner, logo]);
 }

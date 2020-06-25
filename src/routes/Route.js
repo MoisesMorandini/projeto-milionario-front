@@ -16,12 +16,6 @@ export default function RouteWrapper({
   const { signed } = store.getState().auth;
   const { user } = store.getState();
 
-  console.log('user:', user);
-  console.log('signed:', signed);
-  console.log('adm:', adm);
-  console.log('auth:', auth);
-  console.log('isPrivate', isPrivate);
-
   let Layout = null;
   if (user.profile && adm) {
     if (user.profile.administrator) {

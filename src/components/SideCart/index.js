@@ -162,7 +162,6 @@ function SideCart({
             <>
               <Scroll>
                 <ProductTableCart fullCart={fullCart}>
-
                   <tbody>
                     {cart.map((product) => (
                       <tr>

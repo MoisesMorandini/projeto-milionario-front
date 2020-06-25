@@ -21,6 +21,13 @@ export const ContainerTable = styled.div`
   .tableContainer{
     margin-left: 2em;
   }
+  .add-address{
+      margin: 2em;
+  }
+  .loading{
+    margin-top: 10%;
+    margin-left: 50%;
+  }
 `;
 
 export const useStyles = makeStyles((theme) => ({

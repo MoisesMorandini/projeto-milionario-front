@@ -16,7 +16,6 @@ function refresh() {
 }
 
 export function* insertLogo({ payload }) {
-  console.log('insert LOGo');
   try {
     const logo = payload.data;
 

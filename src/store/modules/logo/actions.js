@@ -1,5 +1,4 @@
 export function updateLogoRequest(data) {
-  console.log('data actions', data);
   return {
     type: '@logo/UPDATE_LOGO_REQUEST',
     payload: { data },
