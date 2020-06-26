@@ -8,7 +8,7 @@ import './styles.css';
 export default function ProductDetails() {
   const [product, setProduct] = useState({});
   const [techSpecifications, setTechSpecifications] = useState([]);
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function ProductDetails() {
       const response = await apiBack.get(`/product/${id}`);
       setProduct(response.data);
       setTechSpecifications(response.data.technical_specifications);
-      setImageUrl(response.data.file.url);
+      setImageUrl(response.data.file_products);
     }
     getProduct();
   }, []);
@@ -56,8 +56,13 @@ export default function ProductDetails() {
             width="100%"
             showIndicators
           >
-            <img src={imageUrl} alt={product.name} />
+            {imageUrl.map((images) => (
+              <div className="color">
+                <img src={images.file.url} alt={images.file.name} />
+              </div>
+            ))}
           </Carousel>
+
         </div>
         <div className="rightDiv">
           <h1>{product.name}</h1>

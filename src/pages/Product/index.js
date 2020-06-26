@@ -6,7 +6,9 @@ import {
   deleteProductRequest,
   insertProductRequest,
 } from '../../store/modules/product/actions';
-import { Container, Id, InputDefault, InputArea, Img } from './styles';
+import {
+  Container, Id, InputDefault, InputArea, Img,
+} from './styles';
 import { Avatar } from './AvatarInput/styles';
 import apiBack from '../../services/apiBack';
 import AvatarInput from './AvatarInput';

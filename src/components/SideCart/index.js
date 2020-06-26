@@ -166,7 +166,7 @@ function SideCart({
                     {cart.map((product) => (
                       <tr>
                         <td className="product-img">
-                          <img src={product.file.url} alt={product.file.name} />
+                          <img src={product.file_products[0].file.url} alt={product.file_products[0].file.name} />
                         </td>
                         <td className="product-info">
                           <strong>{product.name}</strong>

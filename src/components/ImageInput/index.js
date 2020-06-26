@@ -32,7 +32,6 @@ function ImageInput(image) {
     const response = await apiBack.post('files', data);
 
     const { id, url } = response.data;
-
     setFile(id);
     setPreview(url);
   }

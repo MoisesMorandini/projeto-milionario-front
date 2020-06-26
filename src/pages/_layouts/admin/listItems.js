@@ -15,7 +15,7 @@ export const mainListItems = (
         <ListItemText primary="Início" />
       </ListItem>
     </Link>
-    <Link to="/admin/category">
+    <Link to="/admin/categories">
       <ListItem button>
         <ListItemIcon>
           <MdViewCompact />
@@ -23,7 +23,7 @@ export const mainListItems = (
         <ListItemText primary="Categoria" />
       </ListItem>
     </Link>
-    <Link to="/admin/product">
+    <Link to="/admin/products">
       <ListItem button>
         <ListItemIcon>
           <MdViewCompact />

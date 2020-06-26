@@ -29,6 +29,12 @@ import CheckoutSuccess from '~/pages/Checkout/Success';
 import CheckoutCancel from '~/pages/Checkout/Cancel';
 import MyRequests from '~/pages/MyRequests';
 
+import Address from '~/pages/Address';
+import Category from '~/pages/Admin/Category';
+import StoreCategory from '~/pages/Admin/Category/Store';
+import UpdateCategory from '~/pages/Admin/Category/Update';
+import ProductAdmin from '~/pages/Admin/Product';
+import StoreProduct from '~/pages/Admin/Product/Store';
 
 export default function Routes() {
   return (
@@ -52,6 +58,13 @@ export default function Routes() {
       <Route path="/admin/banner/update/:id" component={UpdateBanner} adm />
       <Route path="/admin/banner/store" component={StoreBanner} adm />
       <Route path="/admin/banner" component={Banner} adm />
+
+      <Route path="/admin/categories" exact component={Category} adm isPrivate />
+      <Route path="/admin/categories/store" component={StoreCategory} adm isPrivate />
+      <Route path="/admin/categories/update/:id" component={UpdateCategory} adm isPrivate />
+
+      <Route path="/admin/products" exact component={ProductAdmin} adm isPrivate />
+      <Route path="/admin/products/store" exact component={StoreProduct} adm isPrivate />
 
       <Route path="/admin/logo/update/:id" component={UpdateLogo} adm />
       <Route path="/admin/logo/store" component={StoreLogo} adm />
