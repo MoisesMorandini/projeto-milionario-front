@@ -5,11 +5,26 @@ import {
   FaAngleDown,
   FaAngleRight,
   FaAngleLeft,
+  FaUser,
+  FaDoorOpen,
 } from 'react-icons/fa';
-import { MdShoppingCart } from 'react-icons/md';
-import { TiThMenu } from 'react-icons/ti';
+import {
+  MdShoppingCart,
+  MdKeyboardArrowDown,
+  MdAssignment,
+  MdLocationOn,
+  MdStore,
+  MdAdd,
+} from 'react-icons/md';
+import { TiThMenu, TiUserAdd } from 'react-icons/ti';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import Menu from '@material-ui/core/Menu';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import { GiExitDoor } from 'react-icons/gi';
 import {
   Container,
   Cart,
@@ -28,18 +43,18 @@ import {
   DepartmentTittle,
   GoCategory,
   Logotipo,
+  LinkMenu,
+  ButtonDropdown,
 } from './styles';
 import { signOut } from '../../store/modules/auth/actions';
 import apiBack from '../../services/apiBack';
 import history from '~/services/history';
 import { store } from '~/store';
 
-
 function Header() {
   const dispatch = useDispatch();
   const signed = useSelector((state) => state.auth.signed);
 
-  const profile = null; // useSelector(state => state.user.profile);
   const [departmentVisible, setDepartmentVisible] = useState(false);
   const [departmentIndex, setDepartmentIndex] = useState(0);
   const [departmentSelected, setDepartmentSelected] = useState();
@@ -51,6 +66,46 @@ function Header() {
   const departmentRef = useRef();
   const [logo, setLogo] = useState({});
   const { user } = store.getState();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const StyledMenu = withStyles({
+    paper: {
+      border: '1px solid #d3d4d5',
+    },
+  })((props) => (
+    <Menu
+      elevation={0}
+      getContentAnchorEl={null}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      {...props}
+    />
+  ));
+
+  const StyledMenuItem = withStyles((theme) => ({
+    root: {
+      '&:focus': {
+        backgroundColor: theme.palette.primary.main,
+        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+          color: theme.palette.common.white,
+        },
+      },
+    },
+  }))(MenuItem);
 
   useEffect(() => {
     async function getLogo() {
@@ -85,7 +140,6 @@ function Header() {
       setCategoryFalse();
     }
   };
-
   const handleShowDeparment = () => {
     setDepartmentVisible(!departmentVisible);
     setCategoryFalse();
@@ -127,26 +181,108 @@ function Header() {
         </Input>
 
         <User>
-          {/* {user} */}
           <FaUserAlt size={40} color="#000000" />
           <div>
-            <strong>Bem Vindo(a)!</strong>
             <Profile>
-              {user.profile ? user.profile.name : 'Entre ou Cadastre-se'}
-            </Profile>
-            <>
               {user.profile ? (
-                <Profile>
-                  {user.profile.administrator ? (
-                    <Link to="/admin">Acessar painel administrativo</Link>
-                  ) : (
-                    ''
-                  )}
-                </Profile>
+                <div>
+                  <ButtonDropdown onClick={handleClick}>
+                    <p>Olá,</p>
+                    {user.profile.name} <MdKeyboardArrowDown />
+                  </ButtonDropdown>
+
+                  <StyledMenu
+                    id="customized-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    {user.profile ? (
+                      <>
+                        {user.profile.administrator ? (
+                          <LinkMenu to="/admin">
+                            <StyledMenuItem>
+                              <ListItemIcon>
+                                <MdStore />
+                              </ListItemIcon>
+                              <ListItemText primary="Painel Administrativo" />
+                            </StyledMenuItem>
+                          </LinkMenu>
+                        ) : (
+                          ''
+                        )}
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    <LinkMenu to="/my-request">
+                      <StyledMenuItem>
+                        <ListItemIcon>
+                          <MdAssignment fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText primary="Meus Pedidos" />
+                      </StyledMenuItem>
+                    </LinkMenu>
+                    <LinkMenu to="/user/address">
+                      <StyledMenuItem>
+                        <ListItemIcon>
+                          <MdLocationOn fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText primary="Endereços" />
+                      </StyledMenuItem>
+                    </LinkMenu>
+                    <LinkMenu to="/user/address">
+                      <StyledMenuItem>
+                        <ListItemIcon>
+                          <FaUser fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText primary="Minha Conta" />
+                      </StyledMenuItem>
+                    </LinkMenu>
+                    <StyledMenuItem onClick={handleSignOut}>
+                      <ListItemIcon>
+                        <GiExitDoor fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText primary="Sair" />
+                    </StyledMenuItem>
+                  </StyledMenu>
+                </div>
               ) : (
-                ''
+                <>
+                  <a onClick={handleClick}>
+                    <strong>Olá, faça o seu login</strong>
+                    <strong>ou cadastre-se <MdKeyboardArrowDown /> </strong>
+                  </a>
+                  <div>
+                    <StyledMenu
+                      id="customized-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                    >
+                      <LinkMenu to="/login">
+                        <StyledMenuItem>
+                          <ListItemIcon>
+                            <FaDoorOpen fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText primary="Entrar" />
+                        </StyledMenuItem>
+                      </LinkMenu>
+                      <LinkMenu to="/register">
+                        <StyledMenuItem>
+                          <ListItemIcon>
+                            <TiUserAdd fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText primary="Cadastrar-se" />
+                        </StyledMenuItem>
+                      </LinkMenu>
+                    </StyledMenu>
+                  </div>
+                </>
               )}
-            </>
+            </Profile>
           </div>
           <Cart to="/cart">
             <MdShoppingCart size={40} color="#000000" />
@@ -221,7 +357,9 @@ function Header() {
                       ))}
                     </CategoryList>
                   </>
-                ) : (<div />)}
+                ) : (
+                  <div />
+                )}
               </>
             ) : (
               <CircularProgress />
