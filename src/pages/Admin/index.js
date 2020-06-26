@@ -1,6 +1,8 @@
 import React from 'react';
 import { MdPersonPin } from 'react-icons/md';
-import { TextHomePrimary, TextHomeSecondary, TextAlign } from './styles';
+import {
+  TextHomePrimary, TextHomeSecondary, TextAlign,
+} from './styles';
 
 export default function HomeAdmin() {
   return (

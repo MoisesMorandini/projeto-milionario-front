@@ -34,11 +34,15 @@ function Home() {
           width="100%"
           showIndicators
         >
-          {banners.map((banner) => (
-            <div className="color">
-              <img src={banner.file.url} alt={banner.name} />
-            </div>
-          ))}
+          {banners ? (
+            <>{banners.map((banner) => (
+              <div className="color">
+                <img src={banner.file.url} alt={banner.name} />
+              </div>
+            ))}
+            </>
+          ) : <div />}
+
         </Carousel>
       </div>
       <SideCart />

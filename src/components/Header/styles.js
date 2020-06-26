@@ -13,7 +13,6 @@ export const Head = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  // margin-left: 17%;
   @media (max-width: 1400px) {
     margin-left: 10%;
   }
@@ -233,6 +232,7 @@ export const DepartmentName = styled.div`
   align-items: center;
   margin-left: 3%;
   margin-right: 5%;
+  padding-bottom: 2%;
   @media (max-width: 950px) {
     width: 330px;
   }
@@ -318,6 +318,7 @@ export const DepartmentTittle = styled.div`
     flex-direction: column;
   }
   p {
+    margin: 0px;
     color: #666;
     font-size: 24px;
     text-decoration: underline;
@@ -327,6 +328,7 @@ export const EachCategory = styled.li`
   height: 30px;
   margin: 3%;
   padding: 2%;
+  padding-top: 0px;
   .title {
     padding: 0;
   }

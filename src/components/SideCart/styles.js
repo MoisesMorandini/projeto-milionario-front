@@ -100,7 +100,6 @@ export const Scroll = styled(PerfectScrollBar)`
 export const ProductTableCart = styled.table`
   margin-top: 10px;
   margin-left: 16px;
-
   thead th {
     color: #999;
     text-align: left;
@@ -111,8 +110,8 @@ export const ProductTableCart = styled.table`
     border-bottom: 1px solid #eee;
   }
   .product-info {
+    margin-top: 7%;
     width: 210px;
-    padding-left: 5px;
   }
   img {
     height: 65px;

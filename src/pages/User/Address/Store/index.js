@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Container, Paper, Grid, Button,
 } from '@material-ui/core';
 import { MdNavigateBefore, MdSave } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Form } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import {
@@ -14,11 +14,14 @@ import {
 } from './style';
 import apiBack from '~/services/apiBack';
 
+
 export default function StoreUserAddress() {
+  const { checkout } = useParams();
   async function handleInsertUserAddress(data) {
     try {
       await apiBack.post('users/address', data);
       toast.success('Endereço adicionado com sucesso!');
+      checkout ? window.location = '/users/payment/address' : window.location = '/user/address';
     } catch (error) {
       toast.error('Falha ao cadastrar endereço!');
     }
