@@ -25,6 +25,8 @@ import HomeAdmin from '~/pages/Admin';
 import CheckoutAddress from '~/pages/Checkout/Address';
 import CheckoutSuccess from '~/pages/Checkout/Success';
 import CheckoutCancel from '~/pages/Checkout/Cancel';
+import MyRequests from '~/pages/MyRequests';
+
 
 export default function Routes() {
   return (
@@ -55,6 +57,8 @@ export default function Routes() {
       <Route path="/admin/department" component={Department} adm isPrivate />
 
       <Route path="/admin" component={HomeAdmin} adm isPrivate />
+
+      <Route path="/my-requests" component={MyRequests} />
 
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />

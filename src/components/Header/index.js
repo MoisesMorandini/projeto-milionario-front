@@ -216,7 +216,7 @@ function Header() {
                     ) : (
                       ''
                     )}
-                    <LinkMenu to="/my-request">
+                    <LinkMenu to="/my-requests">
                       <StyledMenuItem>
                         <ListItemIcon>
                           <MdAssignment fontSize="small" />
@@ -232,7 +232,7 @@ function Header() {
                         <ListItemText primary="Endereços" />
                       </StyledMenuItem>
                     </LinkMenu>
-                    <LinkMenu to="/user/address">
+                    <LinkMenu to="/user/account">
                       <StyledMenuItem>
                         <ListItemIcon>
                           <FaUser fontSize="small" />
