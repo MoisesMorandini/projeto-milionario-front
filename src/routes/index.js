@@ -13,8 +13,10 @@ import Department from '~/pages/Admin/Department';
 import StoreDepartment from '~/pages/Admin/Department/Store';
 import UpdateDepartment from '~/pages/Admin/Department/Update';
 import UserAddress from '~/pages/User/Address';
+import UserAccount from '~/pages/User/Account';
 import StoreUserAddress from '~/pages/User/Address/Store';
 import UpdateUserAddress from '~/pages/User/Address/Update';
+import ForgotPassword from '~/pages/ForgotPassword';
 import Banner from '~/pages/Admin/Banner';
 import StoreBanner from '~/pages/Admin/Banner/Store';
 import UpdateBanner from '~/pages/Admin/Banner/Update';
@@ -38,6 +40,9 @@ export default function Routes() {
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
 
+      <Route path="/user/account" component={UserAccount} />
+
+      <Route path="/forgot-password" component={ForgotPassword} auth />
       <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
       <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
       <Route path="/admin/department" component={Department} adm isPrivate />
