@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Container, Paper, Grid, Button,
-} from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { MdNavigateBefore, MdSave } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Form } from '@rocketseat/unform';
-import {
-  TitleTable,
-  ContainerTable,
-  TableContain,
-  InputDefault,
-  Id,
-} from './style';
+import { TitleTable, InputDefault, Id } from './style';
 import { updateDepartmentRequest } from '~/store/modules/department/actions';
 import apiBack from '../../../../services/apiBack';
 
@@ -34,41 +26,37 @@ export default function UpdateDepartment() {
   }
 
   return (
-    <ContainerTable>
-      <Container>
-        <TableContain className="tableContainer" component={Paper}>
-          <TitleTable>
-            <Link to="/admin/department/">
-              <Button color="default">
-                <MdNavigateBefore size={28} />
-              </Button>
-            </Link>
-            Editar departamento
-          </TitleTable>
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Form
-              initialData={department}
-              key={department.id}
-              onSubmit={handleUpdateDepartment}
-            >
-              <Id name="id" />
-              <InputDefault
-                name="name"
-                defaultValue={department.name}
-                placeholder="Nome do departamento"
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                startIcon={<MdSave />}
-              >
-                Salvar
-              </Button>
-            </Form>
-          </Grid>
-        </TableContain>
-      </Container>
-    </ContainerTable>
+    <div>
+      <TitleTable>
+        <Link to="/admin/department/">
+          <Button color="default">
+            <MdNavigateBefore size={28} />
+          </Button>
+        </Link>
+        Editar departamento
+      </TitleTable>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Form
+          initialData={department}
+          key={department.id}
+          onSubmit={handleUpdateDepartment}
+        >
+          <Id name="id" />
+          <InputDefault
+            name="name"
+            defaultValue={department.name}
+            placeholder="Nome do departamento"
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            startIcon={<MdSave />}
+          >
+            Salvar
+          </Button>
+        </Form>
+      </Grid>
+    </div>
   );
 }

@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
   MdDelete,
+  MdAdd,
 } from 'react-icons/md';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import * as CartActions from '../../store/modules/cart/actions';
-import { addInstallments, addTotal } from '~/store/modules/purchase/actions';
 import { formatPrice } from '../../util/format';
 import './style.css';
-import { Link } from 'react-router-dom';
 
 function Cart({
-  cart, total, totalRaw, removeFromCart, updateAmountRequest,
+  cart, total, removeFromCart, updateAmountRequest,
 }) {
-  const dispatch = useDispatch();
-  const [installments, setInstallments] = useState(1);
+  const [expanded, setExpanded] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const cartState = useSelector((state) => state.cart);
   function increment(product) {
     updateAmountRequest(product.id, product.amount + 1);
   }
@@ -24,22 +31,14 @@ function Cart({
   function decrement(product) {
     updateAmountRequest(product.id, product.amount - 1);
   }
-  function renderInstallments() {
-    return [...new Array(4)].map((item, idx) => {
-      const installment = idx + 1;
-      return (
-        <option value={installment}>
-          {`${installment} x ${formatPrice(totalRaw / installment)}`}
-        </option>
-      );
-    });
-  }
 
-  function handlePurchase() {
-    dispatch(addInstallments(installments));
-    dispatch(addTotal(totalRaw));
-  }
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
   return (
     <div className="cart">
       {cart.map((product) => (
@@ -89,22 +88,35 @@ function Cart({
       ))}
 
       <div className="finish">
-        <div className="select">
-          <select
-            onChange={(e) => setInstallments(e.target.value)}
-            className="select"
-          >
-            {renderInstallments()}
-          </select>
-        </div>
+
         <div className="button">
-          <button onClick={() => handlePurchase()}>Finalizar pedido</button>
+          <button type="button" onClick={() => handleClickOpen()}>Finalizar pedido</button>
         </div>
         <div className="total">
           <strong>Total: </strong>
           <span>{total}</span>
         </div>
       </div>
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <b>Deseja finalizar sua compra?</b>
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseModal} color="secondary">
+            Não
+          </Button>
+          <Link to="/users/payment/address">
+            <Button color="primary">
+              Sim
+            </Button>
+          </Link>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

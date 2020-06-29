@@ -1,13 +1,24 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Carousel } from 'react-responsive-carousel';
 import { Container } from './styles';
 import ProductList from '../../components/ProductList';
+import apiBack from '../../services/apiBack';
 
 import SideCart from '../../components/SideCart';
 
 function Home() {
+  const [banners, setBanner] = useState([]);
+
+  useEffect(() => {
+    async function getBanner() {
+      const response = await apiBack.get('banner');
+      setBanner(response.data);
+    }
+    getBanner();
+  }, []);
+
   return (
     <Container>
       <div className="container-carousel">
@@ -23,15 +34,15 @@ function Home() {
           width="100%"
           showIndicators
         >
-          <div className="color">
-            <img src="https://www.eberspaecher.es/fileadmin/data/corporatesite/images/header_1700x400/fuel_operated_heaters/eberspaecher-header-easystart-web-1700x400.jpg" />
-          </div>
-          <div className="color">
-            <img src="https://upload-projeto-milionario.s3.amazonaws.com/d181214557624f02bf90393303239af8.png" />
-          </div>
-          <div className="color">
-            <img src="https://www.unigestion.com/wp-content/uploads/2019/02/1700x400-bandeau_waterfall.jpg" />
-          </div>
+          {banners ? (
+            <>{banners.map((banner) => (
+              <div className="color">
+                <img src={banner.file.url} alt={banner.name} />
+              </div>
+            ))}
+            </>
+          ) : <div />}
+
         </Carousel>
       </div>
       <SideCart />

@@ -4,11 +4,9 @@ import Route from './Route';
 import Home from '../pages/Home';
 import List from '../pages/List';
 import Cart from '../pages/Cart';
-import Payment from '../pages/Payment';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Product from '~/pages/Product';
-import Orderview from '~/pages/Overview';
 import ProductDetails from '../pages/ProductDetails';
 import ResetPassword from '../pages/ResetPassword';
 import Department from '~/pages/Admin/Department';
@@ -19,23 +17,25 @@ import UserAccount from '~/pages/User/Account';
 import StoreUserAddress from '~/pages/User/Address/Store';
 import UpdateUserAddress from '~/pages/User/Address/Update';
 import ForgotPassword from '~/pages/ForgotPassword';
+import Banner from '~/pages/Admin/Banner';
+import StoreBanner from '~/pages/Admin/Banner/Store';
+import UpdateBanner from '~/pages/Admin/Banner/Update';
+import Logo from '~/pages/Admin/Logo';
+import StoreLogo from '~/pages/Admin/Logo/Store';
+import UpdateLogo from '~/pages/Admin/Logo/Update';
+import HomeAdmin from '~/pages/Admin';
+import CheckoutAddress from '~/pages/Checkout/Address';
+import CheckoutSuccess from '~/pages/Checkout/Success';
+import CheckoutCancel from '~/pages/Checkout/Cancel';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={() => <Home res="" />} />
       <Route path="/list/:id" exact component={() => <List />} />
-      {/* deixar apenas /, podemos la dentro chamar, produts/ e os outros product/:pros */}
-      <Route path="/cue" component={() => <Home res="1" />} />
-      <Route path="/shirt" component={() => <Home res="9" />} />
-      <Route path="/table" component={() => <Home res="10" />} />
-      <Route path="/chalk" component={() => <Home res="11" />} />
-      <Route path="/ball" component={() => <Home res="14" />} />
-      <Route path="/other" component={() => <Home res="12" />} />
       <Route path="/cart" component={Cart} />
-      <Route path="/admin/department/update/:id" component={UpdateDepartment} />
-      <Route path="/admin/department/store" component={StoreDepartment} />
-      <Route path="/admin/department" component={Department} />
+
+      <Route path="/user/address/store/:checkout" component={StoreUserAddress} />
       <Route path="/user/address/store" component={StoreUserAddress} />
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
@@ -43,14 +43,32 @@ export default function Routes() {
       <Route path="/user/account" component={UserAccount} />
 
       <Route path="/forgot-password" component={ForgotPassword} auth />
+      <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
+      <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
+      <Route path="/admin/department" component={Department} adm isPrivate />
+
+      <Route path="/admin/banner/update/:id" component={UpdateBanner} adm />
+      <Route path="/admin/banner/store" component={StoreBanner} adm />
+      <Route path="/admin/banner" component={Banner} adm />
+
+      <Route path="/admin/logo/update/:id" component={UpdateLogo} adm />
+      <Route path="/admin/logo/store" component={StoreLogo} adm />
+      <Route path="/admin/logo" component={Logo} adm />
+
+      <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
+      <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
+      <Route path="/admin/department" component={Department} adm isPrivate />
+
+      <Route path="/admin" component={HomeAdmin} adm isPrivate />
 
       <Route path="/product/:id" component={ProductDetails} />
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
       <Route path="/reset-password" component={ResetPassword} auth />
       <Route path="/product" component={Product} adm />
-      <Route path="/payment" component={Payment} isPrivate />
-      <Route path="/orderview" component={Orderview} isPrivate />
+      <Route path="/users/payment/address" component={CheckoutAddress} isPrivate />
+      <Route path="/users/checkout/success" component={CheckoutSuccess} isPrivate />
+      <Route path="/users/checkout/cancel" component={CheckoutCancel} isPrivate />
       <Route path="/" component={() => <Home res="all" />} />
     </Switch>
   );

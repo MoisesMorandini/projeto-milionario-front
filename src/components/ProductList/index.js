@@ -80,7 +80,6 @@ function ProductList({ amount, addToCartRequest }) {
         );
       }
       data = formatResponse(response.data);
-      console.log('data', data);
       setProductsCount(response.headers.x_total_count);
       setProducts(data);
       setLoading(false);

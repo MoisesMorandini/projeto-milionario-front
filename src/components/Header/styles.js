@@ -13,7 +13,6 @@ export const Head = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 17%;
   @media (max-width: 1400px) {
     margin-left: 10%;
   }
@@ -203,7 +202,7 @@ export const DepartmentContainer = styled.div`
 `;
 export const DepartmentList = styled.ul`
   position: absolute;
-  display: ${props => (props.departmentVisible ? 'flex' : 'none')};
+  display: ${(props) => (props.departmentVisible ? 'flex' : 'none')};
 
   flex-direction: column;
   top: calc(100%);
@@ -233,6 +232,7 @@ export const DepartmentName = styled.div`
   align-items: center;
   margin-left: 3%;
   margin-right: 5%;
+  padding-bottom: 2%;
   @media (max-width: 950px) {
     width: 330px;
   }
@@ -284,10 +284,10 @@ export const CategoryList = styled.ul`
   @media (max-width: 400px) {
     width: 275px;
   }
-  top: ${props => props.position};
+  top: ${(props) => props.position};
   width: 400px;
   border-left: 1px solid #f1f1f1;
-  box-shadow: ${props => (props.categoryVisible ? '-5px 0px 10px 1px #666' : 'none')};
+  box-shadow: ${(props) => (props.categoryVisible ? '-5px 0px 10px 1px #666' : 'none')};
   box-shadow: 0;
   background-color: #fff;
   div:last-child {
@@ -310,7 +310,7 @@ export const DepartmentTittle = styled.div`
   .title {
     padding: 0;
   }
-  display: ${props => (props.categoryVisible ? 'flex' : 'none')};
+  display: ${(props) => (props.categoryVisible ? 'flex' : 'none')};
   @media (max-width: 725px) {
     display: 'none';
   }
@@ -318,6 +318,7 @@ export const DepartmentTittle = styled.div`
     flex-direction: column;
   }
   p {
+    margin: 0px;
     color: #666;
     font-size: 24px;
     text-decoration: underline;
@@ -327,10 +328,11 @@ export const EachCategory = styled.li`
   height: 30px;
   margin: 3%;
   padding: 2%;
+  padding-top: 0px;
   .title {
     padding: 0;
   }
-  display: ${props => (props.categoryVisible ? 'flex' : 'none')};
+  display: ${(props) => (props.categoryVisible ? 'flex' : 'none')};
   @media (max-width: 725px) {
     display: 'none';
   }
@@ -343,5 +345,18 @@ export const EachCategory = styled.li`
 export const GoCategory = styled(Link)`
   p {
     color: #666;
+  }
+`;
+
+
+export const Logotipo = styled.img`
+  height: 130px;
+  transition: 0.5s;
+  margin-right: 30px;
+
+  :hover{
+    opacity: 0.5;
+    transition: 0.5s;
+  }
   }
 `;
