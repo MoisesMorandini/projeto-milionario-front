@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { darken } from 'polished';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const Container = styled.header`
   background-color: #eaeaea;
@@ -79,7 +80,7 @@ export const Input = styled.div`
   }
 `;
 
-export const User = styled(Link)`
+export const User = styled.div`
   height: 50px;
   display: flex;
   flex-direction: row;
@@ -90,9 +91,6 @@ export const User = styled(Link)`
   margin-left: 5%;
   @media (max-width: 1300px) {
     margin-left: 2%;
-  }
-  &:hover {
-    opacity: 0.8;
   }
   div {
     margin-left: 10px;
@@ -360,3 +358,27 @@ export const Logotipo = styled.img`
   }
   }
 `;
+
+export const LinkMenu = styled(Link)`
+  color: #000;
+  }
+`;
+
+
+export const ButtonDropdown = styled.a`
+  text-decoration: none;
+
+  :hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transation: 0.2s;
+  }
+  }
+`;
+
+export const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
