@@ -20,23 +20,21 @@ import { Link } from 'react-router-dom';
 import {
   MdEdit, MdDelete, MdAdd, MdRemoveRedEye,
 } from 'react-icons/md';
-import { Carousel } from 'react-responsive-carousel';
+
+import { toast } from 'react-toastify';
 import apiBack from '../../../services/apiBack';
 import { TitleTable, ContainerTable, CustomPagination } from './style';
-import { deleteDepartmentRequest } from '~/store/modules/department/actions';
 
 
-export default function Department() {
-  const dispatch = useDispatch();
+export default function Product() {
   const [products, setProducts] = useState([]);
   const [limitView, setLimiteView] = useState(50);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [productsCount, setProductsCount] = useState(0);
   const [open, setOpen] = React.useState(false);
-  const [idDeleteDepartment, setIdDeleteDepartment] = useState(0);
-  const [techSpecifications, setTechSpecifications] = useState([]);
-  const [imageUrl, setImageUrl] = useState([]);
+  const [idDeleteProduct, setIdDeleteProduct] = useState(0);
+
 
   const handlePaginationChange = (event, value) => {
     setPage(value);
@@ -53,11 +51,6 @@ export default function Department() {
       `products?page=${page}&limit=${limitView}`,
     );
     setProducts(response.data);
-    // for (let i = 0; i < response.data.length; i++) {
-    //   setImageUrl(response.data[i].file_products);
-    // }
-    setImageUrl(response.data[0].file_products[2]);
-    setTechSpecifications(response.data[0].technical_specifications);
     setProductsCount(response.headers.x_total_count);
   }
 
@@ -65,12 +58,17 @@ export default function Department() {
     getProducts();
   }, [limitView, page]);
 
-  async function handleDeleteDepartment() {
+  async function handleDeleteProduct() {
     setOpen(false);
-    dispatch(deleteDepartmentRequest(idDeleteDepartment));
-    setTimeout(() => {
+    try {
+      await apiBack.delete(
+        `product/${idDeleteProduct}`,
+      );
+      toast.success('Produto excluído com sucesso!');
       getProducts();
-    }, 600);
+    } catch (error) {
+      toast.error('Erro ao excluir Produto!');
+    }
   }
   const useStyles = makeStyles(() => ({
     marginLeft: {
@@ -84,9 +82,9 @@ export default function Department() {
 
   const classes = useStyles();
 
-  const handleClickOpen = (idDepartmentClicked) => {
+  const handleClickOpen = (idProduct) => {
     setOpen(true);
-    setIdDeleteDepartment(idDepartmentClicked);
+    setIdDeleteProduct(idProduct);
   };
 
   const handleClose = () => {
@@ -130,7 +128,8 @@ export default function Department() {
               {products.map((product) => (
                 <TableRow key={product.name}>
                   <TableCell component="th" scope="row">
-                    <img src={product.file_products[0].file.url} alt={product.name} height="100px;" />
+                    {product.file_products.length ? <img src={product.file_products[0].file.url} alt={product.name} height="100px;" /> : <></>}
+
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {product.name}
@@ -145,7 +144,7 @@ export default function Department() {
                     {product.stock}
                   </TableCell>
                   <TableCell>
-                    <Link to={`/admin/banner/update/${product.id}`}>
+                    <Link to={`/admin/products/update/${product.id}`}>
                       <Button size="small" variant="contained" color="primary">
                         <MdEdit size={16} />
                       </Button>
@@ -165,7 +164,6 @@ export default function Department() {
                       onClick={() => handleClickOpen(product.id)}
                       size="small"
                       variant="contained"
-
                     >
                       <MdRemoveRedEye size={16} />
                     </Link>
@@ -191,31 +189,18 @@ export default function Department() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <b>Imagens do produto</b>
+          <b>Deseja realmente deletar o produto?</b>
         </DialogTitle>
         <DialogActions>
-
-          <div>
-            <Carousel
-              showThumbs={false}
-              showStatus={false}
-              showArrows
-              useKeyboardArrows
-              interval={false}
-              stopOnHover
-              infiniteLoop
-              width="100%"
-              showIndicators
-            >
-              {products.map((images) => (
-                <div className="color">
-                  <img src={images.file_products[0].file.url} alt={images} />
-                </div>
-              ))}
-            </Carousel>
-          </div>
           <Button onClick={handleClose} color="default">
-            Fechar
+            Cancelar
+          </Button>
+          <Button
+            onClick={() => handleDeleteProduct()}
+            color="secondary"
+            autoFocus
+          >
+            Deletar
           </Button>
         </DialogActions>
       </Dialog>

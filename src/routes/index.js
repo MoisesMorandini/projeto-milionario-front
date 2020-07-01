@@ -35,6 +35,7 @@ import StoreCategory from '~/pages/Admin/Category/Store';
 import UpdateCategory from '~/pages/Admin/Category/Update';
 import ProductAdmin from '~/pages/Admin/Product';
 import StoreProduct from '~/pages/Admin/Product/Store';
+import UpdateProduct from '~/pages/Admin/Product/Update';
 
 export default function Routes() {
   return (
@@ -44,6 +45,7 @@ export default function Routes() {
       <Route path="/cart" component={Cart} />
 
       <Route path="/user/address/store/:checkout" component={StoreUserAddress} />
+      {/* deixar apenas /, podemos la dentro chamar, produts/ e os outros product/:pros */}
       <Route path="/user/address/store" component={StoreUserAddress} />
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
@@ -65,6 +67,7 @@ export default function Routes() {
 
       <Route path="/admin/products" exact component={ProductAdmin} adm isPrivate />
       <Route path="/admin/products/store" exact component={StoreProduct} adm isPrivate />
+      <Route path="/admin/products/update/:id" exact component={UpdateProduct} adm isPrivate />
 
       <Route path="/admin/logo/update/:id" component={UpdateLogo} adm />
       <Route path="/admin/logo/store" component={StoreLogo} adm />
@@ -82,10 +85,16 @@ export default function Routes() {
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
       <Route path="/reset-password" component={ResetPassword} auth />
+<<<<<<< HEAD
       <Route path="/product" component={Product} adm />
       <Route path="/users/payment/address" component={CheckoutAddress} isPrivate />
       <Route path="/users/checkout/success" component={CheckoutSuccess} isPrivate />
       <Route path="/users/checkout/cancel" component={CheckoutCancel} isPrivate />
+=======
+      <Route path="/payment" component={Payment} isPrivate />
+      <Route path="/address" component={Address} />
+      <Route path="/orderview" component={Orderview} isPrivate />
+>>>>>>> crud produto
       <Route path="/" component={() => <Home res="all" />} />
     </Switch>
   );
