@@ -102,80 +102,79 @@ export default function Logo() {
   return (
     <ContainerTable>
       <Container>
-        <TableContainer className="tableContainer" component={Paper}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <TitleTable>Logotipo</TitleTable>
-            <Link to="/admin/logo/store">
-              <Button
-                className={classes.marginTopRight}
-                variant="contained"
-                color="primary"
-                disable={setLogosCount >= 1}
-              >
-                <MdAdd size={22} /> Adicionar
-              </Button>
-            </Link>
-          </Grid>
 
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Imagem</TableCell>
-                <TableCell>Nome</TableCell>
-                <TableCell>Ação</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {logos ? (
-                <>{logos.map((logo) => (
-                  <TableRow key={logo.name}>
-                    <TableCell component="th" scope="row">
-                      <img src={logo.file.url} alt={logo.name} height="100px;" />
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {logo.name}
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        onClick={() => handleUpdateClickOpen(logo.id)}
-                        className={classes.marginLeft}
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                      >
-                        <MdEdit size={16} />
-                      </Button>
-                      <Button
-                        onClick={() => handleDeleteClickOpen(logo.id)}
-                        className={classes.marginLeft}
-                        size="small"
-                        variant="contained"
-                        color="secondary"
-                      >
-                        <MdDelete size={16} />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                </>
-              ) : <></>}
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <TitleTable>Logotipo</TitleTable>
+          <Link to="/admin/logo/store">
+            <Button
+              className={classes.marginTopRight}
+              variant="contained"
+              color="primary"
+              disable={setLogosCount >= 1}
+            >
+              <MdAdd size={22} /> Adicionar
+            </Button>
+          </Link>
+        </Grid>
 
-            </TableBody>
-          </Table>
-          <CustomPagination
-            count={totalPages}
-            color="primary"
-            page={page}
-            size="large"
-            onChange={handlePaginationChange}
-            className="pagination"
-          />
-        </TableContainer>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Imagem</TableCell>
+              <TableCell>Nome</TableCell>
+              <TableCell>Ação</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {logos ? (
+              <>{logos.map((logo) => (
+                <TableRow key={logo.name}>
+                  <TableCell component="th" scope="row">
+                    <img src={logo.file.url} alt={logo.name} height="100px;" />
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {logo.name}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={() => handleUpdateClickOpen(logo.id)}
+                      className={classes.marginLeft}
+                      size="small"
+                      variant="contained"
+                      color="primary"
+                    >
+                      <MdEdit size={16} />
+                    </Button>
+                    <Button
+                      onClick={() => handleDeleteClickOpen(logo.id)}
+                      className={classes.marginLeft}
+                      size="small"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      <MdDelete size={16} />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+              </>
+            ) : <></>}
+
+          </TableBody>
+        </Table>
+        <CustomPagination
+          count={totalPages}
+          color="primary"
+          page={page}
+          size="large"
+          onChange={handlePaginationChange}
+          className="pagination"
+        />
       </Container>
       <Dialog
         open={open}

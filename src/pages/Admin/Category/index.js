@@ -87,74 +87,74 @@ export default function Category() {
   return (
     <ContainerTable>
       <Container>
-        <TableContainer className="tableContainer" component={Paper}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <TitleTable>Categorias</TitleTable>
-            <Link to="/admin/categories/store">
-              <Button
-                className={classes.marginTopRight}
-                variant="contained"
-                color="primary"
-              >
-                <MdAdd size={22} /> Adicionar
-              </Button>
-            </Link>
-          </Grid>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nome</TableCell>
-                <TableCell>Departamento</TableCell>
-                <TableCell>Ação</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {categories.map((category) => (
-                <TableRow key={category.name}>
-                  <TableCell component="th" scope="row">
-                    {category.name}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {category.department.name}
-                  </TableCell>
-                  <TableCell>
-                    <Link to={`/admin/categories/update/${category.id}`}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                      >
-                        <MdEdit size={16} />
-                      </Button>
-                    </Link>
+
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <TitleTable>Categorias</TitleTable>
+          <Link to="/admin/categories/store">
+            <Button
+              className={classes.marginTopRight}
+              variant="contained"
+              color="primary"
+            >
+              <MdAdd size={22} /> Adicionar
+            </Button>
+          </Link>
+        </Grid>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Nome</TableCell>
+              <TableCell>Departamento</TableCell>
+              <TableCell>Ação</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {categories.map((category) => (
+              <TableRow key={category.name}>
+                <TableCell component="th" scope="row">
+                  {category.name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {category.department.name}
+                </TableCell>
+                <TableCell>
+                  <Link to={`/admin/categories/update/${category.id}`}>
                     <Button
-                      onClick={() => handleClickOpen(category.id)}
-                      className={classes.marginLeft}
                       size="small"
                       variant="contained"
-                      color="secondary"
+                      color="primary"
                     >
-                      <MdDelete size={16} />
+                      <MdEdit size={16} />
                     </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <CustomPagination
-            count={totalPages}
-            color="primary"
-            page={page}
-            size="large"
-            onChange={handlePaginationChange}
-            className="pagination"
-          />
-        </TableContainer>
+                  </Link>
+                  <Button
+                    onClick={() => handleClickOpen(category.id)}
+                    className={classes.marginLeft}
+                    size="small"
+                    variant="contained"
+                    color="secondary"
+                  >
+                    <MdDelete size={16} />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <CustomPagination
+          count={totalPages}
+          color="primary"
+          page={page}
+          size="large"
+          onChange={handlePaginationChange}
+          className="pagination"
+        />
+
       </Container>
       <Dialog
         open={open}

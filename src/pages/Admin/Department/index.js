@@ -11,12 +11,13 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Container,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdAdd } from 'react-icons/md';
 import apiBack from '../../../services/apiBack';
-import { TitleTable, CustomPagination } from './style';
+import { TitleTable, CustomPagination, ContainerTable } from './style';
 import { deleteDepartmentRequest } from '~/store/modules/department/actions';
 
 export default function Department() {
@@ -81,33 +82,34 @@ export default function Department() {
   };
 
   return (
-    <div>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="flex-start"
-      >
-        <TitleTable>Departamentos</TitleTable>
-        <Link to="/admin/department/store">
-          <Button
-            className={classes.marginTopRight}
-            variant="contained"
-            color="primary"
-          >
-            <MdAdd size={22} /> Adicionar
-          </Button>
-        </Link>
-      </Grid>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Nome</TableCell>
-            <TableCell>Ação</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {
+    <ContainerTable>
+      <Container>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <TitleTable>Departamentos</TitleTable>
+          <Link to="/admin/department/store">
+            <Button
+              className={classes.marginTopRight}
+              variant="contained"
+              color="primary"
+            >
+              <MdAdd size={22} /> Adicionar
+            </Button>
+          </Link>
+        </Grid>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Nome</TableCell>
+              <TableCell>Ação</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
                 departments.length ? (
                   <>
                     {departments.map((depart) => (
@@ -140,16 +142,17 @@ export default function Department() {
                   </>
                 ) : ('')
               }
-        </TableBody>
-      </Table>
-      <CustomPagination
-        count={totalPages}
-        color="primary"
-        page={page}
-        size="large"
-        onChange={handlePaginationChange}
-        className="pagination"
-      />
+          </TableBody>
+        </Table>
+        <CustomPagination
+          count={totalPages}
+          color="primary"
+          page={page}
+          size="large"
+          onChange={handlePaginationChange}
+          className="pagination"
+        />
+      </Container>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -172,6 +175,6 @@ export default function Department() {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </ContainerTable>
   );
 }
