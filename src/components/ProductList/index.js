@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MdShoppingCart } from 'react-icons/md';
 import { FiMeh } from 'react-icons/fi';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as CartActions from '../../store/modules/cart/actions';
 import { formatPrice } from '../../util/format';
@@ -20,7 +19,7 @@ function ProductList({ amount, addToCartRequest }) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [productsCount, setProductsCount] = useState(0);
-  const { id } = useParams();
+  const { id, name } = useParams();
   const [categoryId, setCategoryId] = useState(id);
   const [loading, setLoading] = useState(false);
   const [loadingSize, setLoadingSize] = useState(100);
@@ -73,6 +72,10 @@ function ProductList({ amount, addToCartRequest }) {
       if (categoryId) {
         response = await apiBack.get(
           `products/search?page=${page}&limit=${limitView}&category=${categoryId}`,
+        );
+      } else if (name) {
+        response = await apiBack.get(
+          `products/search?page=${page}&limit=${limitView}&name=${name}`,
         );
       } else {
         response = await apiBack.get(
@@ -139,21 +142,21 @@ function ProductList({ amount, addToCartRequest }) {
               />
             </>
           ) : (
-            <NotFoundContainer>
-              <FiMeh size={iconEmptySize} stroke-width="1.1px" />
-              <NotFoundText>
-                <p>
-                  Ops! Resultado não encontrado!
+              <NotFoundContainer>
+                <FiMeh size={iconEmptySize} stroke-width="1.1px" />
+                <NotFoundText>
+                  <p>
+                    Ops! Resultado não encontrado!
                 </p>
 
-              </NotFoundText>
+                </NotFoundText>
 
-            </NotFoundContainer>
-          )}{' '}
+              </NotFoundContainer>
+            )}{' '}
         </>
       ) : (
-        <CircularProgress size={loadingSize} className="loading" />
-      )}
+          <CircularProgress size={loadingSize} className="loading" />
+        )}
     </Container>
   );
 }

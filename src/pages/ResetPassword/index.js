@@ -5,13 +5,13 @@ import { AiOutlineLock } from 'react-icons/ai';
 import qs from 'qs';
 import { toast } from 'react-toastify';
 import apiBack from '../../services/apiBack';
-import enterpriseImage from '~/assets/images/github.png';
 
 export default function SignIn() {
   const [token, setToken] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [logo, setLogo] = useState({});
 
   const queryParams = qs.parse(useLocation().search, {
     ignoreQueryPrefix: true,
@@ -51,10 +51,18 @@ export default function SignIn() {
     }
   }
 
+  useEffect(() => {
+    async function getLogo() {
+      const response = await apiBack.get('/logo/main');
+      setLogo(response.data.file);
+    }
+    getLogo();
+  }, []);
+
   return (
     <>
       <div className="resetPasswordContainer">
-        <img src={enterpriseImage} alt="GitHub" />
+        <img src={logo.url} alt="Projeto Milionário" />
         <Form>
           <div className="inputDiv">
             <AiOutlineLock />

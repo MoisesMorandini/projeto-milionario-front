@@ -5,7 +5,6 @@ import { Carousel } from 'react-responsive-carousel';
 import { Container } from './styles';
 import ProductList from '../../components/ProductList';
 import apiBack from '../../services/apiBack';
-
 import SideCart from '../../components/SideCart';
 
 function Home() {

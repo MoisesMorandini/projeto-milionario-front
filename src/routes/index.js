@@ -27,8 +27,6 @@ import CheckoutAddress from '~/pages/Checkout/Address';
 import CheckoutSuccess from '~/pages/Checkout/Success';
 import CheckoutCancel from '~/pages/Checkout/Cancel';
 import MyRequests from '~/pages/MyRequests';
-
-// import Address from '~/pages/Address';
 import Category from '~/pages/Admin/Category';
 import StoreCategory from '~/pages/Admin/Category/Store';
 import UpdateCategory from '~/pages/Admin/Category/Update';
@@ -36,12 +34,17 @@ import ProductAdmin from '~/pages/Admin/Product';
 import StoreProduct from '~/pages/Admin/Product/Store';
 import UpdateProduct from '~/pages/Admin/Product/Update';
 import Order from '~/pages/MyRequests';
+import Orders from '~/pages/Admin/Orders';
+import Sales from '~/pages/Admin/Sales';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={() => <Home res="" />} />
       <Route path="/list/:id" exact component={() => <List />} />
+
+      <Route path="/search/:name" exact component={() => <List />} />
+
       <Route path="/cart" component={Cart} />
 
       <Route path="/user/address/store/:checkout" component={StoreUserAddress} />
@@ -53,6 +56,10 @@ export default function Routes() {
 
       <Route path="/forgot-password" component={ForgotPassword} auth />
       <Route path="/user/orders" component={Order} auth />
+
+      <Route path="/admin/orders" component={Orders} adm isPrivate />
+      <Route path="/admin/sales" component={Sales} adm isPrivate />
+
       <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
       <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
       <Route path="/admin/department" component={Department} adm isPrivate />

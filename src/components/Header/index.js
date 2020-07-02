@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect, useRef } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import {
@@ -67,6 +68,8 @@ function Header() {
   const [logo, setLogo] = useState({});
   const { user } = store.getState();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [searchInput, setSearchInput] = useState();
+
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -168,6 +171,14 @@ function Header() {
     }
   }
 
+  function handleSearchInput(event) {
+    setSearchInput(event.target.value);
+  }
+
+  function searchProducts() {
+    window.location = `http://localhost:3000/search/${searchInput}`;
+  }
+
   return (
     <Container>
       <Head>
@@ -176,8 +187,8 @@ function Header() {
         </Link>
 
         <Input>
-          <input placeholder="Procure o item que deseja! :)" />
-          <button type="button">Pesquisar</button>
+          <input placeholder="Procure o item que deseja! :)" onChange={handleSearchInput} />
+          <button type="button" onClick={searchProducts}>Pesquisar</button>
         </Input>
 
         <User>
@@ -210,12 +221,12 @@ function Header() {
                             </StyledMenuItem>
                           </LinkMenu>
                         ) : (
-                          ''
-                        )}
+                            ''
+                          )}
                       </>
                     ) : (
-                      ''
-                    )}
+                        ''
+                      )}
                     <LinkMenu to="/my-requests">
                       <StyledMenuItem>
                         <ListItemIcon>
@@ -249,39 +260,39 @@ function Header() {
                   </StyledMenu>
                 </div>
               ) : (
-                <>
-                  <a onClick={handleClick}>
-                    <strong>Olá, faça o seu login</strong>
-                    <strong>ou cadastre-se <MdKeyboardArrowDown /> </strong>
-                  </a>
-                  <div>
-                    <StyledMenu
-                      id="customized-menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={handleClose}
-                    >
-                      <LinkMenu to="/login">
-                        <StyledMenuItem>
-                          <ListItemIcon>
-                            <FaDoorOpen fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText primary="Entrar" />
-                        </StyledMenuItem>
-                      </LinkMenu>
-                      <LinkMenu to="/register">
-                        <StyledMenuItem>
-                          <ListItemIcon>
-                            <TiUserAdd fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText primary="Cadastrar-se" />
-                        </StyledMenuItem>
-                      </LinkMenu>
-                    </StyledMenu>
-                  </div>
-                </>
-              )}
+                  <>
+                    <a onClick={handleClick}>
+                      <strong>Olá, faça o seu login</strong>
+                      <strong>ou cadastre-se <MdKeyboardArrowDown /> </strong>
+                    </a>
+                    <div>
+                      <StyledMenu
+                        id="customized-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                      >
+                        <LinkMenu to="/login">
+                          <StyledMenuItem>
+                            <ListItemIcon>
+                              <FaDoorOpen fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Entrar" />
+                          </StyledMenuItem>
+                        </LinkMenu>
+                        <LinkMenu to="/register">
+                          <StyledMenuItem>
+                            <ListItemIcon>
+                              <TiUserAdd fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Cadastrar-se" />
+                          </StyledMenuItem>
+                        </LinkMenu>
+                      </StyledMenu>
+                    </div>
+                  </>
+                )}
             </Profile>
           </div>
           <Cart to="/cart">
@@ -358,12 +369,12 @@ function Header() {
                     </CategoryList>
                   </>
                 ) : (
-                  <div />
-                )}
+                    <div />
+                  )}
               </>
             ) : (
-              <CircularProgress />
-            )}
+                <CircularProgress />
+              )}
           </DepartmentList>
         </Department>
       </Bottom>

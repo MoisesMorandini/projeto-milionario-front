@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
 import { signInRequest } from '~/store/modules/auth/actions';
 import './styles.css';
-import enterpriseImage from '~/assets/images/github.png';
+import apiBack from '../../services/apiBack';
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -18,15 +18,24 @@ const schema = Yup.object().shape({
 export default function SignIn() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
+  const [logo, setLogo] = useState({});
 
   function handleSubmit({ email, password }) {
     dispatch(signInRequest(email, password));
   }
 
+  useEffect(() => {
+    async function getLogo() {
+      const response = await apiBack.get('/logo/main');
+      setLogo(response.data.file);
+    }
+    getLogo();
+  }, []);
+
   return (
     <>
       <div className="loginContainer">
-        <img src={enterpriseImage} alt="GitHub" />
+        <img src={logo.url} alt="Projeto Milionário" />
         <Form schema={schema} onSubmit={handleSubmit}>
 
           <div className="inputDiv">
