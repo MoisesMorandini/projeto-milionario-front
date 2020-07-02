@@ -114,32 +114,36 @@ export default function Banner() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {banners.map((banner) => (
-                <TableRow key={banner.name}>
-                  <TableCell component="th" scope="row">
-                    <img src={banner.file.url} alt={banner.name} height="100px;" />
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {banner.name}
-                  </TableCell>
-                  <TableCell>
-                    <Link to={`/admin/banner/update/${banner.id}`}>
-                      <Button size="small" variant="contained" color="primary">
-                        <MdEdit size={16} />
+              {banners ? (
+                <>  {banners.map((banner) => (
+                  <TableRow key={banner.name}>
+                    <TableCell component="th" scope="row">
+                      <img src={banner.file.url} alt={banner.name} height="100px;" />
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {banner.name}
+                    </TableCell>
+                    <TableCell>
+                      <Link to={`/admin/banner/update/${banner.id}`}>
+                        <Button size="small" variant="contained" color="primary">
+                          <MdEdit size={16} />
+                        </Button>
+                      </Link>
+                      <Button
+                        onClick={() => handleClickOpen(banner.id)}
+                        className={classes.marginLeft}
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                      >
+                        <MdDelete size={16} />
                       </Button>
-                    </Link>
-                    <Button
-                      onClick={() => handleClickOpen(banner.id)}
-                      className={classes.marginLeft}
-                      size="small"
-                      variant="contained"
-                      color="secondary"
-                    >
-                      <MdDelete size={16} />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                </>
+              ) : <></>}
+
             </TableBody>
           </Table>
           <CustomPagination

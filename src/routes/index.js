@@ -6,7 +6,6 @@ import List from '../pages/List';
 import Cart from '../pages/Cart';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
-import Product from '~/pages/Product';
 import ProductDetails from '../pages/ProductDetails';
 import ResetPassword from '../pages/ResetPassword';
 import Department from '~/pages/Admin/Department';
@@ -29,7 +28,7 @@ import CheckoutSuccess from '~/pages/Checkout/Success';
 import CheckoutCancel from '~/pages/Checkout/Cancel';
 import MyRequests from '~/pages/MyRequests';
 
-import Address from '~/pages/Address';
+// import Address from '~/pages/Address';
 import Category from '~/pages/Admin/Category';
 import StoreCategory from '~/pages/Admin/Category/Store';
 import UpdateCategory from '~/pages/Admin/Category/Update';
@@ -45,7 +44,6 @@ export default function Routes() {
       <Route path="/cart" component={Cart} />
 
       <Route path="/user/address/store/:checkout" component={StoreUserAddress} />
-      {/* deixar apenas /, podemos la dentro chamar, produts/ e os outros product/:pros */}
       <Route path="/user/address/store" component={StoreUserAddress} />
       <Route path="/user/address/update" component={UpdateUserAddress} />
       <Route path="/user/address" component={UserAddress} />
@@ -85,16 +83,9 @@ export default function Routes() {
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
       <Route path="/reset-password" component={ResetPassword} auth />
-<<<<<<< HEAD
-      <Route path="/product" component={Product} adm />
       <Route path="/users/payment/address" component={CheckoutAddress} isPrivate />
       <Route path="/users/checkout/success" component={CheckoutSuccess} isPrivate />
       <Route path="/users/checkout/cancel" component={CheckoutCancel} isPrivate />
-=======
-      <Route path="/payment" component={Payment} isPrivate />
-      <Route path="/address" component={Address} />
-      <Route path="/orderview" component={Orderview} isPrivate />
->>>>>>> crud produto
       <Route path="/" component={() => <Home res="all" />} />
     </Switch>
   );

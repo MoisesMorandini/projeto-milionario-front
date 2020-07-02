@@ -12,6 +12,7 @@ import {
 } from 'react-icons/md';
 import { FiMeh } from 'react-icons/fi';
 import { FaAngleRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import * as CartActions from '../../store/modules/cart/actions';
 import { formatPrice } from '../../util/format';
 import {
@@ -218,7 +219,9 @@ function SideCart({
                 <span>
                   Valor total do pedido: <span className="price"> {total}</span>
                 </span>
-                <button type="button">Finalizar Carrinho</button>
+                <Link to="/cart">
+                  <button type="button">Finalizar Carrinho</button>
+                </Link>
               </Bottom>
             </>
           )}

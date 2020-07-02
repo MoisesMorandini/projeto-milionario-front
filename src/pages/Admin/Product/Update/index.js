@@ -102,6 +102,7 @@ function UpdateProduct() {
       handleFile(response.data.file_products);
       handleTechnicalSpecifications(response.data.technical_specifications);
       setCategoryId(response.data.category.id);
+      setProduct(response.data);
       setLoading(false);
     } catch (error) {
       toast.warn('Falha ao carregar o produto');
@@ -226,7 +227,6 @@ function UpdateProduct() {
     const data = new FormData();
     data.append('file', e.target.files[0]);
     const response = await apiBack.post('files', data);
-    console.log('responsefile', response);
     const { id, url, name } = response.data;
     setContent([...content, {
       id,
