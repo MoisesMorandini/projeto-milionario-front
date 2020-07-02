@@ -20,45 +20,46 @@ import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdAdd } from 'react-icons/md';
 import apiBack from '../../../services/apiBack';
 import { TitleTable, ContainerTable, CustomPagination } from './style';
-import { deleteBannerRequest } from '~/store/modules/banner/actions';
+import { deleteCategoryRequest } from '~/store/modules/category/actions';
 
-export default function Banner() {
+export default function Category() {
   const dispatch = useDispatch();
-  const [banners, setBanner] = useState([]);
-  const [limitView, setLimiteView] = useState(10);
+  const [categories, setCategories] = useState([]);
+  const [limitView] = useState(50);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [bannersCount, setBannersCount] = useState(0);
+  const [categoriesCount, setCategoriesCount] = useState(0);
   const [open, setOpen] = React.useState(false);
-  const [idDeleteBanner, setIdDeleteBanner] = useState(0);
+  const [idDeleteCategory, setidDeleteCategory] = useState(0);
 
   const handlePaginationChange = (event, value) => {
     setPage(value);
   };
 
   useEffect(() => {
-    if (bannersCount) {
-      setTotalPages(Math.trunc(bannersCount / limitView) + 1);
+    if (categoriesCount) {
+      setTotalPages(Math.trunc(categoriesCount / limitView) + 1);
     }
-  }, [bannersCount, limitView]);
+  }, [categoriesCount, limitView]);
 
-  async function getBanner() {
+  async function getCategories() {
     const response = await apiBack.get(
-      `banner?page=${page}&limit=${limitView}`,
+      `categories?page=${page}&limit=${limitView}`,
     );
-    setBanner(response.data);
-    setBannersCount(response.headers.x_total_count);
+
+    setCategories(response.data);
+    setCategoriesCount(response.headers.x_total_count);
   }
 
   useEffect(() => {
-    getBanner();
+    getCategories();
   }, [limitView, page]);
 
-  async function handleDeleteBanner() {
+  async function handleDeleteCategory() {
     setOpen(false);
-    dispatch(deleteBannerRequest(idDeleteBanner));
+    dispatch(deleteCategoryRequest(idDeleteCategory));
     setTimeout(() => {
-      getBanner();
+      getCategories();
     }, 600);
   }
 
@@ -74,9 +75,9 @@ export default function Banner() {
 
   const classes = useStyles();
 
-  const handleClickOpen = (idBannerClicked) => {
+  const handleClickOpen = (idCategoryClick) => {
     setOpen(true);
-    setIdDeleteBanner(idBannerClicked);
+    setidDeleteCategory(idCategoryClick);
   };
 
   const handleClose = () => {
@@ -93,8 +94,8 @@ export default function Banner() {
             justify="space-between"
             alignItems="flex-start"
           >
-            <TitleTable>Banners</TitleTable>
-            <Link to="/admin/banner/store">
+            <TitleTable>Categorias</TitleTable>
+            <Link to="/admin/categories/store">
               <Button
                 className={classes.marginTopRight}
                 variant="contained"
@@ -104,46 +105,45 @@ export default function Banner() {
               </Button>
             </Link>
           </Grid>
-
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Imagem</TableCell>
                 <TableCell>Nome</TableCell>
+                <TableCell>Departamento</TableCell>
                 <TableCell>Ação</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {banners ? (
-                <>  {banners.map((banner) => (
-                  <TableRow key={banner.name}>
-                    <TableCell component="th" scope="row">
-                      <img src={banner.file.url} alt={banner.name} height="100px;" />
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {banner.name}
-                    </TableCell>
-                    <TableCell>
-                      <Link to={`/admin/banner/update/${banner.id}`}>
-                        <Button size="small" variant="contained" color="primary">
-                          <MdEdit size={16} />
-                        </Button>
-                      </Link>
+              {categories.map((category) => (
+                <TableRow key={category.name}>
+                  <TableCell component="th" scope="row">
+                    {category.name}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {category.department.name}
+                  </TableCell>
+                  <TableCell>
+                    <Link to={`/admin/categories/update/${category.id}`}>
                       <Button
-                        onClick={() => handleClickOpen(banner.id)}
-                        className={classes.marginLeft}
                         size="small"
                         variant="contained"
-                        color="secondary"
+                        color="primary"
                       >
-                        <MdDelete size={16} />
+                        <MdEdit size={16} />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                </>
-              ) : <></>}
-
+                    </Link>
+                    <Button
+                      onClick={() => handleClickOpen(category.id)}
+                      className={classes.marginLeft}
+                      size="small"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      <MdDelete size={16} />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           <CustomPagination
@@ -163,17 +163,13 @@ export default function Banner() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <b>Deseja realmente deletar o banner?</b>
+          <b>Deseja realmente deletar a categoria?</b>
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose} color="default">
             Cancelar
           </Button>
-          <Button
-            onClick={() => handleDeleteBanner()}
-            color="secondary"
-            autoFocus
-          >
+          <Button onClick={() => handleDeleteCategory()} color="secondary" autoFocus>
             Deletar
           </Button>
         </DialogActions>

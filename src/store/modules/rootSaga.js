@@ -6,8 +6,8 @@ import product from './product/sagas';
 import department from './department/sagas';
 import banner from './banner/sagas';
 import logo from './logo/sagas';
-
+import category from './category/sagas';
 
 export default function* rootSaga() {
-  return yield all([cart, auth, user, product, department, banner, logo]);
+  return yield all([cart, auth, user, product, department, banner, logo, category]);
 }

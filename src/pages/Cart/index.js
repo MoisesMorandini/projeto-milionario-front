@@ -46,7 +46,7 @@ function Cart({
           <article>
             <div className="divImage">
               <Link to={`/product/${product.id}`}>
-                <img src={product.file.url} alt={product.name} />
+                <img src={product.file_products[0].file.url} alt={product.file_products[0].file.name} />
               </Link>
             </div>
             <br />

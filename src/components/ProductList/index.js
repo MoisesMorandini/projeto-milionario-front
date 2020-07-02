@@ -81,7 +81,10 @@ function ProductList({ amount, addToCartRequest }) {
       }
       data = formatResponse(response.data);
       setProductsCount(response.headers.x_total_count);
+
       setProducts(data);
+      setProductsCount(response.headers.x_total_count);
+
       setLoading(false);
     }
     getProducts();
@@ -92,6 +95,7 @@ function ProductList({ amount, addToCartRequest }) {
   const handleAddProduct = (id) => {
     addToCartRequest(id, amount);
   };
+
   return (
     <Container>
       {!loading ? (
@@ -102,7 +106,8 @@ function ProductList({ amount, addToCartRequest }) {
                 {products.map((product) => (
                   <li key={product.id}>
                     <Link to={`/product/${product.id}`} className="link">
-                      <img src={product.file.url} alt={product.name} />
+
+                      <img src={product.file_products[0].file.url} alt={product.file_products[0].file.name} />
                       <strong>{product.name}</strong>
                       <span>{product.priceFormatted}</span>
                     </Link>

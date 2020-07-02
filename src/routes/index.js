@@ -6,7 +6,6 @@ import List from '../pages/List';
 import Cart from '../pages/Cart';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
-import Product from '~/pages/Product';
 import ProductDetails from '../pages/ProductDetails';
 import ResetPassword from '../pages/ResetPassword';
 import Department from '~/pages/Admin/Department';
@@ -29,6 +28,13 @@ import CheckoutSuccess from '~/pages/Checkout/Success';
 import CheckoutCancel from '~/pages/Checkout/Cancel';
 import MyRequests from '~/pages/MyRequests';
 
+// import Address from '~/pages/Address';
+import Category from '~/pages/Admin/Category';
+import StoreCategory from '~/pages/Admin/Category/Store';
+import UpdateCategory from '~/pages/Admin/Category/Update';
+import ProductAdmin from '~/pages/Admin/Product';
+import StoreProduct from '~/pages/Admin/Product/Store';
+import UpdateProduct from '~/pages/Admin/Product/Update';
 
 export default function Routes() {
   return (
@@ -53,6 +59,14 @@ export default function Routes() {
       <Route path="/admin/banner/store" component={StoreBanner} adm />
       <Route path="/admin/banner" component={Banner} adm />
 
+      <Route path="/admin/categories" exact component={Category} adm isPrivate />
+      <Route path="/admin/categories/store" component={StoreCategory} adm isPrivate />
+      <Route path="/admin/categories/update/:id" component={UpdateCategory} adm isPrivate />
+
+      <Route path="/admin/products" exact component={ProductAdmin} adm isPrivate />
+      <Route path="/admin/products/store" exact component={StoreProduct} adm isPrivate />
+      <Route path="/admin/products/update/:id" exact component={UpdateProduct} adm isPrivate />
+
       <Route path="/admin/logo/update/:id" component={UpdateLogo} adm />
       <Route path="/admin/logo/store" component={StoreLogo} adm />
       <Route path="/admin/logo" component={Logo} adm />
@@ -69,7 +83,6 @@ export default function Routes() {
       <Route path="/login" component={SignIn} auth />
       <Route path="/register" component={SignUp} auth />
       <Route path="/reset-password" component={ResetPassword} auth />
-      <Route path="/product" component={Product} adm />
       <Route path="/users/payment/address" component={CheckoutAddress} isPrivate />
       <Route path="/users/checkout/success" component={CheckoutSuccess} isPrivate />
       <Route path="/users/checkout/cancel" component={CheckoutCancel} isPrivate />

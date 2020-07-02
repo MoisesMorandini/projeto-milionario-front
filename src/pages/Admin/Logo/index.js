@@ -131,36 +131,40 @@ export default function Logo() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {logos.map((logo) => (
-                <TableRow key={logo.name}>
-                  <TableCell component="th" scope="row">
-                    <img src={logo.file.url} alt={logo.name} height="100px;" />
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {logo.name}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={() => handleUpdateClickOpen(logo.id)}
-                      className={classes.marginLeft}
-                      size="small"
-                      variant="contained"
-                      color="primary"
-                    >
-                      <MdEdit size={16} />
-                    </Button>
-                    <Button
-                      onClick={() => handleDeleteClickOpen(logo.id)}
-                      className={classes.marginLeft}
-                      size="small"
-                      variant="contained"
-                      color="secondary"
-                    >
-                      <MdDelete size={16} />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {logos ? (
+                <>{logos.map((logo) => (
+                  <TableRow key={logo.name}>
+                    <TableCell component="th" scope="row">
+                      <img src={logo.file.url} alt={logo.name} height="100px;" />
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {logo.name}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => handleUpdateClickOpen(logo.id)}
+                        className={classes.marginLeft}
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                      >
+                        <MdEdit size={16} />
+                      </Button>
+                      <Button
+                        onClick={() => handleDeleteClickOpen(logo.id)}
+                        className={classes.marginLeft}
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                      >
+                        <MdDelete size={16} />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                </>
+              ) : <></>}
+
             </TableBody>
           </Table>
           <CustomPagination
