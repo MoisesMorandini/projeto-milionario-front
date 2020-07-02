@@ -94,93 +94,93 @@ export default function Product() {
   return (
     <ContainerTable>
       <Container>
-        <TableContainer className="tableContainer" component={Paper}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <TitleTable>Produtos</TitleTable>
-            <Link to="/admin/products/store">
-              <Button
-                className={classes.marginTopRight}
-                variant="contained"
-                color="primary"
-              >
-                <MdAdd size={22} /> Adicionar
-              </Button>
-            </Link>
-          </Grid>
 
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell>Nome</TableCell>
-                <TableCell>Categoria</TableCell>
-                <TableCell>Preço</TableCell>
-                <TableCell>Estoque</TableCell>
-                <TableCell>Ação</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products.map((product) => (
-                <TableRow key={product.name}>
-                  <TableCell component="th" scope="row">
-                    {product.file_products.length ? <img src={product.file_products[0].file.url} alt={product.name} height="100px;" /> : <></>}
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <TitleTable>Produtos</TitleTable>
+          <Link to="/admin/products/store">
+            <Button
+              className={classes.marginTopRight}
+              variant="contained"
+              color="primary"
+            >
+              <MdAdd size={22} /> Adicionar
+            </Button>
+          </Link>
+        </Grid>
 
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {product.name}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {product.category.name}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    R$ {product.price},00
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {product.stock}
-                  </TableCell>
-                  <TableCell>
-                    <Link to={`/admin/products/update/${product.id}`}>
-                      <Button size="small" variant="contained" color="primary">
-                        <MdEdit size={16} />
-                      </Button>
-                    </Link>
-                    <Button
-                      onClick={() => handleClickOpen(product.id)}
-                      className={classes.marginLeft}
-                      size="small"
-                      variant="contained"
-                      color="secondary"
-                    >
-                      <MdDelete size={16} />
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>Nome</TableCell>
+              <TableCell>Categoria</TableCell>
+              <TableCell>Preço</TableCell>
+              <TableCell>Estoque</TableCell>
+              <TableCell>Ação</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products.map((product) => (
+              <TableRow key={product.name}>
+                <TableCell component="th" scope="row">
+                  {product.file_products.length ? <img src={product.file_products[0].file.url} alt={product.name} height="100px;" /> : <></>}
+
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {product.name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {product.category.name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  R$ {product.price},00
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {product.stock}
+                </TableCell>
+                <TableCell>
+                  <Link to={`/admin/products/update/${product.id}`}>
+                    <Button size="small" variant="contained" color="primary">
+                      <MdEdit size={16} />
                     </Button>
-                    <Link
-                      to={`/product/${product.id}`}
-                      className={classes.marginLeft}
-                      onClick={() => handleClickOpen(product.id)}
-                      size="small"
-                      variant="contained"
-                    >
-                      <MdRemoveRedEye size={16} />
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <CustomPagination
-            count={totalPages}
-            color="primary"
-            page={page}
-            size="large"
-            onChange={handlePaginationChange}
-            className="pagination"
-          />
-        </TableContainer>
+                  </Link>
+                  <Button
+                    onClick={() => handleClickOpen(product.id)}
+                    className={classes.marginLeft}
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                  >
+                    <MdDelete size={16} />
+                  </Button>
+                  <Link
+                    to={`/product/${product.id}`}
+                    className={classes.marginLeft}
+                    onClick={() => handleClickOpen(product.id)}
+                    size="small"
+                    variant="contained"
+                  >
+                    <MdRemoveRedEye size={16} />
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <CustomPagination
+          count={totalPages}
+          color="primary"
+          page={page}
+          size="large"
+          onChange={handlePaginationChange}
+          className="pagination"
+        />
+
       </Container>
       <Dialog
         open={open}

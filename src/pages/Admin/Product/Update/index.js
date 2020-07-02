@@ -50,6 +50,11 @@ function UpdateProduct() {
   const [nameDeleteProduct, setNameDeleteProduct] = useState();
   const [openDelete, setOpenDelete] = useState(false);
   const [idFileDelete, setIdFileDelete] = useState();
+  const buttonStyle = {
+    marginBottom: '20px',
+    background: 'none',
+    color: '#3f51b5',
+  };
   async function getCategory() {
     const response = await apiBack.get(
       'categories',
@@ -71,6 +76,7 @@ function UpdateProduct() {
       setContent(fileExists);
     }
   }
+
   function handleTechnicalSpecifications(technicalSpecifications) {
     if (technicalSpecifications) {
       let getPlus = specifcationPlus;
@@ -82,8 +88,10 @@ function UpdateProduct() {
             <InputDefault value={technicalSpecification.name} className="specification" name={`name_specification_${getPlus}`} placeholder="Nome especificação" />
             <InputDefault value={technicalSpecification.description} className="specification" name={`description_specification_${getPlus}`} placeholder="Descrição especificação" />
             <button
+              style={buttonStyle}
               type="button"
               onClick={() => handleClickOpen(technicalSpecification.name)}
+
             >
               <MdDelete size={16} />
             </button>
@@ -281,6 +289,7 @@ function UpdateProduct() {
                             <img src={cont.url} alt="" />
                             <button
                               type="button"
+                              style={buttonStyle}
                               onClick={() => handleFileClickOpen(cont.id)}
                             >
                               <MdDelete size={16} />

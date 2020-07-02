@@ -85,8 +85,8 @@ function Cart({
             </button>
           </article>
         </div>
-      ))}
 
+      ))}
       <div className="finish">
 
         <div className="button">

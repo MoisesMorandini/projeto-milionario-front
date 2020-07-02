@@ -86,75 +86,75 @@ export default function Banner() {
   return (
     <ContainerTable>
       <Container>
-        <TableContainer className="tableContainer" component={Paper}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <TitleTable>Banners</TitleTable>
-            <Link to="/admin/banner/store">
-              <Button
-                className={classes.marginTopRight}
-                variant="contained"
-                color="primary"
-              >
-                <MdAdd size={22} /> Adicionar
-              </Button>
-            </Link>
-          </Grid>
 
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Imagem</TableCell>
-                <TableCell>Nome</TableCell>
-                <TableCell>Ação</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {banners ? (
-                <>  {banners.map((banner) => (
-                  <TableRow key={banner.name}>
-                    <TableCell component="th" scope="row">
-                      <img src={banner.file.url} alt={banner.name} height="100px;" />
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {banner.name}
-                    </TableCell>
-                    <TableCell>
-                      <Link to={`/admin/banner/update/${banner.id}`}>
-                        <Button size="small" variant="contained" color="primary">
-                          <MdEdit size={16} />
-                        </Button>
-                      </Link>
-                      <Button
-                        onClick={() => handleClickOpen(banner.id)}
-                        className={classes.marginLeft}
-                        size="small"
-                        variant="contained"
-                        color="secondary"
-                      >
-                        <MdDelete size={16} />
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <TitleTable>Banners</TitleTable>
+          <Link to="/admin/banner/store">
+            <Button
+              className={classes.marginTopRight}
+              variant="contained"
+              color="primary"
+            >
+              <MdAdd size={22} /> Adicionar
+            </Button>
+          </Link>
+        </Grid>
+
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Imagem</TableCell>
+              <TableCell>Nome</TableCell>
+              <TableCell>Ação</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {banners ? (
+              <>  {banners.map((banner) => (
+                <TableRow key={banner.name}>
+                  <TableCell component="th" scope="row">
+                    <img src={banner.file.url} alt={banner.name} height="100px;" />
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {banner.name}
+                  </TableCell>
+                  <TableCell>
+                    <Link to={`/admin/banner/update/${banner.id}`}>
+                      <Button size="small" variant="contained" color="primary">
+                        <MdEdit size={16} />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                </>
-              ) : <></>}
+                    </Link>
+                    <Button
+                      onClick={() => handleClickOpen(banner.id)}
+                      className={classes.marginLeft}
+                      size="small"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      <MdDelete size={16} />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+              </>
+            ) : <></>}
 
-            </TableBody>
-          </Table>
-          <CustomPagination
-            count={totalPages}
-            color="primary"
-            page={page}
-            size="large"
-            onChange={handlePaginationChange}
-            className="pagination"
-          />
-        </TableContainer>
+          </TableBody>
+        </Table>
+        <CustomPagination
+          count={totalPages}
+          color="primary"
+          page={page}
+          size="large"
+          onChange={handlePaginationChange}
+          className="pagination"
+        />
+
       </Container>
       <Dialog
         open={open}

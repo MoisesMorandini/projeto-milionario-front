@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { MdShoppingCart } from 'react-icons/md';
 import { Carousel } from 'react-responsive-carousel';
 import apiBack from '../../services/apiBack';
 import './styles.css';
+import SideCart from '../../components/SideCart';
+import * as CartActions from '../../store/modules/cart/actions';
 
-export default function ProductDetails() {
+function ProductDetails({ addToCartRequest, amount }) {
   const [product, setProduct] = useState({});
   const [techSpecifications, setTechSpecifications] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
@@ -40,6 +44,10 @@ export default function ProductDetails() {
     const { techSpecificationsArray } = props;
     return techSpecificationsArray.length !== 0 ? <TechSpecifications /> : null;
   }
+  const handleAddProduct = (productId) => {
+    addToCartRequest(productId, amount);
+  };
+
 
   return (
     <div className="container">
@@ -64,11 +72,13 @@ export default function ProductDetails() {
           </Carousel>
 
         </div>
+        <SideCart isHome={false} />
         <div className="rightDiv">
           <h1>{product.name}</h1>
           <h1 className="price">R$ {product.price},00</h1>
           <p>ou em até 8x de R$ 500,00</p>
-          <Link className="addToCart" to="/">
+
+          <Link className="addToCart" onClick={() => handleAddProduct(product.id)}>
             <div>
               <MdShoppingCart
                 style={{ marginRight: '10px' }}
@@ -76,7 +86,7 @@ export default function ProductDetails() {
                 color="#FFF"
               />
             </div>
-            Comprar
+            Adicionar ao carrinho
           </Link>
         </div>
       </div>
@@ -86,3 +96,11 @@ export default function ProductDetails() {
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+    return amount;
+  }, {}),
+});
+const mapDispatchToProps = (dispatch) => bindActionCreators(CartActions, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
