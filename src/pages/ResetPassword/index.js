@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import { AiOutlineLock } from 'react-icons/ai';
 import qs from 'qs';
@@ -82,15 +82,17 @@ export default function SignIn() {
               onChange={(e) => setPassword2(e.target.value)}
             />
           </div>
-          <button
-            type="button"
-            disabled={password === '' || password !== password2}
-            onClick={() => {
-              resetPassword();
-            }}
-          >
-            Alterar senha
-          </button>
+          <Link to="/login">
+            <button
+              type="button"
+              disabled={password === '' || password !== password2}
+              onClick={() => {
+                resetPassword();
+              }}
+            >
+              Alterar senha
+            </button>
+          </Link>
         </Form>
       </div>
     </>

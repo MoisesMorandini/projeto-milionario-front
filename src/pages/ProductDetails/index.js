@@ -8,17 +8,32 @@ import apiBack from '../../services/apiBack';
 import './styles.css';
 import SideCart from '../../components/SideCart';
 import * as CartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../util/format';
 
 function ProductDetails({ addToCartRequest, amount }) {
   const [product, setProduct] = useState({});
   const [techSpecifications, setTechSpecifications] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
+  const [installments, setInstallments] = useState(8);
   const { id } = useParams();
+
+  function formatResponse(data) {
+    let productsData = [];
+    if (data) {
+      productsData = {
+        ...data,
+        priceFormatted: formatPrice(data.price),
+        partialPriceFormatted: formatPrice(data.price / installments),
+      };
+    }
+    return productsData;
+  }
 
   useEffect(() => {
     async function getProduct() {
       const response = await apiBack.get(`/product/${id}`);
-      setProduct(response.data);
+      const data = formatResponse(response.data);
+      setProduct(data);
       setTechSpecifications(response.data.technical_specifications);
       setImageUrl(response.data.file_products);
     }
@@ -76,7 +91,7 @@ function ProductDetails({ addToCartRequest, amount }) {
         <div className="rightDiv">
           <h1>{product.name}</h1>
           <h1 className="price">R$ {product.price},00</h1>
-          <p>ou em até 8x de R$ 500,00</p>
+          <p> {installments}x de {product.partialPriceFormatted}</p>
 
           <Link className="addToCart" onClick={() => handleAddProduct(product.id)}>
             <div>

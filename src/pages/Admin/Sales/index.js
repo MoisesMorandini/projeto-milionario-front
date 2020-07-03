@@ -51,8 +51,6 @@ export default function MyRequests() {
       `transactions?page=${page}&limit=${limitView}`,
     );
 
-    console.log(response.data);
-
     setSales(response.data);
 
     setSalesCount(response.headers.x_total_count);
@@ -116,7 +114,7 @@ export default function MyRequests() {
                         <TableRow>
                           <TableCell component="th" scope="row">
                             <img
-                              src={checkoutList.product.file.url}
+                              src={checkoutList.product.file_products[0].file.url}
                               alt="Product image"
                               height="100px;"
                             />

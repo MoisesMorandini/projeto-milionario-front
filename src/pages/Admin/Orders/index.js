@@ -115,7 +115,7 @@ export default function MyRequests() {
                         <TableRow>
                           <TableCell component="th" scope="row">
                             <img
-                              src={checkoutList.product.file.url}
+                              src={checkoutList.product.file_products[0].file.url}
                               alt="Product image"
                               height="100px;"
                             />

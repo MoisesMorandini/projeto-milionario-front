@@ -83,7 +83,7 @@ export default function Order() {
             justify="space-between"
             alignItems="flex-start"
           >
-            <TitleTable>Relatório de Vendas</TitleTable>
+            <TitleTable>Meus Pedidos</TitleTable>
           </Grid>
 
           {orders.map((order) => (
@@ -101,7 +101,7 @@ export default function Order() {
                     {
                       formatDate(order.transaction.createdAt)
                     }
-                                    </span>
+                  </span>
                 </Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>

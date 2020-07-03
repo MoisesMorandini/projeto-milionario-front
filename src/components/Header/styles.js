@@ -4,7 +4,7 @@ import { darken } from 'polished';
 import { makeStyles } from '@material-ui/core/styles';
 
 export const Container = styled.header`
-  background-color: #eaeaea;
+  background-color: #ffff;
   display: flex;
   flex-direction: column;
 `;
@@ -136,7 +136,7 @@ export const Cart = styled(Link)`
 export const Bottom = styled.div`
   height: 50px;
   width: 100%;
-  background-color: ${darken(0, '#ffffff')};
+  background-color: ${darken(0, '#f04e28')};
   @media (max-width: 400px) {
     height: 40px;
   }
