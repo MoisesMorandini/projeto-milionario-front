@@ -35,6 +35,7 @@ import UpdateCategory from '~/pages/Admin/Category/Update';
 import ProductAdmin from '~/pages/Admin/Product';
 import StoreProduct from '~/pages/Admin/Product/Store';
 import UpdateProduct from '~/pages/Admin/Product/Update';
+import Order from '~/pages/MyRequests';
 
 export default function Routes() {
   return (
@@ -51,6 +52,7 @@ export default function Routes() {
       <Route path="/user/account" component={UserAccount} />
 
       <Route path="/forgot-password" component={ForgotPassword} auth />
+      <Route path="/user/orders" component={Order} auth />
       <Route path="/admin/department/update/:id" component={UpdateDepartment} adm isPrivate />
       <Route path="/admin/department/store" component={StoreDepartment} adm isPrivate />
       <Route path="/admin/department" component={Department} adm isPrivate />
