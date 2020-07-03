@@ -5,7 +5,6 @@ import { Carousel } from 'react-responsive-carousel';
 import { Container } from './styles';
 import ProductList from '../../components/ProductList';
 import apiBack from '../../services/apiBack';
-
 import SideCart from '../../components/SideCart';
 
 function Home() {
@@ -22,28 +21,30 @@ function Home() {
   return (
     <Container>
       <div className="container-carousel">
-        <Carousel
-          showThumbs={false}
-          showStatus={false}
-          showArrows={false}
-          useKeyboardArrows
-          interval={3000}
-          autoPlay
-          stopOnHover
-          infiniteLoop
-          width="100%"
-          showIndicators
-        >
-          {banners ? (
-            <>{banners.map((banner) => (
-              <div className="color">
-                <img src={banner.file.url} alt={banner.name} />
-              </div>
-            ))}
+        {
+          banners ? (
+            <>
+              <Carousel
+                showThumbs={false}
+                showStatus={false}
+                showArrows={false}
+                useKeyboardArrows
+                interval={3000}
+                autoPlay
+                stopOnHover
+                infiniteLoop
+                width="100%"
+                showIndicators
+              >
+                {banners.map((banner) => (
+                  <div className="color">
+                    <img src={banner.file.url} alt={banner.name} />
+                  </div>
+                ))}
+              </Carousel>
             </>
-          ) : <div />}
-
-        </Carousel>
+          ) : <> </>
+        }
       </div>
       <SideCart />
       <ProductList />

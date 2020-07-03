@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import { AiOutlineMail } from 'react-icons/ai';
-import qs from 'qs';
 import { toast } from 'react-toastify';
 import apiBack from '../../services/apiBack';
-import enterpriseImage from '~/assets/images/github.png';
 
 export default function SignIn() {
   const [email, setEmail] = useState();
+  const [logo, setLogo] = useState({});
 
   async function sendEmail() {
     await apiBack
@@ -21,10 +19,18 @@ export default function SignIn() {
       });
   }
 
+  useEffect(() => {
+    async function getLogo() {
+      const response = await apiBack.get('/logo/main');
+      setLogo(response.data.file);
+    }
+    getLogo();
+  }, []);
+
   return (
     <>
       <div className="resetPasswordContainer">
-        <img src={enterpriseImage} alt="GitHub" />
+        <img src={logo.url} alt="Projeto Milionário" />
         <Form>
           <div className="inputDiv">
             <AiOutlineMail />

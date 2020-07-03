@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
@@ -7,8 +7,8 @@ import { MdPersonOutline } from 'react-icons/md';
 import {
   AiOutlinePhone, AiOutlineMail, AiOutlineLock, AiOutlineIdcard,
 } from 'react-icons/ai';
-import enterpriseImage from '~/assets/images/github.png';
 import { signUpRequest } from '~/store/modules/auth/actions';
+import apiBack from '../../services/apiBack';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('O campo nome é obrigatório'),
@@ -42,6 +42,15 @@ const schema = Yup.object().shape({
 export default function SignUn() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
+  const [logo, setLogo] = useState({});
+
+  useEffect(() => {
+    async function getLogo() {
+      const response = await apiBack.get('/logo/main');
+      setLogo(response.data.file);
+    }
+    getLogo();
+  }, []);
 
   function handleSubmit({
     name, email, password, cpf, rg, first_phone, second_phone,
@@ -52,7 +61,7 @@ export default function SignUn() {
   return (
     <>
       <div className="createAccountContainer">
-        <img src={enterpriseImage} alt="VagnaoStore" />
+        <img src={logo.url} alt="Projeto Milionário" />
         <Form schema={schema} onSubmit={handleSubmit}>
           <div className="inputDiv">
             <MdPersonOutline />

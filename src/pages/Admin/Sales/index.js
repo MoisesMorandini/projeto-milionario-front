@@ -1,3 +1,7 @@
+/* eslint-disable no-console */
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/no-this-in-sfc */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from 'react';
 import {
@@ -6,7 +10,6 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  TableHead,
   Box,
   Container,
   Paper,
@@ -22,56 +25,55 @@ import { Link } from 'react-router-dom';
 import {
   TitleTable, CustomPagination, ContainerTable, useStyles,
 } from './styles';
-import apiBack from '../../services/apiBack';
+import apiBack from '../../../services/apiBack';
 
-
-export default function Order() {
-  const classes = useStyles();
-
-  const [orders, setOrders] = useState([]);
-  const [limitView, setLimiteView] = useState(3);
+export default function MyRequests() {
+  const dispatch = useDispatch();
+  const [sales, setSales] = useState([]);
+  const [limitView, setLimiteView] = useState(50);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [ordersCount, setOrdersCount] = useState(0);
+  const [salesCount, setSalesCount] = useState(0);
+  const classes = useStyles();
 
   const handlePaginationChange = (event, value) => {
     setPage(value);
   };
+
   useEffect(() => {
-    if (ordersCount) {
-      setTotalPages(Math.trunc(ordersCount / limitView) + 1);
+    if (salesCount) {
+      setTotalPages(Math.trunc(salesCount / limitView) + 1);
     }
-  }, [ordersCount, limitView]);
+  }, [salesCount, limitView]);
 
-  async function getOrders() {
+  async function getSales() {
     const response = await apiBack.get(
-      `user/orders?page=${page}&limit=${limitView}`,
+      `transactions?page=${page}&limit=${limitView}`,
     );
-    setOrders(response.data);
-    console.log(response.data);
 
-    setOrdersCount(response.headers.x_total_count);
+    setSales(response.data);
+
+    setSalesCount(response.headers.x_total_count);
   }
 
-  function formatDate(orderDate) {
-    const date = new Date(orderDate);
+  function formatDate(saleDate) {
+    const date = new Date(saleDate);
     const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     const year = date.getFullYear();
     return `${day}/${year}`;
   }
 
-  function sumTotal(orders) {
+  function sumTotal(sales) {
     let sum = 0;
-    orders.checkoutList.forEach((checkoutList) => {
+    sales.checkoutList.forEach((checkoutList) => {
       sum += checkoutList.total;
     });
     return sum;
   }
 
   useEffect(() => {
-    getOrders();
+    getSales();
   }, [limitView, page]);
-
 
   return (
     <ContainerTable>
@@ -83,10 +85,10 @@ export default function Order() {
             justify="space-between"
             alignItems="flex-start"
           >
-            <TitleTable>Meus Pedidos</TitleTable>
+            <TitleTable>Relatório de Vendas</TitleTable>
           </Grid>
 
-          {orders.map((order) => (
+          {sales.map((sale) => (
             <ExpansionPanel className={classes.marginTop}>
               <ExpansionPanelSummary
                 expandIcon={<MdExpandMore />}
@@ -94,12 +96,12 @@ export default function Order() {
                 id="panel1a-header"
               >
                 <Typography className={classes.heading}>
-                  <b>Pedido: n° {order.transaction.id}</b>
+                  <b>Pedido: n° {sale.transaction.id}</b>
                 </Typography>
                 <Typography className={classes.secondaryHeading}>
                   venda efetuada em <span>
                     {
-                      formatDate(order.transaction.createdAt)
+                      formatDate(sale.transaction.createdAt)
                     }
                   </span>
                 </Typography>
@@ -107,7 +109,7 @@ export default function Order() {
               <ExpansionPanelDetails>
                 <Typography>
                   <Table aria-label="simple table">
-                    {order.checkoutList.map((checkoutList) => (
+                    {sale.checkoutList.map((checkoutList) => (
                       <TableBody>
                         <TableRow>
                           <TableCell component="th" scope="row">
@@ -130,7 +132,7 @@ export default function Order() {
                     ))}
                   </Table>
                   <Box color="success.main" align="right">
-                    <b>Total do pedido: R$ {sumTotal(order)},00</b>
+                    <b>Total do pedido: R$ {sumTotal(sale)},00</b>
                   </Box>
                 </Typography>
               </ExpansionPanelDetails>

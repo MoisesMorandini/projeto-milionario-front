@@ -7,12 +7,29 @@ import { MdDashboard, MdArrowBack, MdViewCompact } from 'react-icons/md';
 
 export const mainListItems = (
   <div>
+
     <Link to="/admin/">
       <ListItem button>
         <ListItemIcon>
           <MdDashboard />
         </ListItemIcon>
         <ListItemText primary="Início" />
+      </ListItem>
+    </Link>
+    <Link to="/admin/orders">
+      <ListItem button>
+        <ListItemIcon>
+          <MdViewCompact />
+        </ListItemIcon>
+        <ListItemText primary="Relatório de Pedidos" />
+      </ListItem>
+    </Link>
+    <Link to="/admin/sales">
+      <ListItem button>
+        <ListItemIcon>
+          <MdViewCompact />
+        </ListItemIcon>
+        <ListItemText primary="Relatório de Vendas" />
       </ListItem>
     </Link>
     <Link to="/admin/categories">

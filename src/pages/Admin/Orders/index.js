@@ -1,3 +1,7 @@
+/* eslint-disable no-console */
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/no-this-in-sfc */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from 'react';
 import {
@@ -22,39 +26,39 @@ import { Link } from 'react-router-dom';
 import {
   TitleTable, CustomPagination, ContainerTable, useStyles,
 } from './styles';
-import apiBack from '../../services/apiBack';
+import apiBack from '../../../services/apiBack';
 
-
-export default function Order() {
-  const classes = useStyles();
-
+export default function MyRequests() {
+  const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
-  const [limitView, setLimiteView] = useState(3);
+  const [limitView, setLimiteView] = useState(50);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [ordersCount, setOrdersCount] = useState(0);
+  const classes = useStyles();
 
   const handlePaginationChange = (event, value) => {
     setPage(value);
   };
+
   useEffect(() => {
     if (ordersCount) {
       setTotalPages(Math.trunc(ordersCount / limitView) + 1);
     }
   }, [ordersCount, limitView]);
 
-  async function getOrders() {
+  async function getDepartment() {
     const response = await apiBack.get(
-      `user/orders?page=${page}&limit=${limitView}`,
+      `checkout_list?page=${page}&limit=${limitView}`,
     );
+
     setOrders(response.data);
-    console.log(response.data);
 
     setOrdersCount(response.headers.x_total_count);
   }
 
-  function formatDate(orderDate) {
-    const date = new Date(orderDate);
+  function formatDate(saleDate) {
+    const date = new Date(saleDate);
     const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     const year = date.getFullYear();
     return `${day}/${year}`;
@@ -69,9 +73,8 @@ export default function Order() {
   }
 
   useEffect(() => {
-    getOrders();
+    getDepartment();
   }, [limitView, page]);
-
 
   return (
     <ContainerTable>
@@ -83,7 +86,7 @@ export default function Order() {
             justify="space-between"
             alignItems="flex-start"
           >
-            <TitleTable>Meus Pedidos</TitleTable>
+            <TitleTable>Relatório de Pedidos</TitleTable>
           </Grid>
 
           {orders.map((order) => (
@@ -94,12 +97,12 @@ export default function Order() {
                 id="panel1a-header"
               >
                 <Typography className={classes.heading}>
-                  <b>Pedido: n° {order.transaction.id}</b>
+                  <b>Pedido: n° {order.checkout.id}</b>
                 </Typography>
                 <Typography className={classes.secondaryHeading}>
-                  venda efetuada em <span>
+                  pedido efetuado em <span>
                     {
-                      formatDate(order.transaction.createdAt)
+                      formatDate(order.checkout.createdAt)
                     }
                   </span>
                 </Typography>
